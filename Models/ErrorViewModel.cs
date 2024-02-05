@@ -1,4 +1,4 @@
-namespace RunGroopWebApp.Models
+namespace InsaClub.Models
 {
     public class ErrorViewModel
     {

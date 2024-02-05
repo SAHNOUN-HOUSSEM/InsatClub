@@ -1,7 +1,7 @@
-﻿using RunGroopWebApp.Data.Enum;
-using RunGroopWebApp.Models;
+﻿using InsaClub.Data.Enum;
+using InsaClub.Models;
 
-namespace RunGroopWebApp.Interfaces
+namespace InsaClub.Interfaces
 {
     public interface IClubRepository
     {
@@ -9,19 +9,15 @@ namespace RunGroopWebApp.Interfaces
 
         Task<IEnumerable<Club>> GetSliceAsync(int offset, int size);
 
-        Task<IEnumerable<Club>> GetClubsByState(string state);
 
         Task<IEnumerable<Club>> GetClubsByCategoryAndSliceAsync(ClubCategory category, int offset, int size);
 
-        Task<List<State>> GetAllStates();
 
-        Task<List<City>> GetAllCitiesByState(string state);
 
         Task<Club?> GetByIdAsync(int id);
 
         Task<Club?> GetByIdAsyncNoTracking(int id);
 
-        Task<IEnumerable<Club>> GetClubByCity(string city);
 
         Task<int> GetCountAsync();
 

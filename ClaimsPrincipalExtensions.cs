@@ -1,6 +1,6 @@
 ﻿using System.Security.Claims;
 
-namespace RunGroopWebApp
+namespace InsaClub
 {
     public static class ClaimsPrincipalExtensions
     {

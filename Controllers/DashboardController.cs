@@ -1,11 +1,11 @@
 ﻿using CloudinaryDotNet.Actions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using RunGroopWebApp.Interfaces;
-using RunGroopWebApp.Models;
-using RunGroopWebApp.ViewModels;
+using InsaClub.Interfaces;
+using InsaClub.Models;
+using InsaClub.ViewModels;
 
-namespace RunGroopWebApp.Controllers
+namespace InsaClub.Controllers
 {
     [Authorize]
     public class DashboardController : Controller

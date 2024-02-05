@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace RunGroopWebApp.Extensions
+namespace InsaClub.Extensions
 {
     public static class StringExtensions
     {

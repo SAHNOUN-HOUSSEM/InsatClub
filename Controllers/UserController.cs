@@ -1,19 +1,19 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using RunGroopWebApp.ViewModels;
-using RunGroopWebApp.Interfaces;
-using RunGroopWebApp.Models;
+using InsaClub.ViewModels;
+using InsaClub.Interfaces;
+using InsaClub.Models;
 
-namespace RunGroopWebApp.Controllers
+namespace InsaClub.Controllers
 {
     public class UserController : Controller
     {
         private readonly IUserRepository _userRepository;
-        private readonly UserManager<AppUser> _userManager;
+        private readonly UserManager<User> _userManager;
         private readonly IPhotoService _photoService;
 
-        public UserController(IUserRepository userRepository, UserManager<AppUser> userManager, IPhotoService photoService)
+        public UserController(IUserRepository userRepository, UserManager<User> userManager, IPhotoService photoService)
         {
             _userRepository = userRepository;
             _userManager = userManager;

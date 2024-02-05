@@ -1,12 +1,12 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using RunGroopWebApp.Data;
-using RunGroopWebApp.Helpers;
-using RunGroopWebApp.Interfaces;
-using RunGroopWebApp.Models;
-using RunGroopWebApp.Repository;
-using RunGroopWebApp.Services;
+using InsaClub.Data;
+using InsaClub.Helpers;
+using InsaClub.Interfaces;
+using InsaClub.Models;
+using InsaClub.Repository;
+using InsaClub.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,7 +23,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
-builder.Services.AddIdentity<AppUser, IdentityRole>()
+builder.Services.AddIdentity<User, IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddMemoryCache();
 builder.Services.AddSession();

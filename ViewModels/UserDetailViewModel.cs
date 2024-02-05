@@ -1,6 +1,6 @@
-﻿using RunGroopWebApp.Models;
+﻿using InsaClub.Models;
 
-namespace RunGroopWebApp.ViewModels;
+namespace InsaClub.ViewModels;
 
 public class UserDetailViewModel
 {

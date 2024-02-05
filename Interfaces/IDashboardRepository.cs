@@ -1,14 +1,14 @@
-﻿using RunGroopWebApp.Models;
+﻿using InsaClub.Models;
 
-namespace RunGroopWebApp.Interfaces
+namespace InsaClub.Interfaces
 {
     public interface IDashboardRepository
     {
-        Task<List<Race>> GetAllUserRaces();
+        Task<List<Event>> GetAllUserRaces();
         Task<List<Club>> GetAllUserClubs();
-        Task<AppUser> GetUserById(string id);
-        Task<AppUser> GetByIdNoTracking(string id);
-        bool Update(AppUser user);
+        Task<User> GetUserById(string id);
+        Task<User> GetByIdNoTracking(string id);
+        bool Update(User user);
         bool Save();
     }
 }

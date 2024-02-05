@@ -1,5 +1,5 @@
-﻿@using RunGroopWebApp.Data.Enum
-@using RunGroopWebApp.ViewModels
+﻿@using InsaClub.Data.Enum
+@using InsaClub.ViewModels
 @model CreateRaceViewModel
 
 
@@ -21,7 +21,7 @@
               <div class="row justify-content-center">
                 <div class="col-6 col-lg-5">
                   <form method="post" asp-action="Create" enctype="multipart/form-data">
-                   <input type="hidden" id="AppUserId" name="AppUserId" asp-for="AppUserId" />
+                   <input type="hidden" id="UserId" name="UserId" asp-for="UserId" />
                     <div class="form-row form-group">
                       <div class="col">                       
                         <input asp-for="Title" class="form-control form-control-lg" placeholder="Title" />
@@ -37,10 +37,10 @@
 
                     <div class="form-row form-group">
                       <div class="col">                        
-                         <select asp-for="RaceCategory" asp-items="@Html.GetEnumSelectList<RaceCategory>()" class="form-control">
+                         <select asp-for="EventCategory" asp-items="@Html.GetEnumSelectList<EventCategory>()" class="form-control">
                                     <option>--Select--</option>
                          </select>
-                         <span asp-validation-for="RaceCategory" class="text-danger"></span>
+                         <span asp-validation-for="EventCategory" class="text-danger"></span>
                       </div>
                     </div> 
 
@@ -100,7 +100,7 @@
 
 @*
 <form method="post" asp-action="Create" enctype="multipart/form-data">
-    <input type="hidden" id="AppUserId" name="AppUserId" asp-for="AppUserId" />
+    <input type="hidden" id="UserId" name="UserId" asp-for="UserId" />
   <div class="form-group">
     <label asp-for="Title">Title</label>
     <input asp-for="Title" class="form-control" placeholder="Title">
@@ -112,11 +112,11 @@
     <span asp-validation-for="Description" class="text-danger"></span>
   </div>
   <div class="form-group">
-    <label asp-for="RaceCategory">Race Category</label>
-    <select asp-for="RaceCategory" asp-items="@Html.GetEnumSelectList<RaceCategory>()" class="form-control">
+    <label asp-for="EventCategory">Event Category</label>
+    <select asp-for="EventCategory" asp-items="@Html.GetEnumSelectList<EventCategory>()" class="form-control">
              <option>--Select--</option>
     </select>
-    <span asp-validation-for="RaceCategory" class="text-danger"></span>
+    <span asp-validation-for="EventCategory" class="text-danger"></span>
   </div>
   <div class="form-group">
     <label asp-for="Address.Street">Street</label>

@@ -1,6 +1,6 @@
-﻿@using RunGroopWebApp.Data.Enum
-@using RunGroopWebApp.Extensions
-@using RunGroopWebApp.ViewModels
+﻿@using InsaClub.Data.Enum
+@using InsaClub.Extensions
+@using InsaClub.ViewModels
 @model IndexRaceViewModel
 
 @{
@@ -24,7 +24,7 @@
                 <div class="mb-3">
                     <a type="button" class="btn btn-secondary mb-1"
                        asp-action="Index" asp-route-page="1" asp-route-category="-1">All</a>
-                    @foreach (var category in Html.GetEnumSelectList<RaceCategory>())
+                    @foreach (var category in Html.GetEnumSelectList<EventCategory>())
                     {
                         <a type="button" class="btn btn-secondary mb-1"
                        asp-action="Index" asp-route-page="1" asp-route-category="@category.Value">@category.Text</a>
@@ -55,7 +55,7 @@
             {
                 <li class="col-12 col-md-6 col-lg-4">
                     <div class="card">
-                        <a type="button" asp-controller="Race" asp-action="DetailRace" asp-route-runningRace="@race.Title.GenerateSlug()" asp-route-id="@race.Id">
+                        <a type="button" asp-controller="Event" asp-action="DetailRace" asp-route-runningRace="@race.Title.GenerateSlug()" asp-route-id="@race.Id">
                             @if(race.Image == null)
                             {
                                 <img class="card-img-top" src="/img/racesEvent.png" alt="Card image cap"> 
@@ -72,15 +72,15 @@
                         </div>
                         <div class="card-footer card-footer-borderless d-flex justify-content-between">
                             <div>
-                                <small>@race.RaceCategory</small>
+                                <small>@race.EventCategory</small>
                             </div>
                             @if (isAuthenticated && User.IsInRole("admin"))
                             {
                                 <div>
-                                    <a type="button" class="btn btn-sm btn-outline-info" asp-controller="Race" asp-action="Edit" asp-route-id="@race.Id">
+                                    <a type="button" class="btn btn-sm btn-outline-info" asp-controller="Event" asp-action="Edit" asp-route-id="@race.Id">
                                         Edit
                                     </a>
-                                    <a type="button" class="btn btn-sm btn-outline-danger" asp-controller="Race" asp-action="Delete" asp-route-id="@race.Id">
+                                    <a type="button" class="btn btn-sm btn-outline-danger" asp-controller="Event" asp-action="Delete" asp-route-id="@race.Id">
                                         Delete
                                     </a>
                                 </div>

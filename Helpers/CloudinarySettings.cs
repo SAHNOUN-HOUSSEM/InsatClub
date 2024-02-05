@@ -1,4 +1,4 @@
-﻿namespace RunGroopWebApp.Helpers
+﻿namespace InsaClub.Helpers
 {
     public class CloudinarySettings
     {

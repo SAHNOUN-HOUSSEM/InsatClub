@@ -1,10 +1,10 @@
-﻿using RunGroopWebApp.Models;
+﻿using InsaClub.Models;
 
-namespace RunGroopWebApp.ViewModels;
+namespace InsaClub.ViewModels;
 
 public class IndexRaceViewModel
 {
-    public IEnumerable<Race> Races { get; set; }
+    public IEnumerable<Event> Races { get; set; }
     public int PageSize { get; set; }
     public int Page { get; set; }
     public int TotalPages { get; set; }

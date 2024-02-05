@@ -1,7 +1,7 @@
-﻿using RunGroopWebApp.Data.Enum;
-using RunGroopWebApp.Models;
+﻿using InsaClub.Data.Enum;
+using InsaClub.Models;
 
-namespace RunGroopWebApp.ViewModels
+namespace InsaClub.ViewModels
 {
     public class EditRaceViewModel
     {
@@ -12,6 +12,6 @@ namespace RunGroopWebApp.ViewModels
         public string? URL { get; set; }
         public int AddressId { get; set; }
         public Address Address { get; set; }
-        public RaceCategory RaceCategory { get; set; }
+        public EventCategory EventCategory { get; set; }
     }
 }

@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using RunGroopWebApp.Data;
-using RunGroopWebApp.Extensions;
-using RunGroopWebApp.Helpers;
-using RunGroopWebApp.Interfaces;
-using RunGroopWebApp.Models;
+using InsaClub.Data;
+using InsaClub.Extensions;
+using InsaClub.Helpers;
+using InsaClub.Interfaces;
+using InsaClub.Models;
 
-namespace RunGroopWebApp.Services
+namespace InsaClub.Services
 {
     public class LocationService : ILocationService
     {

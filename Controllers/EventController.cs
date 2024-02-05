@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using RunGroopWebApp.Data;
-using RunGroopWebApp.Data.Enum;
-using RunGroopWebApp.Interfaces;
-using RunGroopWebApp.Models;
-using RunGroopWebApp.ViewModels;
+using InsaClub.Data;
+using InsaClub.Data.Enum;
+using InsaClub.Interfaces;
+using InsaClub.Models;
+using InsaClub.ViewModels;
 
-namespace RunGroopWebApp.Controllers
+namespace InsaClub.Controllers
 {
     public class RaceController : Controller
     {
@@ -34,13 +34,13 @@ namespace RunGroopWebApp.Controllers
             var races = category switch
             {
                 -1 => await _raceRepository.GetSliceAsync((page - 1) * pageSize, pageSize),
-                _ => await _raceRepository.GetRacesByCategoryAndSliceAsync((RaceCategory)category, (page - 1) * pageSize, pageSize),
+                _ => await _raceRepository.GetRacesByCategoryAndSliceAsync((EventCategory)category, (page - 1) * pageSize, pageSize),
             };
 
             var count = category switch
             {
                 -1 => await _raceRepository.GetCountAsync(),
-                _ => await _raceRepository.GetCountByCategoryAsync((RaceCategory)category),
+                _ => await _raceRepository.GetCountByCategoryAsync((EventCategory)category),
             };
 
             var viewModel = new IndexRaceViewModel
@@ -68,7 +68,7 @@ namespace RunGroopWebApp.Controllers
         public IActionResult Create()
         {
             var curUserID = _httpContextAccessor.HttpContext?.User.GetUserId();
-            var createRaceViewModel = new CreateRaceViewModel { AppUserId = curUserID };
+            var createRaceViewModel = new CreateRaceViewModel { UserId = curUserID };
             return View(createRaceViewModel);
         }
 
@@ -79,19 +79,14 @@ namespace RunGroopWebApp.Controllers
             {
                 var result = await _photoService.AddPhotoAsync(raceVM.Image);
 
-                var race = new Race
+                var race = new Event
                 {
                     Title = raceVM.Title,
                     Description = raceVM.Description,
                     Image = result.Url.ToString(),
-                    AppUserId = raceVM.AppUserId,
-                    RaceCategory = raceVM.RaceCategory,
-                    Address = new Address
-                    {
-                        Street = raceVM.Address.Street,
-                        City = raceVM.Address.City,
-                        State = raceVM.Address.State,
-                    }
+                    UserId = raceVM.UserId,
+                    EventCategory = raceVM.EventCategory,
+               
                 };
                 _raceRepository.Add(race);
                 return RedirectToAction("Index");
@@ -116,7 +111,7 @@ namespace RunGroopWebApp.Controllers
                 AddressId = race.AddressId,
                 Address = race.Address,
                 URL = race.Image,
-                RaceCategory = race.RaceCategory
+                EventCategory = race.EventCategory
             };
             return View(raceVM);
         }
@@ -150,7 +145,7 @@ namespace RunGroopWebApp.Controllers
                 _ = _photoService.DeletePhotoAsync(userRace.Image);
             }
 
-            var race = new Race
+            var race = new Event
             {
                 Id = id,
                 Title = raceVM.Title,

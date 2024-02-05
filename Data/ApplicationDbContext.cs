@@ -1,19 +1,16 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using RunGroopWebApp.Models;
+using InsaClub.Models;
 
-namespace RunGroopWebApp.Data
+namespace InsaClub.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<AppUser>
+    public class ApplicationDbContext : IdentityDbContext<User>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
 
         }
-        public DbSet<Race> Races { get; set; }
+        public DbSet<Event> Events { get; set; }
         public DbSet<Club> Clubs { get; set; }
-        public DbSet<Address> Addresses { get; set; }
-        public DbSet<State> States { get; set; }
-        public DbSet<City> Cities { get; set; }
     }
 }

@@ -1,10 +1,10 @@
-﻿using RunGroopWebApp.Models;
+﻿using InsaClub.Models;
 
-namespace RunGroopWebApp.ViewModels
+namespace InsaClub.ViewModels
 {
     public class DashboardViewModel
     {
-        public List<Race> Races { get; set; }
+        public List<Event> Events { get; set; }
         public List<Club> Clubs { get; set; }
     }
 }

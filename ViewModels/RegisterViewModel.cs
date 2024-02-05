@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace RunGroopWebApp.ViewModels
+namespace InsaClub.ViewModels
 {
     public class RegisterViewModel
     {

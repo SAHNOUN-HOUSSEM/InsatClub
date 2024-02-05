@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using RunGroopWebApp.Data;
-using RunGroopWebApp.Interfaces;
-using RunGroopWebApp.Models;
+using InsaClub.Data;
+using InsaClub.Interfaces;
+using InsaClub.Models;
 
-namespace RunGroopWebApp.Repository
+namespace InsaClub.Repository
 {
     public class DashboardRepository : IDashboardRepository
     {
@@ -18,27 +18,27 @@ namespace RunGroopWebApp.Repository
         public async Task<List<Club>> GetAllUserClubs()
         {
             var curUser = _httpContextAccessor.HttpContext?.User.GetUserId();
-            var userClubs = _context.Clubs.Where(r => r.AppUser.Id == curUser);
+            var userClubs = _context.Clubs.Where(r => r.User.Id == curUser);
             return userClubs.ToList();
         }
 
-        public async Task<List<Race>> GetAllUserRaces()
+        public async Task<List<Event>> GetAllUserRaces()
         {
             var curUser = _httpContextAccessor.HttpContext?.User.GetUserId();
-            var userRaces = _context.Races.Where(r => r.AppUser.Id == curUser);
+            var userRaces = _context.Events.Where(r => r.User.Id == curUser);
             return userRaces.ToList();
         }
-        public async Task<AppUser> GetUserById(string id)
+        public async Task<User> GetUserById(string id)
         {
             return await _context.Users.FindAsync(id);
         }
 
-        public async Task<AppUser> GetByIdNoTracking(string id)
+        public async Task<User> GetByIdNoTracking(string id)
         {
             return await _context.Users.Where(u => u.Id == id).AsNoTracking().FirstOrDefaultAsync();
         }
 
-        public bool Update(AppUser user)
+        public bool Update(User user)
         {
             _context.Users.Update(user);
             return Save();

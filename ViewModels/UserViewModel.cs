@@ -1,4 +1,4 @@
-﻿namespace RunGroopWebApp.ViewModels;
+﻿namespace InsaClub.ViewModels;
 
 public class UserViewModel
 {

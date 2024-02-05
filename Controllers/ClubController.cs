@@ -1,12 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using RunGroopWebApp.Data.Enum;
-using RunGroopWebApp.Helpers;
-using RunGroopWebApp.Interfaces;
-using RunGroopWebApp.Models;
-using RunGroopWebApp.ViewModels;
+using InsaClub.Data.Enum;
+using InsaClub.Helpers;
+using InsaClub.Interfaces;
+using InsaClub.Models;
+using InsaClub.ViewModels;
 
-namespace RunGroopWebApp.Controllers
+namespace InsaClub.Controllers
 {
+    [Route("clubs")]
     public class ClubController : Controller
     {
         private readonly IClubRepository _clubRepository;
@@ -19,7 +20,6 @@ namespace RunGroopWebApp.Controllers
         }
 
         [HttpGet]
-        [Route("RunningClubs")]
         public async Task<IActionResult> Index(int category = -1, int page = 1, int pageSize = 6)
         {
             if (page < 1 || pageSize < 1)
@@ -53,100 +53,100 @@ namespace RunGroopWebApp.Controllers
             return View(clubViewModel);
         }
 
-        [HttpGet]
-        [Route("RunningClubs/{state}")]
-        public async Task<IActionResult> ListClubsByState(string state)
-        {
-            var clubs = await _clubRepository.GetClubsByState(StateConverter.GetStateByName(state).ToString());
-            var clubVM = new ListClubByStateViewModel()
-            {
-                Clubs = clubs
-            };
-            if (clubs.Count() == 0)
-            {
-                clubVM.NoClubWarning = true;
-            }
-            else
-            {
-                clubVM.State = state;
-            }
-            return View(clubVM);
-        }
+        // [HttpGet]
+        // [Route("RunningClubs/{state}")]
+        // public async Task<IActionResult> ListClubsByState(string state)
+        // {
+        //     var clubs = await _clubRepository.GetClubsByState(StateConverter.GetStateByName(state).ToString());
+        //     var clubVM = new ListClubByStateViewModel()
+        //     {
+        //         Clubs = clubs
+        //     };
+        //     if (clubs.Count() == 0)
+        //     {
+        //         clubVM.NoClubWarning = true;
+        //     }
+        //     else
+        //     {
+        //         clubVM.State = state;
+        //     }
+        //     return View(clubVM);
+        // }
+
+        // [HttpGet]
+        // [Route("RunningClubs/{city}/{state}")]
+        // public async Task<IActionResult> ListClubsByCity(string city, string state)
+        // {
+        //     var clubs = await _clubRepository.GetClubByCity(city);
+        //     var clubVM = new ListClubByCityViewModel()
+        //     {
+        //         Clubs = clubs
+        //     };
+        //     if (clubs.Count() == 0)
+        //     {
+        //         clubVM.NoClubWarning = true;
+        //     }
+        //     else
+        //     {
+        //         clubVM.State = state;
+        //         clubVM.City = city;
+        //     }
+        //     return View(clubVM);
+        // }
 
         [HttpGet]
-        [Route("RunningClubs/{city}/{state}")]
-        public async Task<IActionResult> ListClubsByCity(string city, string state)
-        {
-            var clubs = await _clubRepository.GetClubByCity(city);
-            var clubVM = new ListClubByCityViewModel()
-            {
-                Clubs = clubs
-            };
-            if (clubs.Count() == 0)
-            {
-                clubVM.NoClubWarning = true;
-            }
-            else
-            {
-                clubVM.State = state;
-                clubVM.City = city;
-            }
-            return View(clubVM);
-        }
-
-        [HttpGet]
-        [Route("club/{runningClub}/{id}")]
-        public async Task<IActionResult> DetailClub(int id, string runningClub)
+        [Route("club/{id}")]
+        public async Task<IActionResult> DetailClub(int id)
         {
             var club = await _clubRepository.GetByIdAsync(id);
 
             return club == null ? NotFound() : View(club);
         }
 
-        [HttpGet]
-        [Route("RunningClubs/State")]
-        public async Task<IActionResult> RunningClubsByStateDirectory()
-        {
-            var states = await _clubRepository.GetAllStates();
-            var clubVM = new RunningClubByState()
-            {
-                States = states
-            };
+        // [HttpGet]
+        // [Route("RunningClubs/State")]
+        // public async Task<IActionResult> RunningClubsByStateDirectory()
+        // {
+        //     var states = await _clubRepository.GetAllStates();
+        //     var clubVM = new RunningClubByState()
+        //     {
+        //         States = states
+        //     };
 
-            return states == null ? NotFound() : View(clubVM);
-        }
+        //     return states == null ? NotFound() : View(clubVM);
+        // }
 
-        [HttpGet]
-        [Route("RunningClubs/State/City")]
-        public async Task<IActionResult> RunningClubsByStateForCityDirectory()
-        {
-            var states = await _clubRepository.GetAllStates();
-            var clubVM = new RunningClubByState()
-            {
-                States = states
-            };
+        // [HttpGet]
+        // [Route("RunningClubs/State/City")]
+        // public async Task<IActionResult> RunningClubsByStateForCityDirectory()
+        // {
+        //     var states = await _clubRepository.GetAllStates();
+        //     var clubVM = new RunningClubByState()
+        //     {
+        //         States = states
+        //     };
 
-            return states == null ? NotFound() : View(clubVM);
-        }
+        //     return states == null ? NotFound() : View(clubVM);
+        // }
 
-        [HttpGet]
-        [Route("RunningClubs/{state}/City")]
-        public async Task<IActionResult> RunningClubsByCityDirectory(string state)
-        {
-            var cities = await _clubRepository.GetAllCitiesByState(StateConverter.GetStateByName(state).ToString());
-            var clubVM = new RunningClubByCity()
-            {
-                Cities = cities
-            };
+        // [HttpGet]
+        // [Route("RunningClubs/{state}/City")]
+        // public async Task<IActionResult> RunningClubsByCityDirectory(string state)
+        // {
+        //     var cities = await _clubRepository.GetAllCitiesByState(StateConverter.GetStateByName(state).ToString());
+        //     var clubVM = new RunningClubByCity()
+        //     {
+        //         Cities = cities
+        //     };
 
-            return cities == null ? NotFound() : View(clubVM);
-        }
+        //     return cities == null ? NotFound() : View(clubVM);
+        // }
 
         [HttpGet]
         public IActionResult Create()
         {
             var curUserId = HttpContext.User.GetUserId();
-            var createClubViewModel = new CreateClubViewModel { AppUserId = curUserId };
+            var createClubViewModel = new CreateClubViewModel { UserId = curUserId };
             return View(createClubViewModel);
         }
 
@@ -163,13 +163,8 @@ namespace RunGroopWebApp.Controllers
                     Description = clubVM.Description,
                     Image = result.Url.ToString(),
                     ClubCategory = clubVM.ClubCategory,
-                    AppUserId = clubVM.AppUserId,
-                    Address = new Address
-                    {
-                        Street = clubVM.Address.Street,
-                        City = clubVM.Address.City,
-                        State = clubVM.Address.State,
-                    }
+                    UserId = clubVM.UserId,
+             
                 };
                 _clubRepository.Add(club);
                 return RedirectToAction("Index");
@@ -191,8 +186,6 @@ namespace RunGroopWebApp.Controllers
             {
                 Title = club.Title,
                 Description = club.Description,
-                AddressId = club.AddressId,
-                Address = club.Address,
                 URL = club.Image,
                 ClubCategory = club.ClubCategory
             };
@@ -234,8 +227,6 @@ namespace RunGroopWebApp.Controllers
                 Title = clubVM.Title,
                 Description = clubVM.Description,
                 Image = photoResult.Url.ToString(),
-                AddressId = clubVM.AddressId,
-                Address = clubVM.Address,
             };
 
             _clubRepository.Update(club);

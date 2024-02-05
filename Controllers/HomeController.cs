@@ -1,28 +1,28 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using RunGroopWebApp.Data;
-using RunGroopWebApp.Helpers;
-using RunGroopWebApp.Interfaces;
-using RunGroopWebApp.Models;
-using RunGroopWebApp.ViewModels;
+using InsaClub.Data;
+using InsaClub.Helpers;
+using InsaClub.Interfaces;
+using InsaClub.Models;
+using InsaClub.ViewModels;
 using System.Diagnostics;
 using System.Globalization;
 using System.Net;
 
-namespace RunGroopWebApp.Controllers
+namespace InsaClub.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IClubRepository _clubRepository;
-        private readonly UserManager<AppUser> _userManager;
-        private readonly SignInManager<AppUser> _signInManager;
+        private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager;
         private readonly ILocationService _locationService;
         private readonly IConfiguration _config;
 
         public HomeController(ILogger<HomeController> logger, IClubRepository clubRepository,
-            UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, ILocationService locationService, IConfiguration config)
+            UserManager<User> userManager, SignInManager<User> signInManager, ILocationService locationService, IConfiguration config)
         {
             _logger = logger;
             _clubRepository = clubRepository;
@@ -87,16 +87,11 @@ namespace RunGroopWebApp.Controllers
                 return View(homeVM);
             }
 
-            var newUser = new AppUser
+            var newUser = new User
             {
                 UserName = createVM.UserName,
                 Email = createVM.Email,
-                Address = new Address()
-                {
-                    State = userLocation.StateCode,
-                    City = userLocation.CityName,
-                    ZipCode = createVM.ZipCode ?? 0,
-                }
+             
             };
 
             var newUserResponse = await _userManager.CreateAsync(newUser, createVM.Password);

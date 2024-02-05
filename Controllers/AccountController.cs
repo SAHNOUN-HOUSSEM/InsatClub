@@ -1,21 +1,21 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using RunGroopWebApp.Data;
-using RunGroopWebApp.Interfaces;
-using RunGroopWebApp.Models;
-using RunGroopWebApp.ViewModels;
+using InsaClub.Data;
+using InsaClub.Interfaces;
+using InsaClub.Models;
+using InsaClub.ViewModels;
 
-namespace RunGroopWebApp.Controllers
+namespace InsaClub.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly UserManager<AppUser> _userManager;
-        private readonly SignInManager<AppUser> _signInManager;
+        private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager;
         private readonly ApplicationDbContext _context;
         private readonly ILocationService _locationService;
 
-        public AccountController(UserManager<AppUser> userManager, 
-            SignInManager<AppUser> signInManager, 
+        public AccountController(UserManager<User> userManager, 
+            SignInManager<User> signInManager, 
             ApplicationDbContext context,
             ILocationService locationService)
         {
@@ -49,7 +49,7 @@ namespace RunGroopWebApp.Controllers
                     var result = await _signInManager.PasswordSignInAsync(user, loginViewModel.Password, false, false);
                     if (result.Succeeded)
                     {
-                        return RedirectToAction("Index", "Race");
+                        return RedirectToAction("Index", "Event");
                     }
                 }
                 //Password is incorrect
@@ -80,7 +80,7 @@ namespace RunGroopWebApp.Controllers
                 return View(registerViewModel);
             }
 
-            var newUser = new AppUser()
+            var newUser = new User()
             {
                 Email = registerViewModel.EmailAddress,
                 UserName = registerViewModel.EmailAddress
@@ -90,14 +90,14 @@ namespace RunGroopWebApp.Controllers
             if (newUserResponse.Succeeded)
                 await _userManager.AddToRoleAsync(newUser, UserRoles.User);
 
-            return RedirectToAction("Index", "Race");
+            return RedirectToAction("Index", "Event");
         }
 
         [HttpGet]
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
-            return RedirectToAction("Index", "Race");
+            return RedirectToAction("Index", "Event");
         }
 
         [HttpGet]

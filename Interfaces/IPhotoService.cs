@@ -1,6 +1,6 @@
 ﻿using CloudinaryDotNet.Actions;
 
-namespace RunGroopWebApp.Interfaces
+namespace InsaClub.Interfaces
 {
     public interface IPhotoService
     {

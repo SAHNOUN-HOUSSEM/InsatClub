@@ -1,4 +1,4 @@
-﻿namespace RunGroopWebApp.Data
+﻿namespace InsaClub.Data
 {
     public static class UserRoles
     {

@@ -1,10 +1,10 @@
-﻿using RunGroopWebApp.Data.Enum;
+﻿using InsaClub.Data.Enum;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace RunGroopWebApp.Models
+namespace InsaClub.Models
 {
-    public class Race
+    public class Event
     {
         [Key]
         public int Id { get; set; }
@@ -14,15 +14,11 @@ namespace RunGroopWebApp.Models
         public DateTime? StartTime { get; set; }
         public int? EntryFee { get; set; }
         public string? Website { get; set; }
-        public string? Twitter { get; set; }
         public string? Facebook { get; set; }
         public string? Contact { get; set; }
-        [ForeignKey("Address")]
-        public int AddressId { get; set; }
-        public Address Address { get; set; }
-        public RaceCategory RaceCategory { get; set; }
-        [ForeignKey("AppUser")]
-        public string? AppUserId { get; set; }
-        public AppUser? AppUser { get; set; }
+        public EventCategory EventCategory { get; set; }
+        [ForeignKey("Club")]
+        public string? clubId { get; set; }
+        public Club? Club { get; set; }
     }
 }

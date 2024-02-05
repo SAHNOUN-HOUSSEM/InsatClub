@@ -1,16 +1,15 @@
-﻿using RunGroopWebApp.Data.Enum;
-using RunGroopWebApp.Models;
+﻿using InsaClub.Data.Enum;
+using InsaClub.Models;
 
-namespace RunGroopWebApp.ViewModels
+namespace InsaClub.ViewModels
 {
     public class CreateClubViewModel
     {
         public int Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
-        public Address Address { get; set; }
         public IFormFile Image { get; set; }
         public ClubCategory ClubCategory { get; set; }
-        public string AppUserId { get; set; }
+        public string UserId { get; set; }
     }
 }

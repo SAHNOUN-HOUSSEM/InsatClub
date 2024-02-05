@@ -1,14 +1,14 @@
-﻿using RunGroopWebApp.Models;
+﻿using InsaClub.Models;
 
-namespace RunGroopWebApp.Interfaces
+namespace InsaClub.Interfaces
 {
     public interface IUserRepository
     {
-        Task<IEnumerable<AppUser>> GetAllUsers();
-        Task<AppUser> GetUserById(string id);
-        bool Add(AppUser user);
-        bool Update(AppUser user);
-        bool Delete(AppUser user);
+        Task<IEnumerable<User>> GetAllUsers();
+        Task<User> GetUserById(string id);
+        bool Add(User user);
+        bool Update(User user);
+        bool Delete(User user);
         bool Save();
     }
 }

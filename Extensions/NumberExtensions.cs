@@ -1,4 +1,4 @@
-﻿namespace RunGroopWebApp.Extensions
+﻿namespace InsaClub.Extensions
 {
     public static class NumberExtensions
     {

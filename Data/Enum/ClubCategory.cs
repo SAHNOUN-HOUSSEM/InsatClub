@@ -1,11 +1,11 @@
-﻿namespace RunGroopWebApp.Data.Enum
+﻿namespace InsaClub.Data.Enum
 {
     public enum ClubCategory
     {
-        RoadRunner,
-        Womens,
-        City,
-        Trail,
-        Endurance
+        CULTURAL,
+        SPORT,
+        SOFTWARE_ENGINEERING,
+        ROBOTICS,
+
     }
 }

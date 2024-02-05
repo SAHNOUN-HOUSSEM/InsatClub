@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using RunGroopWebApp.Data;
-using RunGroopWebApp.Interfaces;
-using RunGroopWebApp.Models;
+using InsaClub.Data;
+using InsaClub.Interfaces;
+using InsaClub.Models;
 
-namespace RunGroopWebApp.Repository
+namespace InsaClub.Repository
 {
     public class UserRepository : IUserRepository
     {
@@ -14,22 +14,22 @@ namespace RunGroopWebApp.Repository
             _context = context;
         }
 
-        public bool Add(AppUser user)
+        public bool Add(User user)
         {
             throw new NotImplementedException();
         }
 
-        public bool Delete(AppUser user)
+        public bool Delete(User user)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<AppUser>> GetAllUsers()
+        public async Task<IEnumerable<User>> GetAllUsers()
         {
             return await _context.Users.ToListAsync();
         }
 
-        public async Task<AppUser> GetUserById(string id)
+        public async Task<User> GetUserById(string id)
         {
             return await _context.Users.FindAsync(id);
         }
@@ -40,7 +40,7 @@ namespace RunGroopWebApp.Repository
             return saved > 0 ? true : false;
         }
 
-        public bool Update(AppUser user)
+        public bool Update(User user)
         {
             _context.Update(user);
             return Save();

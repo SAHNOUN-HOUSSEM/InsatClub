@@ -1,10 +1,10 @@
 ﻿using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
 using Microsoft.Extensions.Options;
-using RunGroopWebApp.Helpers;
-using RunGroopWebApp.Interfaces;
+using InsaClub.Helpers;
+using InsaClub.Interfaces;
 
-namespace RunGroopWebApp.Services
+namespace InsaClub.Services
 {
     public class PhotoService : IPhotoService
     {

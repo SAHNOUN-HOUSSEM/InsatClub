@@ -1,31 +1,31 @@
-﻿using RunGroopWebApp.Data.Enum;
-using RunGroopWebApp.Models;
+﻿using InsaClub.Data.Enum;
+using InsaClub.Models;
 
-namespace RunGroopWebApp.Interfaces
+namespace InsaClub.Interfaces
 {
     public interface IRaceRepository
     {
         Task<int> GetCountAsync();
 
-        Task<int> GetCountByCategoryAsync(RaceCategory category);
+        Task<int> GetCountByCategoryAsync(EventCategory category);
 
-        Task<Race?> GetByIdAsync(int id);
+        Task<Event?> GetByIdAsync(int id);
 
-        Task<Race?> GetByIdAsyncNoTracking(int id);
+        Task<Event?> GetByIdAsyncNoTracking(int id);
 
-        Task<IEnumerable<Race>> GetAll();
+        Task<IEnumerable<Event>> GetAll();
 
-        Task<IEnumerable<Race>> GetAllRacesByCity(string city);
+        Task<IEnumerable<Event>> GetAllRacesByCity(string city);
 
-        Task<IEnumerable<Race>> GetSliceAsync(int offset, int size);
+        Task<IEnumerable<Event>> GetSliceAsync(int offset, int size);
 
-        Task<IEnumerable<Race>> GetRacesByCategoryAndSliceAsync(RaceCategory category, int offset, int size);
+        Task<IEnumerable<Event>> GetRacesByCategoryAndSliceAsync(EventCategory category, int offset, int size);
 
-        bool Add(Race race);
+        bool Add(Event race);
 
-        bool Update(Race race);
+        bool Update(Event race);
 
-        bool Delete(Race race);
+        bool Delete(Event race);
 
         bool Save();
     }

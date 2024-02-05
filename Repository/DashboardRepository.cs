@@ -22,12 +22,12 @@ namespace InsaClub.Repository
             return userClubs.ToList();
         }
 
-        public async Task<List<Event>> GetAllUserRaces()
-        {
-            var curUser = _httpContextAccessor.HttpContext?.User.GetUserId();
-            var userRaces = _context.Events.Where(r => r.User.Id == curUser);
-            return userRaces.ToList();
-        }
+        // public async Task<List<Event>> GetAllUserEvents()
+        // {
+        //     var curUser = _httpContextAccessor.HttpContext?.User.GetUserId();
+        //     var userEvents = _context.Events.Where(e => e.User.Id == curUser);
+        //     return userEvents.ToList();
+        // }
         public async Task<User> GetUserById(string id)
         {
             return await _context.Users.FindAsync(id);

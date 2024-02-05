@@ -8,7 +8,5 @@ namespace InsaClub.ViewModels
         public string Email { get; set; }
         [DataType(DataType.Password)]
         public string Password { get; set; }
-        [Required]
-        public int? ZipCode { get; set; }
     }
 }

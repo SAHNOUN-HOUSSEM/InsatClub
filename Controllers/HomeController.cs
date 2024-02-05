@@ -1,54 +1,32 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using InsaClub.Data;
-using InsaClub.Helpers;
 using InsaClub.Interfaces;
 using InsaClub.Models;
 using InsaClub.ViewModels;
-using System.Diagnostics;
-using System.Globalization;
-using System.Net;
+
 
 namespace InsaClub.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-        private readonly IClubRepository _clubRepository;
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
-        private readonly ILocationService _locationService;
         private readonly IConfiguration _config;
 
-        public HomeController(ILogger<HomeController> logger, IClubRepository clubRepository,
-            UserManager<User> userManager, SignInManager<User> signInManager, ILocationService locationService, IConfiguration config)
+        public HomeController( UserManager<User> userManager, SignInManager<User> signInManager, IConfiguration config)
         {
-            _logger = logger;
-            _clubRepository = clubRepository;
             _userManager = userManager;
             _signInManager = signInManager;
-            _locationService = locationService;
             _config = config;
         }
 
         public async Task<IActionResult> Index()
         {
-            var ipInfo = new IPInfo();
             var homeViewModel = new HomeViewModel();
             try
             {
-                string url = "https://ipinfo.io?token=" + _config.GetValue<string>("IPInfoToken");
-                var info = new WebClient().DownloadString(url);
-                ipInfo = JsonConvert.DeserializeObject<IPInfo>(info);
-                RegionInfo myRI1 = new RegionInfo(ipInfo.Country);
-                ipInfo.Country = myRI1.EnglishName;
-                homeViewModel.City = ipInfo.City;
-                homeViewModel.State = ipInfo.Region;
-                if (homeViewModel.City != null)
-                {
-                    homeViewModel.Clubs = await _clubRepository.GetClubByCity(homeViewModel.City);
-                }
+               
                 return View(homeViewModel);
             }
             catch (Exception)
@@ -79,14 +57,6 @@ namespace InsaClub.Controllers
                 return View(homeVM);
             }
 
-            var userLocation = await _locationService.GetCityByZipCode(createVM.ZipCode ?? 0);
-
-            if (userLocation == null)
-            {
-                ModelState.AddModelError("Register.ZipCode", "Could not find zip code!");
-                return View(homeVM);
-            }
-
             var newUser = new User
             {
                 UserName = createVM.UserName,
@@ -109,10 +79,10 @@ namespace InsaClub.Controllers
             return View();
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+        // [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        // public IActionResult Error()
+        // {
+        //     return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TeventIdentifier });
+        // }
     }
 }

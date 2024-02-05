@@ -12,15 +12,13 @@ namespace InsaClub.Controllers
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly ApplicationDbContext _context;
-        private readonly ILocationService _locationService;
 
         public AccountController(UserManager<User> userManager, 
             SignInManager<User> signInManager, 
-            ApplicationDbContext context,
-            ILocationService locationService)
+            ApplicationDbContext context
+           )
         {
             _context = context;
-            _locationService = locationService;
             _signInManager = signInManager;
             _userManager = userManager;
         }
@@ -71,8 +69,8 @@ namespace InsaClub.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel registerViewModel)
         {
+            
             if (!ModelState.IsValid) return View(registerViewModel);
-
             var user = await _userManager.FindByEmailAsync(registerViewModel.EmailAddress);
             if (user != null)
             {
@@ -83,13 +81,13 @@ namespace InsaClub.Controllers
             var newUser = new User()
             {
                 Email = registerViewModel.EmailAddress,
-                UserName = registerViewModel.EmailAddress
+                UserName = registerViewModel.EmailAddress,
+                EmailConfirmed = true,
+
             };
             var newUserResponse = await _userManager.CreateAsync(newUser, registerViewModel.Password);
-
             if (newUserResponse.Succeeded)
                 await _userManager.AddToRoleAsync(newUser, UserRoles.User);
-
             return RedirectToAction("Index", "Event");
         }
 
@@ -112,16 +110,7 @@ namespace InsaClub.Controllers
             
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetLocation(string location)
-        {
-            if(location == null)
-            {
-                return Json("Not found");
-            }
-            var locationResult = await _locationService.GetLocationSearch(location);
-            return Json(locationResult);
-        }
+  
 
 
     }

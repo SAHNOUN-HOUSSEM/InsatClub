@@ -60,7 +60,7 @@ namespace InsaClub.Data
                     });
                     context.SaveChanges();
                 }
-                //Races
+                //Events
                 if (!context.Events.Any())
                 {
                     var ACM = context.Clubs.FirstOrDefault(c => c.Title == "ACM");
@@ -71,7 +71,7 @@ namespace InsaClub.Data
                         {
                             Title = "Winter Cup",
                             Image="https://wintercup.com/wp-content/uploads/wc2024.png",
-                            Description = "This is the description of the first race",
+                            Description = "This is the description of the first event",
                             EventCategory = EventCategory.COMPETITION,
                             Club = ACM
                           
@@ -80,7 +80,7 @@ namespace InsaClub.Data
                         {
                             Title = "NRW",
                             Image="https://media.licdn.com/dms/image/C5603AQHyTv3fwTpP7g/profile-displayphoto-shrink_800_800/0/1576673144493?e=2147483647&v=beta&t=l4v0SGLhbAfv0Eq2IdHlYIHDitaoDelxfEXf4DKcPAs",
-                            Description = "This is the description of the first race",
+                            Description = "This is the description of the first event",
                             EventCategory = EventCategory.HACKATHON,
                             Club = IEE
                           

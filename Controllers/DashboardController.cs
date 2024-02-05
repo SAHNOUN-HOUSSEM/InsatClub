@@ -21,11 +21,12 @@ namespace InsaClub.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var userRaces = await _dashboardRespository.GetAllUserRaces();
+            // var userEvents = await _dashboardRespository.GetAllUserEvents();
+            var userEvents = new List<Event>();
             var userClubs = await _dashboardRespository.GetAllUserClubs();
             var dashboardViewModel = new DashboardViewModel()
             {
-                Races = userRaces,
+                Events = userEvents,
                 Clubs = userClubs
             };
             return View(dashboardViewModel);

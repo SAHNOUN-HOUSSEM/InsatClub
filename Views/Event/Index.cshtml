@@ -1,15 +1,15 @@
-﻿@using InsaClub.Data.Enum
+﻿@* @using InsaClub.Data.Enum
 @using InsaClub.Extensions
 @using InsaClub.ViewModels
-@model IndexRaceViewModel
+@model IndexEventViewModel
 
 @{
     bool isAuthenticated = User.Identity?.IsAuthenticated == true;
 
     int resultStart = ((Model.Page - 1) * Model.PageSize) + 1;
-    int resultEnd = Math.Min(resultStart + Model.PageSize - 1, Model.TotalRaces);
+    int resultEnd = Math.Min(resultStart + Model.PageSize - 1, Model.TotalEvents);
 
-    bool isValidPage = resultStart <= Model.TotalRaces;
+    bool isValidPage = resultStart <= Model.TotalEvents;
 
     var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
     var nextDisabled = !Model.HasNextPage ? "disabled" : "";
@@ -20,7 +20,7 @@
     <div class="container">
         <div class="row">
             <div class="col text-center">
-                <p>Races Categories</p>
+                <p>Events Categories</p>
                 <div class="mb-3">
                     <a type="button" class="btn btn-secondary mb-1"
                        asp-action="Index" asp-route-page="1" asp-route-category="-1">All</a>
@@ -46,41 +46,40 @@
                    asp-action="Index" asp-route-page="@(Model.Page + 1)" asp-route-category="@Model.Category">
                         Next
                     </a>
-                    <span class="text-muted text-small">Results @resultStart - @resultEnd of @Model.TotalRaces</span>
+                    <span class="text-muted text-small">Results @resultStart - @resultEnd of @Model.TotalEvents</span>
                 }
             </div>
         </div>
         <ul class="row feature-list feature-list-sm">
-            @foreach (var race in Model.Races)
+            @foreach (var evt in Model.Events)
             {
                 <li class="col-12 col-md-6 col-lg-4">
                     <div class="card">
-                        <a type="button" asp-controller="Event" asp-action="DetailRace" asp-route-runningRace="@race.Title.GenerateSlug()" asp-route-id="@race.Id">
-                            @if(race.Image == null)
+                        <a type="button" asp-controller="Event" asp-action="DetailEvent" asp-route-runningEvent="@evt.Title.GenerateSlug()" asp-route-id="@evt.Id">
+                            @if(@evt.Image == null)
                             {
-                                <img class="card-img-top" src="/img/racesEvent.png" alt="Card image cap"> 
+                                <img class="card-img-top" src="/img/eventsEvent.png" alt="Card image cap"> 
                             }
                             else
                             {
-                               <img class="card-img-top" src="@race.Image" alt="Card image cap"> 
+                               <img class="card-img-top" src="@event.Image" alt="Card image cap"> 
                             }
                             
                         </a>
                         <div class="card-body">
-                            <h4 class="card-title">@race.Title</h4>
-                            <p class="card-text">@race.Address.City, @race.Address.State</p>
+                            <h4 class="card-title">@evt.Title</h4>
                         </div>
                         <div class="card-footer card-footer-borderless d-flex justify-content-between">
                             <div>
-                                <small>@race.EventCategory</small>
+                                <small>@evt.EventCategory</small>
                             </div>
                             @if (isAuthenticated && User.IsInRole("admin"))
                             {
                                 <div>
-                                    <a type="button" class="btn btn-sm btn-outline-info" asp-controller="Event" asp-action="Edit" asp-route-id="@race.Id">
+                                    <a type="button" class="btn btn-sm btn-outline-info" asp-controller="Event" asp-action="Edit" asp-route-id="@event.Id">
                                         Edit
                                     </a>
-                                    <a type="button" class="btn btn-sm btn-outline-danger" asp-controller="Event" asp-action="Delete" asp-route-id="@race.Id">
+                                    <a type="button" class="btn btn-sm btn-outline-danger" asp-controller="Event" asp-action="Delete" asp-route-id="@event.Id">
                                         Delete
                                     </a>
                                 </div>
@@ -102,9 +101,9 @@
                    asp-action="Index" asp-route-page="@(Model.Page + 1)" asp-route-category="@Model.Category">
                         Next
                     </a>
-                    <span class="text-muted text-small">Results @resultStart - @resultEnd of @Model.TotalRaces</span>
+                    <span class="text-muted text-small">Results @resultStart - @resultEnd of @Model.TotalEvents</span>
                 }
             </div>
         </div>
     </div>
-</section>
+</section> *@

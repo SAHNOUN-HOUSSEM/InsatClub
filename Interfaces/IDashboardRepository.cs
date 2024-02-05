@@ -4,7 +4,7 @@ namespace InsaClub.Interfaces
 {
     public interface IDashboardRepository
     {
-        Task<List<Event>> GetAllUserRaces();
+        // Task<List<Event>> GetAllUserEvents();
         Task<List<Club>> GetAllUserClubs();
         Task<User> GetUserById(string id);
         Task<User> GetByIdNoTracking(string id);

@@ -3,7 +3,7 @@ using InsaClub.Models;
 
 namespace InsaClub.Interfaces
 {
-    public interface IRaceRepository
+    public interface IEventRepository
     {
         Task<int> GetCountAsync();
 
@@ -15,17 +15,17 @@ namespace InsaClub.Interfaces
 
         Task<IEnumerable<Event>> GetAll();
 
-        Task<IEnumerable<Event>> GetAllRacesByCity(string city);
+        // Task<IEnumerable<Event>> GetAllEventsByCity(string city);
 
         Task<IEnumerable<Event>> GetSliceAsync(int offset, int size);
 
-        Task<IEnumerable<Event>> GetRacesByCategoryAndSliceAsync(EventCategory category, int offset, int size);
+        Task<IEnumerable<Event>> GetEventsByCategoryAndSliceAsync(EventCategory category, int offset, int size);
 
-        bool Add(Event race);
+        bool Add(Event @event);
 
-        bool Update(Event race);
+        bool Update(Event @event);
 
-        bool Delete(Event race);
+        bool Delete(Event @event);
 
         bool Save();
     }

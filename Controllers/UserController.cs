@@ -30,10 +30,6 @@ namespace InsaClub.Controllers
                 var userViewModel = new UserViewModel()
                 {
                     Id = user.Id,
-                    Pace = user.Pace,
-                    City = user.City,
-                    State = user.State,
-                    Mileage = user.Mileage,
                     UserName = user.UserName,
                     ProfileImageUrl = user.ProfileImageUrl ?? "/img/avatar-male-4.jpg",
                 };
@@ -54,10 +50,6 @@ namespace InsaClub.Controllers
             var userDetailViewModel = new UserDetailViewModel()
             {
                 Id = user.Id,
-                Pace = user.Pace,
-                City = user.City,
-                State = user.State,
-                Mileage = user.Mileage,
                 UserName = user.UserName,
                 ProfileImageUrl = user.ProfileImageUrl ?? "/img/avatar-male-4.jpg",
             };
@@ -77,10 +69,7 @@ namespace InsaClub.Controllers
 
             var editMV = new EditProfileViewModel()
             {
-                City = user.City,
-                State = user.State,
-                Pace = user.Pace,
-                Mileage = user.Mileage,
+    
                 ProfileImageUrl = user.ProfileImageUrl,
             };
             return View(editMV);
@@ -126,10 +115,7 @@ namespace InsaClub.Controllers
                 return View(editVM);
             }
 
-            user.City = editVM.City;
-            user.State = editVM.State;
-            user.Pace = editVM.Pace;
-            user.Mileage = editVM.Mileage;
+
 
             await _userManager.UpdateAsync(user);
 

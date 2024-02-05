@@ -1,6 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using InsaClub.Data;
 using InsaClub.Data.Enum;
 using InsaClub.Interfaces;
 using InsaClub.Models;
@@ -8,15 +6,15 @@ using InsaClub.ViewModels;
 
 namespace InsaClub.Controllers
 {
-    public class RaceController : Controller
+    public class EventController : Controller
     {
-        private readonly IRaceRepository _raceRepository;
+        private readonly IEventRepository _eventRepository;
         private readonly IPhotoService _photoService;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public RaceController(IRaceRepository raceRepository, IPhotoService photoService, IHttpContextAccessor httpContextAccessor)
+        public EventController(IEventRepository eventRepository, IPhotoService photoService, IHttpContextAccessor httpContextAccessor)
         {
-            _raceRepository = raceRepository;
+            _eventRepository = eventRepository;
             _photoService = photoService;
             _httpContextAccessor = httpContextAccessor;
         }
@@ -31,24 +29,24 @@ namespace InsaClub.Controllers
             }
 
             // if category is -1 (All) dont filter else filter by selected category
-            var races = category switch
+            var events = category switch
             {
-                -1 => await _raceRepository.GetSliceAsync((page - 1) * pageSize, pageSize),
-                _ => await _raceRepository.GetRacesByCategoryAndSliceAsync((EventCategory)category, (page - 1) * pageSize, pageSize),
+                -1 => await _eventRepository.GetSliceAsync((page - 1) * pageSize, pageSize),
+                _ => await _eventRepository.GetEventsByCategoryAndSliceAsync((EventCategory)category, (page - 1) * pageSize, pageSize),
             };
 
             var count = category switch
             {
-                -1 => await _raceRepository.GetCountAsync(),
-                _ => await _raceRepository.GetCountByCategoryAsync((EventCategory)category),
+                -1 => await _eventRepository.GetCountAsync(),
+                _ => await _eventRepository.GetCountByCategoryAsync((EventCategory)category),
             };
 
-            var viewModel = new IndexRaceViewModel
+            var viewModel = new IndexEventViewModel
             {
-                Races = races,
+                Events = events,
                 Page = page,
                 PageSize = pageSize,
-                TotalRaces = count,
+                TotalEvents = count,
                 TotalPages = (int)Math.Ceiling(count / (double)pageSize),
                 Category = category,
             };
@@ -56,39 +54,40 @@ namespace InsaClub.Controllers
             return View(viewModel);
         }
 
-        [HttpGet]
-        [Route("event/{runningRace}/{id}")]
-        public async Task<IActionResult> DetailRace(int id, string runningRace)
-        {
-            var race = await _raceRepository.GetByIdAsync(id);
-            return race == null ? NotFound() : View(race);
-        }
+            [HttpGet]
+            [Route("event/{runningEvent}/{id}")]
+            public async Task<IActionResult> DetailEvent(int id, string runningEvent)
+            {
+                var selectedEvent = await _eventRepository.GetByIdAsync(id);
+                return selectedEvent == null ? NotFound() : View(selectedEvent);
+            }
+        
 
-        [HttpGet]
-        public IActionResult Create()
-        {
-            var curUserID = _httpContextAccessor.HttpContext?.User.GetUserId();
-            var createRaceViewModel = new CreateRaceViewModel { UserId = curUserID };
-            return View(createRaceViewModel);
-        }
+        // [HttpGet]
+        // public IActionResult Create()
+        // {
+        //     var curUserID = _httpContextAccessor.HttpContext?.User.GetUserId();
+        //     var createEventViewModel = new CreateEventViewModel { UserId = curUserID };
+        //     return View(createEventViewModel);
+        // }
 
         [HttpPost]
-        public async Task<IActionResult> Create(CreateRaceViewModel raceVM)
+        public async Task<IActionResult> Create(CreateEventViewModel eventVM)
         {
             if (ModelState.IsValid)
             {
-                var result = await _photoService.AddPhotoAsync(raceVM.Image);
+                var result = await _photoService.AddPhotoAsync(eventVM.Image);
 
-                var race = new Event
+                var @event = new Event
                 {
-                    Title = raceVM.Title,
-                    Description = raceVM.Description,
+                    Title = eventVM.Title,
+                    Description = eventVM.Description,
                     Image = result.Url.ToString(),
-                    UserId = raceVM.UserId,
-                    EventCategory = raceVM.EventCategory,
+                    ClubId = eventVM.ClubId,
+                    EventCategory = eventVM.EventCategory,
                
                 };
-                _raceRepository.Add(race);
+                _eventRepository.Add(@event);
                 return RedirectToAction("Index");
             }
             else
@@ -96,66 +95,63 @@ namespace InsaClub.Controllers
                 ModelState.AddModelError("", "Photo upload failed");
             }
 
-            return View(raceVM);
+            return View(eventVM);
         }
 
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
-            var race = await _raceRepository.GetByIdAsync(id);
-            if (race == null) return View("Error");
-            var raceVM = new EditRaceViewModel
+            var @event = await _eventRepository.GetByIdAsync(id);
+            if (@event == null) return View("Error");
+            var eventVM = new EditEventViewModel
             {
-                Title = race.Title,
-                Description = race.Description,
-                AddressId = race.AddressId,
-                Address = race.Address,
-                URL = race.Image,
-                EventCategory = race.EventCategory
+                Title = @event.Title,
+                Description = @event.Description,
+                URL = @event.Image,
+                EventCategory = @event.EventCategory
             };
-            return View(raceVM);
+            return View(eventVM);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(int id, EditRaceViewModel raceVM)
+        public async Task<IActionResult> Edit(int id, EditEventViewModel eventVM)
         {
             if (!ModelState.IsValid)
             {
                 ModelState.AddModelError("", "Failed to edit club");
-                return View(raceVM);
+                return View(eventVM);
             }
 
-            var userRace = await _raceRepository.GetByIdAsyncNoTracking(id);
+            var userEvent = await _eventRepository.GetByIdAsyncNoTracking(id);
 
-            if (userRace == null)
+            if (userEvent == null)
             {
                 return View("Error");
             }
 
-            var photoResult = await _photoService.AddPhotoAsync(raceVM.Image);
+            var photoResult = await _photoService.AddPhotoAsync(eventVM.Image);
 
             if (photoResult.Error != null)
             {
                 ModelState.AddModelError("Image", "Photo upload failed");
-                return View(raceVM);
+                return View(eventVM);
             }
 
-            if (!string.IsNullOrEmpty(userRace.Image))
+            if (!string.IsNullOrEmpty(userEvent.Image))
             {
-                _ = _photoService.DeletePhotoAsync(userRace.Image);
+                _ = _photoService.DeletePhotoAsync(userEvent.Image);
             }
 
-            var race = new Event
+            var @event = new Event
             {
                 Id = id,
-                Title = raceVM.Title,
-                Description = raceVM.Description,
+                Title = eventVM.Title,
+                Description = eventVM.Description,
                 Image = photoResult.Url.ToString(),
-                AddressId = raceVM.AddressId,
-                Address = raceVM.Address,
+          
             };
 
-            _raceRepository.Update(race);
+            _eventRepository.Update(@event);
 
             return RedirectToAction("Index");
         }
@@ -163,7 +159,7 @@ namespace InsaClub.Controllers
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
-            var clubDetails = await _raceRepository.GetByIdAsync(id);
+            var clubDetails = await _eventRepository.GetByIdAsync(id);
             if (clubDetails == null) return View("Error");
             return View(clubDetails);
         }
@@ -171,19 +167,19 @@ namespace InsaClub.Controllers
         [HttpPost, ActionName("Delete")]
         public async Task<IActionResult> DeleteClub(int id)
         {
-            var raceDetails = await _raceRepository.GetByIdAsync(id);
+            var eventDetails = await _eventRepository.GetByIdAsync(id);
 
-            if (raceDetails == null)
+            if (eventDetails == null)
             {
                 return View("Error");
             }
 
-            if (!string.IsNullOrEmpty(raceDetails.Image))
+            if (!string.IsNullOrEmpty(eventDetails.Image))
             {
-                _ = _photoService.DeletePhotoAsync(raceDetails.Image);
+                _ = _photoService.DeletePhotoAsync(eventDetails.Image);
             }
 
-            _raceRepository.Delete(raceDetails);
+            _eventRepository.Delete(eventDetails);
             return RedirectToAction("Index");
         }
     }

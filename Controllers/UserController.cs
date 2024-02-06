@@ -74,6 +74,11 @@ namespace InsaClub.Controllers
 
             var editMV = new EditProfileViewModel()
             {
+                EmailAddress = user.Email,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                StudyLevel = user.StudyLevel,
+                Bio = user.Bio,
     
                 ProfileImageUrl = user.ProfileImageUrl,
             };
@@ -120,6 +125,10 @@ namespace InsaClub.Controllers
                 return View(editVM);
             }
 
+            user.FirstName = editVM.FirstName;
+            user.LastName = editVM.LastName;
+            user.StudyLevel = editVM.StudyLevel;
+            user.Bio = editVM.Bio;
 
 
             await _userManager.UpdateAsync(user);

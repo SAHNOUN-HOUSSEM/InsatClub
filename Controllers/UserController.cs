@@ -46,11 +46,16 @@ namespace InsaClub.Controllers
             {
                 return RedirectToAction("Index", "Users");
             }
-
+            //log lastName 
+            Console.WriteLine("************************LAST NAME************************");
+            Console.WriteLine(user.LastName);
             var userDetailViewModel = new UserDetailViewModel()
             {
                 Id = user.Id,
-                UserName = user.UserName,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                StudyLevel = user.StudyLevel,
+                Bio = user.Bio,
                 ProfileImageUrl = user.ProfileImageUrl ?? "/img/avatar-male-4.jpg",
             };
             return View(userDetailViewModel);

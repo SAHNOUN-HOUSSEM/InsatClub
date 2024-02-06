@@ -13,5 +13,7 @@ namespace InsaClub.Models
         public StudyLevel StudyLevel { get; set; }
         public string? ProfileImageUrl { get; set; }
         public ICollection<Club> Clubs { get; set; }
+
+        public string? Bio { get; set; }
     }
 }

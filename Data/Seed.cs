@@ -28,7 +28,8 @@ namespace InsaClub.Data
                             Image = "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Association_for_Computing_Machinery_%28ACM%29_logo.svg/1200px-Association_for_Computing_Machinery_%28ACM%29_logo.svg.png",
                             Description = "ACM is the abbreviation for Association for Computing Machinery. It is an international learned society for computing. It was founded in 1947, and is the world's largest scientific and educational computing society. The ACM is a non-profit professional membership group, with nearly 100,000 members as of 2019. Its headquarters are in New York City.",
                             ClubCategory = ClubCategory.SOFTWARE_ENGINEERING,
-                            User = admin
+                            User = admin,
+
                          },
                         new Club()
                         {
@@ -36,8 +37,9 @@ namespace InsaClub.Data
                             Image = "https://static.wixstatic.com/media/8d8500_6b9d7d43e7654b6c9d5c6bc5c7ff1105~mv2.png",
                             Description = "Cine Club is a club for movie lovers. We watch movies and discuss them. We also organize movie nights and movie marathons.",
                             ClubCategory = ClubCategory.CULTURAL,
-                            User = user
-                          
+                            User = user,
+
+
                         },
                         new Club()
                         {
@@ -45,8 +47,9 @@ namespace InsaClub.Data
                             Image = "https://as1.ftcdn.net/v2/jpg/05/04/17/06/1000_F_504170662_GJIBhnhN4bw8PF5AzeHoAlgrH3adCLHO.jpg",
                             Description = "INSAT football club is a club for football lovers. We organize football matches and tournaments.",
                             ClubCategory = ClubCategory.SPORT,
-                            User = user
-                       
+                            User = user,
+
+
                         },
                         new Club()
                         {
@@ -54,8 +57,9 @@ namespace InsaClub.Data
                             Image = "https://mesce.s3.ap-south-1.amazonaws.com/uploads/RAS_2_61974400bb.png",
                             Description = "This is the description of the first club",
                             ClubCategory = ClubCategory.ROBOTICS,
-                            User = admin
-                           
+                            User = admin,
+
+
                         }
                     });
                     context.SaveChanges();
@@ -74,7 +78,7 @@ namespace InsaClub.Data
                             Description = "This is the description of the first event",
                             EventCategory = EventCategory.COMPETITION,
                             Club = ACM
-                          
+
                         },
                         new Event()
                         {
@@ -83,7 +87,7 @@ namespace InsaClub.Data
                             Description = "This is the description of the first event",
                             EventCategory = EventCategory.HACKATHON,
                             Club = IEE
-                          
+
                         }
                     });
                     context.SaveChanges();
@@ -130,7 +134,7 @@ namespace InsaClub.Data
                         UserName = "user",
                         Email = UserEmail,
                         EmailConfirmed = true,
-                    
+
                     };
                     await userManager.CreateAsync(newUser, "user");
                     await userManager.AddToRoleAsync(newUser, UserRoles.User);

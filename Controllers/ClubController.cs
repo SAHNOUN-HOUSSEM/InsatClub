@@ -7,16 +7,17 @@ using InsaClub.ViewModels;
 
 namespace InsaClub.Controllers
 {
-    [Route("clubs")]
     public class ClubController : Controller
     {
         private readonly IClubRepository _clubRepository;
         private readonly IPhotoService _photoService;
+        private readonly IUserRepository _userRepository;
 
-        public ClubController(IClubRepository clubRepository, IPhotoService photoService)
+        public ClubController(IClubRepository clubRepository, IPhotoService photoService, IUserRepository userRepository)
         {
             _clubRepository = clubRepository;
             _photoService = photoService;
+            _userRepository = userRepository;
         }
 
         [HttpGet]
@@ -53,94 +54,18 @@ namespace InsaClub.Controllers
             return View(clubViewModel);
         }
 
-        // [HttpGet]
-        // [Route("RunningClubs/{state}")]
-        // public async Task<IActionResult> ListClubsByState(string state)
-        // {
-        //     var clubs = await _clubRepository.GetClubsByState(StateConverter.GetStateByName(state).ToString());
-        //     var clubVM = new ListClubByStateViewModel()
-        //     {
-        //         Clubs = clubs
-        //     };
-        //     if (clubs.Count() == 0)
-        //     {
-        //         clubVM.NoClubWarning = true;
-        //     }
-        //     else
-        //     {
-        //         clubVM.State = state;
-        //     }
-        //     return View(clubVM);
-        // }
-
-        // [HttpGet]
-        // [Route("RunningClubs/{city}/{state}")]
-        // public async Task<IActionResult> ListClubsByCity(string city, string state)
-        // {
-        //     var clubs = await _clubRepository.GetClubByCity(city);
-        //     var clubVM = new ListClubByCityViewModel()
-        //     {
-        //         Clubs = clubs
-        //     };
-        //     if (clubs.Count() == 0)
-        //     {
-        //         clubVM.NoClubWarning = true;
-        //     }
-        //     else
-        //     {
-        //         clubVM.State = state;
-        //         clubVM.City = city;
-        //     }
-        //     return View(clubVM);
-        // }
-
         [HttpGet]
-        [Route("club/{id}")]
-        public async Task<IActionResult> DetailClub(int id)
+        public async Task<IActionResult> DetailClub(int id, string runningClub)
         {
             var club = await _clubRepository.GetByIdAsync(id);
+
+
+            // return new JsonResult(new { club });
 
             return club == null ? NotFound() : View(club);
         }
 
-        // [HttpGet]
-        // [Route("RunningClubs/State")]
-        // public async Task<IActionResult> RunningClubsByStateDirectory()
-        // {
-        //     var states = await _clubRepository.GetAllStates();
-        //     var clubVM = new RunningClubByState()
-        //     {
-        //         States = states
-        //     };
 
-        //     return states == null ? NotFound() : View(clubVM);
-        // }
-
-        // [HttpGet]
-        // [Route("RunningClubs/State/City")]
-        // public async Task<IActionResult> RunningClubsByStateForCityDirectory()
-        // {
-        //     var states = await _clubRepository.GetAllStates();
-        //     var clubVM = new RunningClubByState()
-        //     {
-        //         States = states
-        //     };
-
-        //     return states == null ? NotFound() : View(clubVM);
-        // }
-
-        // [HttpGet]
-        // [Route("RunningClubs/{state}/City")]
-        // public async Task<IActionResult> RunningClubsByCityDirectory(string state)
-        // {
-        //     var cities = await _clubRepository.GetAllCitiesByState(StateConverter.GetStateByName(state).ToString());
-        //     var clubVM = new RunningClubByCity()
-        //     {
-        //         Cities = cities
-        //     };
-
-        //     return cities == null ? NotFound() : View(clubVM);
-        // }
 
         [HttpGet]
         public IActionResult Create()
@@ -157,6 +82,7 @@ namespace InsaClub.Controllers
             {
                 var result = await _photoService.AddPhotoAsync(clubVM.Image);
 
+
                 var club = new Club
                 {
                     Title = clubVM.Title,
@@ -164,7 +90,8 @@ namespace InsaClub.Controllers
                     Image = result.Url.ToString(),
                     ClubCategory = clubVM.ClubCategory,
                     UserId = clubVM.UserId,
-             
+                    CreatedAt = DateTime.Now
+
                 };
                 _clubRepository.Add(club);
                 return RedirectToAction("Index");
@@ -186,6 +113,7 @@ namespace InsaClub.Controllers
             {
                 Title = club.Title,
                 Description = club.Description,
+
                 URL = club.Image,
                 ClubCategory = club.ClubCategory
             };
@@ -221,12 +149,14 @@ namespace InsaClub.Controllers
                 _ = _photoService.DeletePhotoAsync(userClub.Image);
             }
 
+
             var club = new Club
             {
                 Id = id,
                 Title = clubVM.Title,
                 Description = clubVM.Description,
                 Image = photoResult.Url.ToString(),
+                UserId = userClub.UserId,
             };
 
             _clubRepository.Update(club);

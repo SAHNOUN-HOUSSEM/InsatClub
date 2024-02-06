@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using InsaClub.Models;
+using System.Text.Json.Serialization;
 
 namespace InsaClub.Models
 {
@@ -12,6 +13,7 @@ namespace InsaClub.Models
         public Guid StudyLevelId { get; set; }
         public StudyLevel StudyLevel { get; set; }
         public string? ProfileImageUrl { get; set; }
+        [JsonIgnore]
         public ICollection<Club> Clubs { get; set; }
 
         public string? Bio { get; set; }

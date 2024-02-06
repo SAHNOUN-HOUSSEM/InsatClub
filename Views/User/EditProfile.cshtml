@@ -80,10 +80,7 @@
                                             <small>For best results, use an image at least 256px by 256px in either .jpg or .png format</small>
                                         </div>
 
-                                        <input asp-for="City" hidden />
-                                        <input asp-for="State" hidden />
-                                        <input asp-for="Pace" hidden />
-                                        <input asp-for="Mileage" hidden />
+                                  
 
                                     </form>
                                 </div>
@@ -104,34 +101,7 @@
                         <!--end of col-->
                         <div class="col-12 col-md-8 order-md-1">
                             <form asp-action="EditProfile" method="post" class="row">
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label asp-for="City">City:</label>
-                                        <input asp-for="City" type="text" class="form-control form-control-lg" />
-                                        <span asp-validation-for="City" class="text-danger"></span>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label asp-for="State">State:</label>
-                                        <input asp-for="State" type="text" class="form-control form-control-lg" />
-                                        <span asp-validation-for="State" class="text-danger"></span>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label asp-for="Pace">Pace:</label>
-                                        <input asp-for="Pace" type="text" class="form-control form-control-lg" />
-                                        <span asp-validation-for="Pace" class="text-danger"></span>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label asp-for="Mileage">Mileage:</label>
-                                        <input asp-for="Mileage" type="text" class="form-control form-control-lg" />
-                                        <span asp-validation-for="Mileage" class="text-danger"></span>
-                                    </div>
-                                </div>
+                                  
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label for="about-me">About me:</label>

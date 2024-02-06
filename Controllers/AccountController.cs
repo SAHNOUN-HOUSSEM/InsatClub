@@ -11,16 +11,20 @@ namespace InsaClub.Controllers
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
+
+        private readonly IPhotoService _photoService;
         private readonly ApplicationDbContext _context;
 
-        public AccountController(UserManager<User> userManager, 
-            SignInManager<User> signInManager, 
-            ApplicationDbContext context
+        public AccountController(UserManager<User> userManager,
+            SignInManager<User> signInManager,
+            ApplicationDbContext context,
+            IPhotoService photoService
            )
         {
             _context = context;
             _signInManager = signInManager;
             _userManager = userManager;
+            _photoService = photoService;
         }
 
         [HttpGet]
@@ -67,21 +71,32 @@ namespace InsaClub.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Register(RegisterViewModel registerViewModel)
+        public async Task<IActionResult> Register(RegisterViewModel registerViewModel, string action)
         {
-            
+            Console.WriteLine("************Register************");
+            if (action == "UpdatePhoto")
+            {
+                return RedirectToAction("UpdatePhotoRegister", registerViewModel);
+            }
             if (!ModelState.IsValid) return View(registerViewModel);
+            Console.WriteLine("************Register Valids************");
             var user = await _userManager.FindByEmailAsync(registerViewModel.EmailAddress);
             if (user != null)
             {
+                Console.WriteLine("User is not null");
                 TempData["Error"] = "This email address is already in use";
                 return View(registerViewModel);
             }
-
+            Console.WriteLine("Image is null");
             var newUser = new User()
             {
+
                 Email = registerViewModel.EmailAddress,
                 UserName = registerViewModel.EmailAddress,
+                FirstName = registerViewModel.FirstName,
+                LastName = registerViewModel.LastName,
+                StudyLevel = registerViewModel.StudyLevel,
+                ProfileImageUrl = registerViewModel.ProfileImageUrl,
                 EmailConfirmed = true,
 
             };
@@ -91,6 +106,35 @@ namespace InsaClub.Controllers
             return RedirectToAction("Index", "Event");
         }
 
+        public async Task<IActionResult> UpdatePhotoRegister(RegisterViewModel registerViewModel)
+        {
+
+            Console.WriteLine("************Register 22************");
+            Console.WriteLine("********EMAIL*************");
+            Console.WriteLine(registerViewModel.EmailAddress);
+            Console.WriteLine(registerViewModel.Image);
+            Console.WriteLine("ModelState.IsValid: " + ModelState.IsValid);
+            foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
+            {
+                Console.WriteLine("ModelState Error: " + error.ErrorMessage);
+            }
+            if (registerViewModel.Image != null) // only update profile image
+            {
+                Console.WriteLine("Image is not null");
+                var photoResult = await _photoService.AddPhotoAsync(registerViewModel.Image);
+
+                if (photoResult.Error != null)
+                {
+                    ModelState.AddModelError("Image", "Failed to upload image");
+                    return View(registerViewModel);
+                }
+
+
+                registerViewModel.ProfileImageUrl = photoResult.Url.ToString();
+            }
+            return View("Register", registerViewModel);
+
+        }
         [HttpGet]
         public async Task<IActionResult> Logout()
         {
@@ -98,19 +142,9 @@ namespace InsaClub.Controllers
             return RedirectToAction("Index", "Event");
         }
 
-        [HttpGet]
-        [Route("Account/Welcome")]
-        public async Task<IActionResult> Welcome(int page = 0)
-        {
-            if(page == 0)
-            {
-                return View();
-            }
-            return View();
-            
-        }
 
-  
+
+
 
 
     }

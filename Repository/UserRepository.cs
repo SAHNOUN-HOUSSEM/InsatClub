@@ -31,7 +31,7 @@ namespace InsaClub.Repository
 
         public async Task<User> GetUserById(string id)
         {
-            return await _context.Users.FindAsync(id);
+            return await _context.Users.Include(u => u.StudyLevel).FirstOrDefaultAsync(u => u.Id == id);
         }
 
         public bool Save()

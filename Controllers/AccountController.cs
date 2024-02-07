@@ -71,23 +71,16 @@ namespace InsaClub.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Register(RegisterViewModel registerViewModel, string action)
+        public async Task<IActionResult> Register(RegisterViewModel registerViewModel)
         {
-            Console.WriteLine("************Register************");
-            if (action == "UpdatePhoto")
-            {
-                return RedirectToAction("UpdatePhotoRegister", registerViewModel);
-            }
             if (!ModelState.IsValid) return View(registerViewModel);
-            Console.WriteLine("************Register Valids************");
             var user = await _userManager.FindByEmailAsync(registerViewModel.EmailAddress);
             if (user != null)
             {
-                Console.WriteLine("User is not null");
                 TempData["Error"] = "This email address is already in use";
                 return View(registerViewModel);
             }
-            Console.WriteLine("Image is null");
+            Console.WriteLine("registerViewModel.StudyLevel.Level" + registerViewModel.StudyLevel.Level);
             var newUser = new User()
             {
 
@@ -106,35 +99,25 @@ namespace InsaClub.Controllers
             return RedirectToAction("Index", "Event");
         }
 
-        public async Task<IActionResult> UpdatePhotoRegister(RegisterViewModel registerViewModel)
-        {
+        // public async Task<IActionResult> UpdatePhotoRegister(RegisterViewModel registerViewModel)
+        // {
+        
+        //     if (registerViewModel.Image != null) // only update profile image
+        //     {
+        //         var photoResult = await _photoService.AddPhotoAsync(registerViewModel.Image);
 
-            Console.WriteLine("************Register 22************");
-            Console.WriteLine("********EMAIL*************");
-            Console.WriteLine(registerViewModel.EmailAddress);
-            Console.WriteLine(registerViewModel.Image);
-            Console.WriteLine("ModelState.IsValid: " + ModelState.IsValid);
-            foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
-            {
-                Console.WriteLine("ModelState Error: " + error.ErrorMessage);
-            }
-            if (registerViewModel.Image != null) // only update profile image
-            {
-                Console.WriteLine("Image is not null");
-                var photoResult = await _photoService.AddPhotoAsync(registerViewModel.Image);
-
-                if (photoResult.Error != null)
-                {
-                    ModelState.AddModelError("Image", "Failed to upload image");
-                    return View(registerViewModel);
-                }
+        //         if (photoResult.Error != null)
+        //         {
+        //             ModelState.AddModelError("Image", "Failed to upload image");
+        //             return View(registerViewModel);
+        //         }
 
 
-                registerViewModel.ProfileImageUrl = photoResult.Url.ToString();
-            }
-            return View("Register", registerViewModel);
+        //         registerViewModel.ProfileImageUrl = photoResult.Url.ToString();
+        //     }
+        //     return View("Register", registerViewModel);
 
-        }
+        // }
         [HttpGet]
         public async Task<IActionResult> Logout()
         {

@@ -2,67 +2,68 @@
 @using InsaClub.ViewModels
 @model CreateClubViewModel
 @*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
+  ViewData["Title"] = "Create Club";
 }
 
- <div class="navbar-container">
-    </div>
-    <div class="main-container">
-      <section class="space-sm">
-        <div class="container">
-          <div class="row mb-5">
-            <!--end of col-->
+<div class="navbar-container">
+</div>
+<div class="main-container">
+  <section class="space-sm">
+    <div class="container">
+      <div class="row mb-5">
+        <!--end of col-->
+      </div>
+      <!--end of row-->
+      <div class="row flex-md-row card card-md">
+        <div class="card-body bg-secondary">
+          <div class="text-center mb-5">
+            <h1 class="h2 mb-2">Create your own running club</h1>
+            <span>Bring together runners in your community</span>
           </div>
-          <!--end of row-->
-          <div class="row flex-md-row card card-md">
-            <div class="card-body bg-secondary">
-              <div class="text-center mb-5">
-                <h1 class="h2 mb-2">Create your own running club</h1>
-                <span>Bring together runners in your community</span>
-              </div>
-              <div class="row justify-content-center">
-                <div class="col-6 col-lg-5">
-                  <form method="post" asp-action="Create" enctype="multipart/form-data">
-                   <input type="hidden" id="UserId" name="UserId" asp-for="UserId" />
-                    <div class="form-row form-group">
-                      <div class="col">                        
-                        <input asp-for="Title" class="form-control form-control-lg" placeholder="Title" />
-                        <span asp-validation-for="Title" class="text-danger"></span>
-                      </div>
-                      <div class="col">                        
-                        <select asp-for="ClubCategory" asp-items="@Html.GetEnumSelectList<ClubCategory>()" class="form-control form-control-lg">
-                                <option>--Select--</option>
-                        </select>
-                        <span asp-validation-for="ClubCategory" class="text-danger"></span>
-                      </div>
-                    </div>
-                    <div class="form-row form-group">
-                      <div class="col">                       
-                        <input asp-for="Description" class="form-control form-control-lg" placeholder="Description" />
-                        <span asp-validation-for="Description" class="text-danger"></span>
-                      </div>
-                    </div> 
-                    <div class="form-row form-group">
-                      <div class="col">                        
-                        <input asp-for="Image" type="file" class="form-control form-control-lg" placeholder="Image" />
-                        <span asp-validation-for="Image" class="text-danger"></span>
-                      </div>
-                    </div>
-                    <div class="form-row form-group">
-                      <div class="col">
-                        <button class="btn btn-block btn-success btn-lg" type="submit">Create Account</button>
-                      </div>
-                    </div>
-                  </form>
+          <div class="row justify-content-center">
+            <div class="col-6 col-lg-5">
+              <form method="post" asp-controller="club" asp-action="Create" enctype="multipart/form-data">
+                <input type="hidden" id="UserId" name="UserId" asp-for="UserId" />
+                <div class="form-row form-group">
+                  <div class="col">
+                    <input asp-for="Title" class="form-control form-control-lg" placeholder="Title" />
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                  </div>
+                  <div class="col">
+                    <select asp-for="ClubCategory" asp-items="@Html.GetEnumSelectList<ClubCategory>()"
+                      class="form-control form-control-lg">
+                      <option>--Select--</option>
+                    </select>
+                    <span asp-validation-for="ClubCategory" class="text-danger"></span>
+                  </div>
                 </div>
-              </div>
+                <div class="form-row form-group">
+                  <div class="col">
+                    <input asp-for="Description" class="form-control form-control-lg" placeholder="Description" />
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                  </div>
+                </div>
+                <div class="form-row form-group">
+                  <div class="col">
+                    <input asp-for="Image" type="file" class="form-control form-control-lg" placeholder="Image" />
+                    <span asp-validation-for="Image" class="text-danger"></span>
+                  </div>
+                </div>
+                <div class="form-row form-group">
+                  <div class="col">
+                    <button class="btn btn-block btn-success btn-lg" type="submit">Create Account</button>
+                  </div>
+                </div>
+              </form>
             </div>
           </div>
         </div>
-        <!--end of container-->
-      </section>
-      <!--end of section-->
+      </div>
     </div>
-
+    <!--end of container-->
+  </section>
+  <!--end of section-->
+</div>

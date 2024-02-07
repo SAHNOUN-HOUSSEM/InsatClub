@@ -4,9 +4,22 @@ using Microsoft.AspNetCore.Mvc;
 using InsaClub.ViewModels;
 using InsaClub.Interfaces;
 using InsaClub.Models;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace InsaClub.Controllers
 {
+    public class EditProfileVM
+    {
+        public EditProfileViewModel EditProfileViewModel { get; set; }
+    }
+    public class PasswordUpdateVM
+    {
+        public PasswordUpdateViewModel PasswordUpdateViewModel { get; set; }
+    }
+    public class UpdatePhotoUpdateVM
+    {
+        public UpdatePhotoUpdateModel UpdatePhotoUpdateModel { get; set; }
+    }
     public class UserController : Controller
     {
         private readonly IUserRepository _userRepository;
@@ -31,7 +44,7 @@ namespace InsaClub.Controllers
                 {
                     Id = user.Id,
                     UserName = user.UserName,
-                    ProfileImageUrl = user.ProfileImageUrl ?? "/img/avatar-male-4.jpg",
+                    ProfileImageUrl = user.ProfileImageUrl ?? "/img/avatar.jpg",
                 };
                 result.Add(userViewModel);
             }
@@ -50,10 +63,39 @@ namespace InsaClub.Controllers
             var userDetailViewModel = new UserDetailViewModel()
             {
                 Id = user.Id,
-                UserName = user.UserName,
-                ProfileImageUrl = user.ProfileImageUrl ?? "/img/avatar-male-4.jpg",
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                StudyLevel = user.StudyLevel,
+                Bio = user.Bio,
+                ProfileImageUrl = user.ProfileImageUrl ?? "/img/avatar.jpg",
             };
             return View(userDetailViewModel);
+        }
+
+        private ProfileViewModel createProfileViewModel(User user, string activeTab = "profile")
+        {
+            return new ProfileViewModel()
+            {
+                EditProfileViewModel = new EditProfileViewModel()
+                {
+                    EmailAddress = user.Email,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    StudyLevel = user.StudyLevel,
+                    Bio = user.Bio,
+                },
+                UpdatePhotoUpdateModel = new UpdatePhotoUpdateModel()
+                {
+                    ProfileImageUrl = user.ProfileImageUrl,
+                },
+                PasswordUpdateViewModel = new PasswordUpdateViewModel()
+                {
+                    OldPassword = "",
+                    NewPassword = "",
+                    ConfirmNewPassword = ""
+                },
+                ActiveTab = activeTab
+            };
         }
 
         [HttpGet]
@@ -66,24 +108,20 @@ namespace InsaClub.Controllers
             {
                 return View("Error");
             }
+            var userPopulated = await _userRepository.GetUserById(user.Id);
 
-            var editMV = new EditProfileViewModel()
-            {
-    
-                ProfileImageUrl = user.ProfileImageUrl,
-            };
-            return View(editMV);
+
+
+            var editVM = createProfileViewModel(userPopulated);
+            return View(editVM);
         }
+
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> EditProfile(EditProfileViewModel editVM)
+        public async Task<IActionResult> UpdateProfile(ProfileViewModel input)
         {
-            if (!ModelState.IsValid)
-            {
-                ModelState.AddModelError("", "Failed to edit profile");
-                return View("EditProfile", editVM);
-            }
+            var editVM = input.EditProfileViewModel;
 
             var user = await _userManager.GetUserAsync(User);
 
@@ -91,15 +129,106 @@ namespace InsaClub.Controllers
             {
                 return View("Error");
             }
+            var userPopulated = await _userRepository.GetUserById(user.Id);
 
-            if (editVM.Image != null) // only update profile image
+            //test if there are errors in the model named "EditProfileViewModel"
+            var cond = ModelState.Keys.FirstOrDefault( k => k.Contains("EditProfileViewModel") && ModelState[k].Errors.Count > 0);
+      
+            if (cond != null)
             {
-                var photoResult = await _photoService.AddPhotoAsync(editVM.Image);
+                ModelState.AddModelError("", "Failed to edit profile");
+                //console all errors
+              
+                return View("EditProfile", createProfileViewModel(userPopulated));
+            }
+
+
+
+
+            user.FirstName = editVM.FirstName;
+            user.LastName = editVM.LastName;
+            user.StudyLevel = editVM.StudyLevel;
+            user.Bio = editVM.Bio;
+
+
+            await _userManager.UpdateAsync(user);
+
+            return RedirectToAction("Detail", "User", new { user.Id });
+        }
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> UpdatePassword(PasswordUpdateVM input)
+        {
+            Console.WriteLine("***************UpdatePassword******************");
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return View("Error");
+            }
+            var userPopulated = await _userRepository.GetUserById(user.Id);
+            var passwordUpdateViewModel = input.PasswordUpdateViewModel;
+            var cond = ModelState.Keys.FirstOrDefault( k => k.Contains("PasswordUpdateViewModel") && ModelState[k].Errors.Count > 0);
+      
+            if (cond != null)
+            {
+                ModelState.AddModelError("", "Failed to update password");
+                //log all errors
+                foreach (var key in ModelState.Keys)
+                {
+                    Console.WriteLine(key);
+                    foreach (var error in ModelState[key].Errors)
+                    {
+                        Console.WriteLine(error.ErrorMessage);
+                    }
+                }
+                return View("EditProfile",  createProfileViewModel(userPopulated, "security"));
+            }
+
+
+
+            var result = await _userManager.ChangePasswordAsync(user, passwordUpdateViewModel.OldPassword, passwordUpdateViewModel.NewPassword);
+
+            if (!result.Succeeded)
+            {
+                ModelState.AddModelError("PasswordUpdateViewModel.OldPassword", "Old password is incorrect");
+                return View("EditProfile", createProfileViewModel(userPopulated, "security"));
+            }
+
+            return RedirectToAction("Detail", "User", new { user.Id });
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> UpdatePhoto(UpdatePhotoUpdateVM input)
+        {
+            Console.WriteLine("***************UpdatePhoto******************");
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return View("Error");
+            }
+                        var userPopulated = await _userRepository.GetUserById(user.Id);
+
+            
+            var updatePhotoUpdateModel = input.UpdatePhotoUpdateModel;
+            var cond = ModelState.Keys.FirstOrDefault( k => k.Contains("UpdatePhotoUpdateModel") && ModelState[k].Errors.Count > 0);
+      
+            if (cond != null)
+            {
+             
+                ModelState.AddModelError("", "Failed to update photo");
+                return View("EditProfile", createProfileViewModel(userPopulated, "image"));
+            }
+            
+            
+            if (updatePhotoUpdateModel.Image != null) // only update profile image
+            {
+                var photoResult = await _photoService.AddPhotoAsync(updatePhotoUpdateModel.Image);
 
                 if (photoResult.Error != null)
                 {
                     ModelState.AddModelError("Image", "Failed to upload image");
-                    return View("EditProfile", editVM);
+                    return View("EditProfile", updatePhotoUpdateModel);
                 }
 
                 if (!string.IsNullOrEmpty(user.ProfileImageUrl))
@@ -108,18 +237,16 @@ namespace InsaClub.Controllers
                 }
 
                 user.ProfileImageUrl = photoResult.Url.ToString();
-                editVM.ProfileImageUrl = user.ProfileImageUrl;
+                updatePhotoUpdateModel.ProfileImageUrl = user.ProfileImageUrl;
 
                 await _userManager.UpdateAsync(user);
 
-                return View(editVM);
             }
+        return View("EditProfile", createProfileViewModel(userPopulated, "image"));
 
 
 
-            await _userManager.UpdateAsync(user);
-
-            return RedirectToAction("Detail", "User", new { user.Id });
         }
     }
+
 }

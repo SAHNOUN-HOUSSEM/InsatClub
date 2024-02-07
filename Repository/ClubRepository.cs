@@ -32,7 +32,7 @@ namespace InsaClub.Repository
             return await _context.Clubs.ToListAsync();
         }
 
-    
+
 
         public async Task<IEnumerable<Club>> GetSliceAsync(int offset, int size)
         {
@@ -55,7 +55,7 @@ namespace InsaClub.Repository
 
         public async Task<Club?> GetByIdAsync(int id)
         {
-            return await _context.Clubs.FirstOrDefaultAsync(i => i.Id == id);
+            return await _context.Clubs.Include(c => c.User).FirstOrDefaultAsync(i => i.Id == id);
         }
 
         public async Task<Club?> GetByIdAsyncNoTracking(int id)
@@ -80,8 +80,8 @@ namespace InsaClub.Repository
             return await _context.Clubs.CountAsync();
         }
 
-      
 
-    
+
+
     }
 }

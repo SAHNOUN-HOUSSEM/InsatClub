@@ -1,36 +1,12 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using InsaClub.Attributes;
 using InsaClub.Models;
 
 namespace InsaClub.ViewModels
 {
-    public class ValidateStudyLevelAttribute : ValidationAttribute
-    {
-        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
-        {
-            var registerViewModel = (RegisterViewModel)validationContext.ObjectInstance;
-            if (registerViewModel.StudyLevel == null)
-            {
-                return new ValidationResult("StudyLevel is required.");
-            }
-
-
-            if (registerViewModel.StudyLevel.Level == EStudyLevel.A1 &&
-                (registerViewModel.StudyLevel.Speciality != ESpeciality.MPI && registerViewModel.StudyLevel.Speciality != ESpeciality.CBA))
-            {
-                return new ValidationResult("The first year is only allowed for MPI and CBA specialities.");
-            }
-
-            if (registerViewModel.StudyLevel.Level != EStudyLevel.A1 &&
-                (registerViewModel.StudyLevel.Speciality == ESpeciality.MPI || registerViewModel.StudyLevel.Speciality == ESpeciality.CBA))
-            {
-                return new ValidationResult("The first year is only allowed for MPI and CBA specialities.");
-            }
-
-            return ValidationResult.Success;
-        }
-    }
-    public class RegisterViewModel
+    
+    public class RegisterViewModel : EditProfileViewModel
     {
         [Display(Name = "Email address")]
         [Required(ErrorMessage = "Email address is required")]
@@ -46,7 +22,7 @@ namespace InsaClub.ViewModels
 
         [Display(Name = "Study level")]
         [Required(ErrorMessage = "Study level is required")]
-        [ValidateStudyLevel(ErrorMessage = "Invalid combination of study level and speciality.")]
+        [ValidateStudyLevelRegisterAttribute(ErrorMessage = "Invalid combination of study level and speciality.")]
 
         public StudyLevel StudyLevel { get; set; }
 

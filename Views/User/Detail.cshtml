@@ -30,12 +30,14 @@
                         <img alt="Image" src="@Model.ProfileImageUrl" class="mr-md-5 avatar avatar-xlg">
                         <div class="media-body">
                             <div class="mb-3">
-                                <h1 class="h2 mb-2">@Model.UserName</h1>
+                                <h1 class="h2 mb-2">@Model.FirstName @Model.LastName</h1>
+                                <span class="text-muted text-small"> @Model.StudyLevel.Level @Model.StudyLevel.Speciality</span>
+    
                             </div>
                             <p>
-                                Modify your bio now
+                                @Model.Bio
                             </p>
-                            <div>
+                            @* <div>
                                 <button class="btn btn-outline-primary" data-toggle="button"><i class="icon-add-user"></i> Follow</button>
                                 <button class="btn btn-outline-primary">
                                     <i class="icon-mail"></i>
@@ -52,7 +54,7 @@
                                         <a class="dropdown-item" href="#">Report</a>
                                     </div>
                                 </div>
-                            </div>
+                            </div> *@
                         </div>
                     </div>
                 </div>
@@ -333,19 +335,19 @@
                                         <ul class="list-inline list-spacing-sm">
 
                                             <li class="list-inline-item">
-                                                <img alt="Group member" class="avatar avatar-xs" src="/img/avatar-male-5.jpg">
+                                                <img alt="Group member" class="avatar avatar-xs" src="/img/avatar.jpg">
                                             </li>
 
                                             <li class="list-inline-item">
-                                                <img alt="Group member" class="avatar avatar-xs" src="/img/avatar-female-4.jpg">
+                                                <img alt="Group member" class="avatar avatar-xs" src="/img/avatar.jpg">
                                             </li>
 
                                             <li class="list-inline-item">
-                                                <img alt="Group member" class="avatar avatar-xs" src="/img/avatar-male-5.jpg">
+                                                <img alt="Group member" class="avatar avatar-xs" src="/img/avatar.jpg">
                                             </li>
 
                                             <li class="list-inline-item">
-                                                <img alt="Group member" class="avatar avatar-xs" src="/img/avatar-female-4.jpg">
+                                                <img alt="Group member" class="avatar avatar-xs" src="/img/avatar.jpg">
                                             </li>
 
                                         </ul>
@@ -375,19 +377,19 @@
                                         <ul class="list-inline list-spacing-sm">
 
                                             <li class="list-inline-item">
-                                                <img alt="Group member" class="avatar avatar-xs" src="/img/avatar-male-5.jpg">
+                                                <img alt="Group member" class="avatar avatar-xs" src="/img/avatar.jpg">
                                             </li>
 
                                             <li class="list-inline-item">
-                                                <img alt="Group member" class="avatar avatar-xs" src="/img/avatar-female-5.jpg">
+                                                <img alt="Group member" class="avatar avatar-xs" src="/img/avatar.jpg">
                                             </li>
 
                                             <li class="list-inline-item">
-                                                <img alt="Group member" class="avatar avatar-xs" src="/img/avatar-male-4.jpg">
+                                                <img alt="Group member" class="avatar avatar-xs" src="/img/avatar.jpg">
                                             </li>
 
                                             <li class="list-inline-item">
-                                                <img alt="Group member" class="avatar avatar-xs" src="/img/avatar-female-5.jpg">
+                                                <img alt="Group member" class="avatar avatar-xs" src="/img/avatar.jpg">
                                             </li>
 
                                         </ul>
@@ -417,19 +419,19 @@
                                         <ul class="list-inline list-spacing-sm">
 
                                             <li class="list-inline-item">
-                                                <img alt="Group member" class="avatar avatar-xs" src="/img/avatar-male-4.jpg">
+                                                <img alt="Group member" class="avatar avatar-xs" src="/img/avatar.jpg">
                                             </li>
 
                                             <li class="list-inline-item">
-                                                <img alt="Group member" class="avatar avatar-xs" src="/img/avatar-female-2.jpg">
+                                                <img alt="Group member" class="avatar avatar-xs" src="/img/avatar.jpg">
                                             </li>
 
                                             <li class="list-inline-item">
-                                                <img alt="Group member" class="avatar avatar-xs" src="/img/avatar-male-4.jpg">
+                                                <img alt="Group member" class="avatar avatar-xs" src="/img/avatar.jpg">
                                             </li>
 
                                             <li class="list-inline-item">
-                                                <img alt="Group member" class="avatar avatar-xs" src="/img/avatar-female-5.jpg">
+                                                <img alt="Group member" class="avatar avatar-xs" src="/img/avatar.jpg">
                                             </li>
 
                                         </ul>
@@ -454,7 +456,7 @@
                                 <div class="card-body">
                                     <div class="media">
                                         <a href="#" class="mr-3">
-                                            <img alt="Daniel Cameron" src="/img/avatar-male-1.jpg" class="avatar">
+                                            <img alt="Daniel Cameron" src="/img/avatar.jpg" class="avatar">
                                         </a>
                                         <div class="media-body">
                                             <div>
@@ -487,7 +489,7 @@
                                 <div class="card-body">
                                     <div class="media">
                                         <a href="#" class="mr-3">
-                                            <img alt="Caitlyn Halsy" src="/img/avatar-female-1.jpg" class="avatar">
+                                            <img alt="Caitlyn Halsy" src="/img/avatar.jpg" class="avatar">
                                         </a>
                                         <div class="media-body">
                                             <div>
@@ -520,7 +522,7 @@
                                 <div class="card-body">
                                     <div class="media">
                                         <a href="#" class="mr-3">
-                                            <img alt="Toby Marsh" src="/img/avatar-male-2.jpg" class="avatar">
+                                            <img alt="Toby Marsh" src="/img/avatar.jpg" class="avatar">
                                         </a>
                                         <div class="media-body">
                                             <div>
@@ -553,7 +555,7 @@
                                 <div class="card-body">
                                     <div class="media">
                                         <a href="#" class="mr-3">
-                                            <img alt="Lucille Freebody" src="/img/avatar-female-2.jpg" class="avatar">
+                                            <img alt="Lucille Freebody" src="/img/avatar.jpg" class="avatar">
                                         </a>
                                         <div class="media-body">
                                             <div>
@@ -586,7 +588,7 @@
                                 <div class="card-body">
                                     <div class="media">
                                         <a href="#" class="mr-3">
-                                            <img alt="Brenton Harvey" src="/img/avatar-male-3.jpg" class="avatar">
+                                            <img alt="Brenton Harvey" src="/img/avatar.jpg" class="avatar">
                                         </a>
                                         <div class="media-body">
                                             <div>
@@ -619,7 +621,7 @@
                                 <div class="card-body">
                                     <div class="media">
                                         <a href="#" class="mr-3">
-                                            <img alt="Tabatha Firth" src="/img/avatar-female-3.jpg" class="avatar">
+                                            <img alt="Tabatha Firth" src="/img/avatar.jpg" class="avatar">
                                         </a>
                                         <div class="media-body">
                                             <div>
@@ -652,7 +654,7 @@
                                 <div class="card-body">
                                     <div class="media">
                                         <a href="#" class="mr-3">
-                                            <img alt="Ramon Hernandez" src="/img/avatar-male-4.jpg" class="avatar">
+                                            <img alt="Ramon Hernandez" src="/img/avatar.jpg" class="avatar">
                                         </a>
                                         <div class="media-body">
                                             <div>
@@ -685,7 +687,7 @@
                                 <div class="card-body">
                                     <div class="media">
                                         <a href="#" class="mr-3">
-                                            <img alt="Roberta Kissinger" src="/img/avatar-female-4.jpg" class="avatar">
+                                            <img alt="Roberta Kissinger" src="/img/avatar.jpg" class="avatar">
                                         </a>
                                         <div class="media-body">
                                             <div>
@@ -718,7 +720,7 @@
                                 <div class="card-body">
                                     <div class="media">
                                         <a href="#" class="mr-3">
-                                            <img alt="Franc Bijon" src="/img/avatar-male-5.jpg" class="avatar">
+                                            <img alt="Franc Bijon" src="/img/avatar.jpg" class="avatar">
                                         </a>
                                         <div class="media-body">
                                             <div>
@@ -751,7 +753,7 @@
                                 <div class="card-body">
                                     <div class="media">
                                         <a href="#" class="mr-3">
-                                            <img alt="Kate Worthington" src="/img/avatar-female-5.jpg" class="avatar">
+                                            <img alt="Kate Worthington" src="/img/avatar.jpg" class="avatar">
                                         </a>
                                         <div class="media-body">
                                             <div>
@@ -784,7 +786,7 @@
                                 <div class="card-body">
                                     <div class="media">
                                         <a href="#" class="mr-3">
-                                            <img alt="Kenny Smith" src="/img/avatar-male-6.jpg" class="avatar">
+                                            <img alt="Kenny Smith" src="/img/avatar.jpg" class="avatar">
                                         </a>
                                         <div class="media-body">
                                             <div>
@@ -817,7 +819,7 @@
                                 <div class="card-body">
                                     <div class="media">
                                         <a href="#" class="mr-3">
-                                            <img alt="Christina Hersinger" src="/img/avatar-female-6.jpg" class="avatar">
+                                            <img alt="Christina Hersinger" src="/img/avatar.jpg" class="avatar">
                                         </a>
                                         <div class="media-body">
                                             <div>
@@ -854,50 +856,14 @@
         </div>
     </section>
     <!--end of section-->
-    <footer class="footer-short">
+    @* <footer class="footer-short">
         <div class="container">
             <hr>
-            <nav class="row justify-content-between align-items-center">
-                <div class="col-auto">
-                    <ul class="list-inline">
-                        <li class="list-inline-item">
-                            <a href="#">
-                                <img alt="Image" src="/img/logo-gray.svg">
-                            </a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a href="#">Overview</a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a href="#">Documentation</a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a href="#">Changelog</a>
-                        </li>
-                    </ul>
-                </div>
-                <!--end of col-->
-                <div class="col-auto text-sm-right">
-                    <ul class="list-inline">
-                        <li class="list-inline-item">
-                            <a href="#"><i class="socicon-twitter"></i></a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a href="#"><i class="socicon-facebook"></i></a>
-                        </li>
-                    </ul>
-                </div>
-                <!--end of col-->
-            </nav>
+            
             <!--end of row-->
-            <div class="row">
-                <div class="col">
-                    <small>© 2019 Medium Rare All Rights Reserved</small>
-                </div>
-                <!--end of col-->
-            </div>
+            
             <!--end of row-->
         </div>
         <!--end of container-->
-    </footer>
+    </footer> *@
 </div>

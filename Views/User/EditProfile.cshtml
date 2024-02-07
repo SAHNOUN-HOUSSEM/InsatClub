@@ -1,5 +1,5 @@
 ﻿@using InsaClub.ViewModels
-@model EditProfileViewModel
+@model ProfileViewModel
 
 <div class="main-container">
     <section class="bg-white space-sm pb-4">
@@ -23,29 +23,23 @@
                     <div class="col">
                         <ul class="nav nav-tabs" id="myTab" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link active"
-                                   id="overview-tab"
-                                   data-toggle="tab"
-                                   href="#profile"
-                                   role="tab"
-                                   aria-selected="true">Profile</a>
+                                <a class="nav-link @(Model.ActiveTab == "profile" ? "active" : "")" id="overview-tab"
+                                    data-toggle="tab" href="#profile" role="tab" aria-selected="true">Profile</a>
+
+
+
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link"
-                                   id="security-tab"
-                                   data-toggle="tab"
-                                   href="#security"
-                                   role="tab"
-                                   aria-selected="false">Security</a>
+                                <a class="nav-link @(Model.ActiveTab == "security" ? "active" : "")" id="security-tab"
+                                    data-toggle="tab" href="#security" role="tab" aria-selected="true">Security</a>
+
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link"
-                                   id="notifications-tab"
-                                   data-toggle="tab"
-                                   href="#notifications"
-                                   role="tab"
-                                   aria-selected="false">Notifications</a>
+                                <a class="nav-link @(Model.ActiveTab == "image" ? "active" : "")" id="image-tab"
+                                    data-toggle="tab" href="#image" role="tab" aria-selected="true">Change image</a>
+
                             </li>
+
                         </ul>
                     </div>
                     <!--end of col-->
@@ -57,37 +51,10 @@
     </section>
     <section class="flush-with-above height-80 d-block">
         <div class="tab-content">
-            <div class="tab-pane fade show active" id="profile" role="tabpanel">
+            <div class="tab-pane fade show @(Model.ActiveTab == "profile" ? "active" : "")" id="profile"
+                role="tabpanel">
                 <div class="container">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="media flex-wrap mb-0 align-items-center">
-                                @{
-                                    var imageUrl = string.IsNullOrEmpty(Model.ProfileImageUrl)
-                                    ? "/img/avatar-male-3.jpg"
-                                    : Model.ProfileImageUrl;
-                                }
-                                <img alt="Image" src="@imageUrl" class="avatar avatar-lg mb-3 mb-md-0" />
-                                <div class="media-body">
-                                    <form asp-action="EditProfile" enctype="multipart/form-data">
-                                        <label asp-for="Image" class="custom-file mb-2" for="file2">
-                                            <input asp-for="Image" type="file" id="file2" class="custom-file-input height-0" oninput="submitProfileImage();" />
-                                            <span class="btn btn-primary"><i class="icon-upload-to-cloud">&nbsp;</i>Upload</span>
-                                            <span asp-validation-for="Image" class="text-danger"></span>
-                                            <button id="submit-image-button" type="submit" hidden></button>
-                                        </label>
-                                        <div>
-                                            <small>For best results, use an image at least 256px by 256px in either .jpg or .png format</small>
-                                        </div>
 
-                                  
-
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                        <!--end of col-->
-                    </div>
                     <!--end of row-->
                     <hr />
                     <div class="row mb-4">
@@ -100,15 +67,201 @@
                     <div class="row">
                         <!--end of col-->
                         <div class="col-12 col-md-8 order-md-1">
-                            <form asp-action="EditProfile" method="post" class="row">
-                                  
+                            <form asp-action="UpdateProfile" method="post" class="row">
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <label for="about-me">About me:</label>
-                                        <textarea class="form-control form-control-lg"
-                                                  name="profileBio"
-                                                  rows="4"
-                                                  id="about-me"></textarea>
+                                        <label asp-for="EditProfileViewModel.EmailAddress"
+                                            class="control-label"></label>
+                                        <input asp-for="EditProfileViewModel.EmailAddress" class="form-control" disabled
+                                            value="@Model.EditProfileViewModel.EmailAddress" />
+                                        <input type="hidden" asp-for="EditProfileViewModel.EmailAddress" />
+
+                                        <span asp-validation-for="EditProfileViewModel.EmailAddress"
+                                            class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group
+                    ">
+                                        <label asp-for="EditProfileViewModel.FirstName" class="control-label"></label>
+                                        <input asp-for="EditProfileViewModel.FirstName" class="form-control" />
+                                        <span asp-validation-for="EditProfileViewModel.FirstName"
+                                            class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group
+                    ">
+                                        <label asp-for="EditProfileViewModel.LastName" class="control-label"></label>
+                                        <input asp-for="EditProfileViewModel.LastName" class="form-control" />
+                                        <span asp-validation-for="EditProfileViewModel.LastName"
+                                            class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+
+                                    <div class="form-group">
+                                        <label asp-for="EditProfileViewModel.StudyLevel" class="control-label"></label>
+                                        <select asp-for="EditProfileViewModel.StudyLevel.Level" class="form-control">
+                                            <option value="">Select Study Level</option>
+                                            @foreach (var level in Enum.GetValues(typeof(EStudyLevel)))
+                                            {
+
+                                                var isSelected = Model.EditProfileViewModel != null &&
+                                                Model.EditProfileViewModel.StudyLevel != null &&
+                                                Model.EditProfileViewModel.StudyLevel.Level.Equals(level);
+                                                //conditional rendering
+                                                @if (isSelected)
+                                                {
+                                                    <option value="@level" selected>@level</option>
+                                                }
+
+
+
+
+
+
+
+                                                else
+
+
+
+
+
+
+
+                                                {
+                                                    <option value="@level">@level</option>
+                                                }
+                                            }
+                                        </select>
+
+
+                                        <select asp-for="EditProfileViewModel.StudyLevel.Speciality"
+                                            class="form-control mt-2">
+                                            <option value="">Select Speciality</option>
+                                            @foreach (var speciality in Enum.GetValues(typeof(ESpeciality)))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                            {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                var isSelected = Model.EditProfileViewModel != null &&
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                Model.EditProfileViewModel.StudyLevel != null &&
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                Model.EditProfileViewModel.StudyLevel.Speciality.Equals(speciality);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                //conditional rendering
+                                                @if (isSelected)
+
+
+
+
+
+
+
+                                                {
+                                                    <option value="@speciality" selected>@speciality</option>
+                                                }
+
+
+
+
+
+
+
+                                                else
+
+
+
+
+
+
+
+                                                {
+                                                    <option value="@speciality">@speciality</option>
+                                                }
+                                            }
+
+                                        </select>
+                                        <span asp-validation-for="EditProfileViewModel.StudyLevel"
+                                            class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label asp-for="EditProfileViewModel.Bio" class="control-label"></label>
+                                        <input asp-for="EditProfileViewModel.Bio" class="form-control" />
+                                        <span asp-validation-for="EditProfileViewModel.Bio" class="text-danger"></span>
                                     </div>
                                 </div>
                                 <div class="col-12">
@@ -125,153 +278,129 @@
                 <!--end of container-->
             </div>
             <!--end of tab pane-->
-            <div class="tab-pane fade" id="security" role="tabpanel">
-                <div class="container"></div>
+            <div class="tab-pane @(Model.ActiveTab == "security" ? "active" : "")" id="security" role="tabpanel">
+                <div class="container">
+                    <form asp-action="UpdatePassword" method="post" class="row">
+                        @{
+                            Console.WriteLine("*****OldPAssword******");
+                            Console.WriteLine(Model.PasswordUpdateViewModel.OldPassword);
+                        }
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label asp-for="PasswordUpdateViewModel.OldPassword" class="control-label"></label>
+                                <input asp-for="PasswordUpdateViewModel.OldPassword" class="form-control" />
+                                <span asp-validation-for="PasswordUpdateViewModel.OldPassword"
+                                    class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group
+                    ">
+                                <label asp-for="PasswordUpdateViewModel.NewPassword" class="control-label"></label>
+                                <input asp-for="PasswordUpdateViewModel.NewPassword" class="form-control" />
+                                <span asp-validation-for="PasswordUpdateViewModel.NewPassword"
+                                    class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-12">
+
+                            <div class="form-group
+                    ">
+                                <label asp-for="PasswordUpdateViewModel.ConfirmNewPassword"
+                                    class="control-label"></label>
+                                <input asp-for="PasswordUpdateViewModel.ConfirmNewPassword" class="form-control" />
+                                <span asp-validation-for="PasswordUpdateViewModel.ConfirmNewPassword"
+                                    class="text-danger"></span>
+
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <button class="btn btn-primary" type="submit">Save changes</button>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
                 <!--end of container-->
             </div>
-            <!--end of tab pane-->
-            <div class="tab-pane fade" id="notifications" role="tabpanel">
+            <div class="tab-pane @(Model.ActiveTab == "image" ? "active" : "")" id="image" role="tabpanel">
                 <div class="container">
                     <div class="row">
+
                         <div class="col-12">
-                            <div class="alert alert-info text-small mb-0" role="alert">
-                                <i class="icon-shield"></i>
-                                <span>
-                                    We will never distribute your email address to third parties. Read about email communication in
-                                    our privacy policy.
-                                </span>
-                                <a href="#">View privacy policy &rsaquo;</a>
+                            <div class="media flex-wrap mb-0 align-items-center">
+                                @{
+                                    var imageUrl = string.IsNullOrEmpty(Model.UpdatePhotoUpdateModel.ProfileImageUrl)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                    ? "/img/avatar.jpg"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                    : Model.UpdatePhotoUpdateModel.ProfileImageUrl;
+                                }
+                                <img alt="Image" src="@imageUrl" class="avatar avatar-lg mb-3 mb-md-0" />
+                                <div class="media-body">
+                                    <form asp-action="UpdatePhoto" method="post" enctype="multipart/form-data">
+                                        <label asp-for="UpdatePhotoUpdateModel.Image" class="custom-file mb-2"
+                                            for="file2">
+                                            <input asp-for="UpdatePhotoUpdateModel.Image" type="file" id="file2"
+                                                class="custom-file-input height-0" oninput="submitProfileImage();" />
+                                            <span class="btn btn-primary"><i
+                                                    class="icon-upload-to-cloud">&nbsp;</i>Upload</span>
+                                            <span asp-validation-for="UpdatePhotoUpdateModel.Image"
+                                                class="text-danger"></span>
+                                            <button id="submit-image-button" type="submit" hidden></button>
+                                        </label>
+                                        <div>
+                                            <small>For best results, use an image at least 256px by 256px in either .jpg
+                                                or .png format</small>
+                                        </div>
+
+
+
+                                    </form>
+                                </div>
                             </div>
                         </div>
                         <!--end of col-->
                     </div>
-                    <hr />
-                    <div class="row">
-                        <div class="col-12">
-                            <form>
-                                <h5 class="mb-4">Notification Preferences</h5>
-                                <div>
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox"
-                                               class="custom-control-input"
-                                               name="notify-mention"
-                                               checked
-                                               id="notify-mention" />
-                                        <label class="custom-control-label" for="notify-mention">Someone mentions me</label>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox"
-                                               class="custom-control-input"
-                                               name="notify-request"
-                                               checked
-                                               id="notify-follow" />
-                                        <label class="custom-control-label" for="notify-follow">Someone follows me</label>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox"
-                                               class="custom-control-input"
-                                               name="notify-share"
-                                               checked
-                                               id="notify-share" />
-                                        <label class="custom-control-label" for="notify-share">Someone shares my activty</label>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox"
-                                               class="custom-control-input"
-                                               name="notify-message"
-                                               checked
-                                               id="notify-message" />
-                                        <label class="custom-control-label" for="notify-message">Someone messages me</label>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox"
-                                               class="custom-control-input"
-                                               name="notify-adds"
-                                               checked
-                                               id="notify-adds" />
-                                        <label class="custom-control-label" for="notify-adds">Someone adds me to a project</label>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" name="notify-sales" id="notify-sales" />
-                                        <label class="custom-control-label" for="notify-sales">Sales and promotions</label>
-                                    </div>
-                                </div>
-                                <button type="submit" class="btn btn-secondary mt-4" disabled>Update preferences</button>
-                            </form>
-                        </div>
-                        <!--end of col-->
-                    </div>
-                    <!--end of row-->
-                    <hr />
-                    <div class="row">
-                        <div class="col-12">
-                            <form>
-                                <h5>Notification Frequency</h5>
-                                <div>
-                                    <div class="custom-control custom-radio">
-                                        <input id="notify-daily"
-                                               type="radio"
-                                               class="custom-control-input"
-                                               value="notify-daily"
-                                               name="notify-frequency" />
-                                        <label class="custom-control-label" for="notify-daily">Daily</label>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="custom-control custom-radio">
-                                        <input id="notify-weekly"
-                                               type="radio"
-                                               class="custom-control-input"
-                                               value="notify-weekly"
-                                               name="notify-frequency"
-                                               checked />
-                                        <label class="custom-control-label" for="notify-weekly">Weekly</label>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="custom-control custom-radio">
-                                        <input id="notify-monthly"
-                                               type="radio"
-                                               class="custom-control-input"
-                                               value="notify-monthly"
-                                               name="notify-frequency" />
-                                        <label class="custom-control-label" for="notify-monthly">Monthly</label>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="custom-control custom-radio">
-                                        <input id="notify-never"
-                                               type="radio"
-                                               class="custom-control-input"
-                                               value="notify-never"
-                                               name="notify-frequency" />
-                                        <label class="custom-control-label" for="notify-never">Never</label>
-                                    </div>
-                                </div>
-                                <button type="submit" class="btn btn-secondary mt-4" disabled>Update frequency</button>
-                            </form>
-                        </div>
-                        <!--end of col-->
-                    </div>
-                    <!--end of row-->
                 </div>
-                <!--end of container-->
             </div>
-        </div>
-        <!--end of tabs content-->
+
+            <!--end of tab pane-->
+
+            <!--end of tabs content-->
     </section>
     <!--end of section-->
 </div>
+
 
 
 <script type="text/javascript">

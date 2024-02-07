@@ -9,6 +9,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -20,13 +21,15 @@
     <link rel="stylesheet" href="~/InsaClub.styles.css" asp-append-version="true" />
     <script src="https://kit.fontawesome.com/8aa18c8793.js" crossorigin="anonymous"></script>
 </head>
+
 <body>
     <div class="navbar-container">
         <div class="bg-light navbar-light" data-sticky="top">
             <div class="container">
                 <nav class="navbar navbar-expand-lg">
-                    <a class="navbar-brand" asp-controller="Home" asp-action="Index" id="logo-text">RunGroop</a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <a class="navbar-brand" asp-controller="Home" asp-action="Index" id="logo-text">InsatClubs</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <i class="icon-menu h4"></i>
                     </button>
                     <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
@@ -37,35 +40,37 @@
                             @if (SignInManager.IsSignedIn(User))
                             {
                                 <li class="nav-item">
-                                    <a class="nav-link" asp-area="" asp-controller="user" asp-action="Index">Find Runners</a>
+                                    <a class="nav-link" asp-controller="user" asp-action="Index">Find
+                                        Runners</a>
                                 </li>
                             }
                             <li class="nav-item">
-                                <a class="nav-link" asp-area="" asp-controller="Club" asp-action="Index">Find Clubs</a>
+                                <a class="nav-link" asp-controller="Club" asp-action="Index">Find Clubs</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" asp-area="" asp-controller="Event" asp-action="Index">Find Events</a>
+                                <a class="nav-link" asp-area="" asp-controller="Event" asp-action="Index">Find
+                                    Events</a>
                             </li>
-                            <li class="nav-item">
-                                <a href="/blog" class="nav-link">Blog</a>
-                            </li>
+
                         </ul>
                         @if (SignInManager.IsSignedIn(User))
                         {
                             <ul class="navbar-nav">
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle p-lg-0" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <a class="nav-link dropdown-toggle p-lg-0" href="#" id="dropdown01"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         @if (!string.IsNullOrEmpty(currentUser.ProfileImageUrl))
                                         {
                                             <img alt="Image" src="@currentUser.ProfileImageUrl" class="avatar avatar-xs">
                                         }
                                         else
                                         {
-                                            <img alt="Image" src="/img/avatar-male-4.jpg" class="avatar avatar-xs">
+                                            <img alt="Image" src="/img/avatar.jpg" class="avatar avatar-xs">
                                         }
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-                                        <a class="dropdown-item" asp-controller="User" asp-action="Detail" asp-route-id="@currentUser.Id">
+                                        <a class="dropdown-item" asp-controller="User" asp-action="Detail"
+                                            asp-route-id="@currentUser.Id">
                                             <span class="h6 mb-0">View Profile</span>
                                         </a>
 
@@ -117,9 +122,10 @@
         <div class="container">
             <div class="row">
                 <div class="col-12 col-md-3">
-                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index" id="logo-text">RunGroop</a>
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"
+                        id="logo-text">InsatClub</a>
                     <p class="text-muted">
-                        &copy; 2022 RunGroop
+                        &copy; 2024 InsatClub
                         <br />
                         <br />
                     </p>
@@ -132,20 +138,18 @@
                             <h6>Navigate</h6>
                             <ul class="list-unstyled">
                                 <li>
-                                    <a asp-area="" asp-controller="Home"
-                                       asp-action="Index">Home</a>
+                                    <a asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                                 </li>
                                 <li>
-                                    <a asp-area="" asp-controller="Users"
-                                       asp-action="Index">Find Runners Near You</a>
+                                    <a asp-area="" asp-controller="Users" asp-action="Index">Find Runners Near You</a>
                                 </li>
                                 <li>
-                                    <a asp-area="" asp-controller="Club"
-                                       asp-action="Index">Find Running Clubs Near You</a>
+                                    <a asp-area="" asp-controller="Club" asp-action="Index">Find Running Clubs Near
+                                        You</a>
                                 </li>
                                 <li>
-                                    <a asp-area="" asp-controller="Event"
-                                       asp-action="Index">Find Running Events Near You</a>
+                                    <a asp-area="" asp-controller="Event" asp-action="Index">Find Running Events Near
+                                        You</a>
                                 </li>
                             </ul>
                         </div>
@@ -154,12 +158,12 @@
                             <h6>Club Directory</h6>
                             <ul class="list-unstyled">
                                 <li>
-                                    <a asp-area="" asp-controller="Club"
-                                       asp-action="RunningClubsByStateDirectory">Find Running Clubs By State</a>
+                                    <a asp-area="" asp-controller="Club" asp-action="RunningClubsByStateDirectory">Find
+                                        Running Clubs By State</a>
                                 </li>
                                 <li>
                                     <a asp-area="" asp-controller="Club"
-                                       asp-action="RunningClubsByStateForCityDirectory">Find Running Clubs By City</a>
+                                        asp-action="RunningClubsByStateForCityDirectory">Find Running Clubs By City</a>
                                 </li>
                             </ul>
                         </div>
@@ -183,14 +187,12 @@
                                     <a href="https://www.youtube.com/channel/UCU_Pr6r85LeSe62S65BLV2g">Youtube</a>
                                 </li>
                                 <li>
-                                    <a href="https://www.facebook.com/RunGroop-101353239237822">Facebook</a>
+                                    <a href="https://www.facebook.com/InsatClub-101353239237822">Facebook</a>
                                 </li>
                                 <li>
-                                    <a href="https://twitter.com/rungroop">Twitter</a>
+                                    <a href="https://twitter.com/InsatClub">Twitter</a>
                                 </li>
-                                <li>
-                                    <a href="/blog">Blog</a>
-                                </li>
+
                             </ul>
                         </div>
                         <!--end of col-->
@@ -210,4 +212,5 @@
     <script src="~/js/custom.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
+
 </html>

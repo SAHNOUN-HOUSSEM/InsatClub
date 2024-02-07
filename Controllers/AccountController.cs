@@ -73,7 +73,6 @@ namespace InsaClub.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel registerViewModel)
         {
-          
             if (!ModelState.IsValid) return View(registerViewModel);
             var user = await _userManager.FindByEmailAsync(registerViewModel.EmailAddress);
             if (user != null)

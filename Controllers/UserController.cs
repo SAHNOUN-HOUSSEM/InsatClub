@@ -44,7 +44,7 @@ namespace InsaClub.Controllers
                 {
                     Id = user.Id,
                     UserName = user.UserName,
-                    ProfileImageUrl = user.ProfileImageUrl ?? "/img/avatar-male-4.jpg",
+                    ProfileImageUrl = user.ProfileImageUrl ?? "/img/avatar.jpg",
                 };
                 result.Add(userViewModel);
             }
@@ -67,7 +67,7 @@ namespace InsaClub.Controllers
                 LastName = user.LastName,
                 StudyLevel = user.StudyLevel,
                 Bio = user.Bio,
-                ProfileImageUrl = user.ProfileImageUrl ?? "/img/avatar-male-4.jpg",
+                ProfileImageUrl = user.ProfileImageUrl ?? "/img/avatar.jpg",
             };
             return View(userDetailViewModel);
         }

@@ -71,12 +71,9 @@ namespace InsaClub.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Register(RegisterViewModel registerViewModel, string action)
+        public async Task<IActionResult> Register(RegisterViewModel registerViewModel)
         {
-            if (action == "UpdatePhoto")
-            {
-                return RedirectToAction("UpdatePhotoRegister", registerViewModel);
-            }
+          
             if (!ModelState.IsValid) return View(registerViewModel);
             var user = await _userManager.FindByEmailAsync(registerViewModel.EmailAddress);
             if (user != null)
@@ -84,6 +81,7 @@ namespace InsaClub.Controllers
                 TempData["Error"] = "This email address is already in use";
                 return View(registerViewModel);
             }
+            Console.WriteLine("registerViewModel.StudyLevel.Level" + registerViewModel.StudyLevel.Level);
             var newUser = new User()
             {
 
@@ -102,25 +100,25 @@ namespace InsaClub.Controllers
             return RedirectToAction("Index", "Event");
         }
 
-        public async Task<IActionResult> UpdatePhotoRegister(RegisterViewModel registerViewModel)
-        {
+        // public async Task<IActionResult> UpdatePhotoRegister(RegisterViewModel registerViewModel)
+        // {
         
-            if (registerViewModel.Image != null) // only update profile image
-            {
-                var photoResult = await _photoService.AddPhotoAsync(registerViewModel.Image);
+        //     if (registerViewModel.Image != null) // only update profile image
+        //     {
+        //         var photoResult = await _photoService.AddPhotoAsync(registerViewModel.Image);
 
-                if (photoResult.Error != null)
-                {
-                    ModelState.AddModelError("Image", "Failed to upload image");
-                    return View(registerViewModel);
-                }
+        //         if (photoResult.Error != null)
+        //         {
+        //             ModelState.AddModelError("Image", "Failed to upload image");
+        //             return View(registerViewModel);
+        //         }
 
 
-                registerViewModel.ProfileImageUrl = photoResult.Url.ToString();
-            }
-            return View("Register", registerViewModel);
+        //         registerViewModel.ProfileImageUrl = photoResult.Url.ToString();
+        //     }
+        //     return View("Register", registerViewModel);
 
-        }
+        // }
         [HttpGet]
         public async Task<IActionResult> Logout()
         {

@@ -14,12 +14,6 @@
 
         @if (TempData["Error"] != null)
 
-
-
-
-
-
-
         {
             <div class="col-md-12 alert alert-danger">
                 <span><b>Sorry!</b> - @TempData["Error"] </span>
@@ -56,13 +50,6 @@
                         <select asp-for="StudyLevel.Level" class="form-control">
                             <option value="">Select Study Level</option>
                             @foreach (var level in Enum.GetValues(typeof(EStudyLevel)))
-
-
-
-
-
-
-
                             {
                                 <option value="@level">@level</option>
                             }
@@ -71,42 +58,23 @@
                         <select asp-for="StudyLevel.Speciality" class="form-control mt-2">
                             <option value="">Select Speciality</option>
                             @foreach (var speciality in Enum.GetValues(typeof(ESpeciality)))
-
-
-
-
-
-
-
                             {
                                 <option value="@speciality">@speciality</option>
                             }
                         </select>
                         <span asp-validation-for="StudyLevel" class="text-danger"></span>
                     </div>
-                    <div class="col-12">
+                    @* <div class="col-12">
                         <div class="media flex-wrap mb-0 align-items-center">
                             @{
                                 var imageUrl = string.IsNullOrEmpty(Model.ProfileImageUrl)
 
-
-
-
-
-
-
                                 ? "/img/avatar-male-3.jpg"
-
-
-
-
-
-
 
                                 : Model.ProfileImageUrl;
                             }
                             <img alt="Image" src="@imageUrl" class="avatar avatar-lg mb-3 mb-md-0" />
-                            @* <div class="media-body">
+                            <div class="media-body">
                                 <form asp-action="UpdatePhotoRegister" enctype="multipart/form-data"
                                     id="UpdatePhotoRegister">
                                     <label asp-for="Image" class="custom-file mb-2" for="file2">
@@ -123,9 +91,9 @@
                                             format</small>
                                     </div>
                                 </form>
-                            </div> *@
+                            </div>
                         </div>
-                    </div>
+                    </div> *@
 
                     <div class="form-group">
                         <label asp-for="Password" class="control-label"></label>

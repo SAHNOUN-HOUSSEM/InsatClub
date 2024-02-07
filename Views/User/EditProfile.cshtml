@@ -105,94 +105,13 @@
                                         <select asp-for="EditProfileViewModel.StudyLevel.Level" class="form-control">
                                             <option value="">Select Study Level</option>
                                             @foreach (var level in Enum.GetValues(typeof(EStudyLevel)))
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                                             {
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                                                 var isSelected = Model.EditProfileViewModel != null &&
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                                                 Model.EditProfileViewModel.StudyLevel != null &&
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                                                 Model.EditProfileViewModel.StudyLevel.Level.Equals(level);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                                                 //conditional rendering
                                                 @if (isSelected)
-
-
-
-
-
-
-
                                                 {
                                                     <option value="@level" selected>@level</option>
                                                 }

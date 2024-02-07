@@ -8,13 +8,13 @@ namespace InsaClub.Attributes
 public
 
   
-    class ValidateStudyLevelAttribute : ValidationAttribute
+    class ValidateStudyLevelRegisterAttribute : ValidationAttribute
     {
     protected
         override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
             
-            var registerViewModel = (EditProfileViewModel)validationContext.ObjectInstance;
+            var registerViewModel = (RegisterViewModel)validationContext.ObjectInstance;
             
             
             if (registerViewModel.StudyLevel == null)

@@ -22,7 +22,7 @@ namespace InsaClub.ViewModels
 
         [Display(Name = "Study level")]
         [Required(ErrorMessage = "Study level is required")]
-        [ValidateStudyLevel(ErrorMessage = "Invalid combination of study level and speciality.")]
+        [ValidateStudyLevelRegisterAttribute(ErrorMessage = "Invalid combination of study level and speciality.")]
 
         public StudyLevel StudyLevel { get; set; }
 

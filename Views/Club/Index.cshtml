@@ -4,6 +4,7 @@
 @model IndexClubViewModel
 
 @{
+    ViewData["Title"] = "Clubs";
     bool isAuthenticated = User.Identity?.IsAuthenticated == true;
 
     int resultStart = ((Model.Page - 1) * Model.PageSize) + 1;

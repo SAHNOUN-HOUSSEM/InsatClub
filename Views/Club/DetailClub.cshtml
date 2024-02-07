@@ -3,8 +3,8 @@
 For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
+    ViewData["Title"] = "Club Details";
 }
-
 <div class="main-container">
   <nav aria-label="breadcrumb" role="navigation" class="bg-primary text-white">
     <div class="container">
@@ -79,7 +79,7 @@ For more information on enabling MVC for empty projects, visit https://go.micros
             @Model.Description
           </article>
           <hr>
-          <h5 class="mb-4">Discussion</h5>
+          <h5 class="mb-4">Actions</h5>
           <div class="card">
             <div class="card-header bg-secondary d-flex justify-content-between">
               <a class="btn btn-secondary" asp-controller="Club" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
@@ -136,12 +136,7 @@ For more information on enabling MVC for empty projects, visit https://go.micros
                   <span>@Model.User.FirstName @Model.User.LastName</span>
                 </div>
               </li>
-              <li class="list-group-item">
-                <div class="d-flex justify-content-between">
-                  <div><i class="icon-share mr-1"></i> Shares</div>
-                  <span>52</span>
-                </div>
-              </li>
+
             </ul>
           </div>
 

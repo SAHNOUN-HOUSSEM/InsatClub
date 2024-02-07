@@ -5,18 +5,17 @@ using InsaClub.ViewModels;
 
 namespace InsaClub.Attributes
 {
-public
+    public
 
-  
-    class ValidateStudyLevelAttribute : ValidationAttribute
+
+        class ValidateStudyLevelAttribute : ValidationAttribute
     {
-    protected
-        override ValidationResult IsValid(object value, ValidationContext validationContext)
+        protected
+            override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-        
+
             var registerViewModel = (EditProfileViewModel)validationContext.ObjectInstance;
-            
-            
+
             if (registerViewModel.StudyLevel == null)
             {
                 return new ValidationResult("StudyLevel is required.");

@@ -104,7 +104,7 @@ namespace InsaClub.Controllers
 
         public async Task<IActionResult> UpdatePhotoRegister(RegisterViewModel registerViewModel)
         {
-        
+
             if (registerViewModel.Image != null) // only update profile image
             {
                 var photoResult = await _photoService.AddPhotoAsync(registerViewModel.Image);

@@ -20,9 +20,7 @@ namespace InsaClub.ViewModels
         [ValidateStudyLevel(ErrorMessage = "Invalid combination of study level and speciality.")]
         public StudyLevel StudyLevel { get; set; }
 
-        [Display(Name = "Profile image")]
-        public string? ProfileImageUrl { get; set; }
-        public IFormFile? Image { get; set; }
+      
 
         public string? Bio { get; set; }
 

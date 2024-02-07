@@ -1,4 +1,4 @@
-﻿@* @using InsaClub.Data.Enum
+﻿@using InsaClub.Data.Enum
 @using InsaClub.Extensions
 @using InsaClub.ViewModels
 @model IndexEventViewModel
@@ -62,7 +62,7 @@
                             }
                             else
                             {
-                               <img class="card-img-top" src="@event.Image" alt="Card image cap"> 
+                               <img class="card-img-top" src="@evt.Image" alt="Card image cap"> 
                             }
                             
                         </a>
@@ -76,10 +76,10 @@
                             @if (isAuthenticated && User.IsInRole("admin"))
                             {
                                 <div>
-                                    <a type="button" class="btn btn-sm btn-outline-info" asp-controller="Event" asp-action="Edit" asp-route-id="@event.Id">
+                                    <a type="button" class="btn btn-sm btn-outline-info" asp-controller="Event" asp-action="Edit" asp-route-id="@evt.Id">
                                         Edit
                                     </a>
-                                    <a type="button" class="btn btn-sm btn-outline-danger" asp-controller="Event" asp-action="Delete" asp-route-id="@event.Id">
+                                    <a type="button" class="btn btn-sm btn-outline-danger" asp-controller="Event" asp-action="Delete" asp-route-id="@evt.Id">
                                         Delete
                                     </a>
                                 </div>
@@ -106,4 +106,5 @@
             </div>
         </div>
     </div>
-</section> *@
+</section>
+

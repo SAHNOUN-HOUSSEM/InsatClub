@@ -3,6 +3,26 @@
 @model CreateEventViewModel
 
 
+
+@* <div class="container">
+  @foreach (var item in Model.Clubs)
+  {
+    <div class="row">
+      <div class="col-md-4">
+        <div class="card">
+          <img class="card-img-top" src="~/images/club.jpg" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">@item.Title</h5>
+            <p class="card-text">@item.Description</p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+            
+      </div>
+        </div>
+      </div>
+    </div>
+  }
+</div> *@
+
  <div class="navbar-container">
     </div>
     <div class="main-container">
@@ -21,7 +41,7 @@
               <div class="row justify-content-center">
                 <div class="col-6 col-lg-5">
                   <form method="post" asp-action="Create" enctype="multipart/form-data">
-                   <input type="hidden" id="ClubId" name="ClubId" asp-for="ClubId" />
+                   @* <input type="hidden" id="ClubId" name="ClubId" asp-for="ClubId" /> *@
                     <div class="form-row form-group">
                       <div class="col">                       
                         <input asp-for="Title" class="form-control form-control-lg" placeholder="Title" />
@@ -41,7 +61,21 @@
                                     <option>--Select--</option>
                          </select>
                          <span asp-validation-for="EventCategory" class="text-danger"></span>
+
+                         
+
                       </div>
+                      <div class="col">                        
+                          <select asp-for="ClubId" asp-items="@Model.Clubs" class="form-control">
+                                    <option>--SelectClub--</option>
+
+                         </select>
+
+                         <span asp-validation-for="ClubId" class="text-danger"></span>
+                      </div>
+                      
+
+                      
                     </div> 
                     <div class="form-row form-group">
                       <div class="col">                        

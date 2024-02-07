@@ -3,6 +3,7 @@ using InsaClub.Data.Enum;
 using InsaClub.Interfaces;
 using InsaClub.Models;
 using InsaClub.ViewModels;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace InsaClub.Controllers
 {
@@ -11,16 +12,18 @@ namespace InsaClub.Controllers
         private readonly IEventRepository _eventRepository;
         private readonly IPhotoService _photoService;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IClubRepository _clubRepository;
 
-        public EventController(IEventRepository eventRepository, IPhotoService photoService, IHttpContextAccessor httpContextAccessor)
+        public EventController(IEventRepository eventRepository, IPhotoService photoService, IHttpContextAccessor httpContextAccessor,IClubRepository clubRepository)
         {
             _eventRepository = eventRepository;
             _photoService = photoService;
             _httpContextAccessor = httpContextAccessor;
+            _clubRepository = clubRepository;
         }
 
 
-        [HttpGet]
+        [HttpGet("events/{category?}/{page?}/{pageSize?}")]
         public async Task<IActionResult> Index(int category = -1, int page = 1, int pageSize = 6)
         {
             if (page < 1 || pageSize < 1)
@@ -54,51 +57,57 @@ namespace InsaClub.Controllers
             return View(viewModel);
         }
 
-            [HttpGet]
-            [Route("event/{runningEvent}/{id}")]
-            public async Task<IActionResult> DetailEvent(int id, string runningEvent)
-            {
-                var selectedEvent = await _eventRepository.GetByIdAsync(id);
-                return selectedEvent == null ? NotFound() : View(selectedEvent);
-            }
-        
+            
+    
 
-        // [HttpGet]
-        // public IActionResult Create()
-        // {
-        //     var curUserID = _httpContextAccessor.HttpContext?.User.GetUserId();
-        //     var createEventViewModel = new CreateEventViewModel { UserId = curUserID };
-        //     return View(createEventViewModel);
-        // }
+        [HttpGet]
+        [Route("event/create")]
+        public async Task<IActionResult> Create()
+        {
+        //    var currentUser = _httpContextAccessor.HttpContext.User;
+            // return Ok(currentUser.GetUserId());
+           
+           var Clubs = await _clubRepository.GetAll();
+              var ClubList = Clubs.Select(c => new SelectListItem
+              {
+                Value = c.Id.ToString(),
+                Text = c.Title
+              });
+                var Club = new CreateEventViewModel
+                {
+                    Clubs = ClubList
+                };
+           return View(Club);
+        }
 
         [HttpPost]
         public async Task<IActionResult> Create(CreateEventViewModel eventVM)
         {
-            if (ModelState.IsValid)
-            {
-                var result = await _photoService.AddPhotoAsync(eventVM.Image);
+            // return Ok(eventVM);
+            // return Ok(ModelState.IsValid);
+            var result = await _photoService.AddPhotoAsync(eventVM.Image);
 
-                var @event = new Event
-                {
+            var @event = new Event
+            {
                     Title = eventVM.Title,
                     Description = eventVM.Description,
                     Image = result.Url.ToString(),
                     ClubId = eventVM.ClubId,
                     EventCategory = eventVM.EventCategory,
-               
-                };
-                _eventRepository.Add(@event);
-                return RedirectToAction("Index");
-            }
-            else
-            {
-                ModelState.AddModelError("", "Photo upload failed");
-            }
-
-            return View(eventVM);
+            };
+            _eventRepository.Add(@event);
+            return RedirectToAction("Index");
+        }
+        [HttpGet]
+        [Route("event/{runningEvent}/{id}")]
+        public async Task<IActionResult> DetailEvent(int id, string runningEvent)
+        {
+            var selectedEvent = await _eventRepository.GetByIdAsync(id);
+            return selectedEvent == null ? NotFound() : View(selectedEvent);
         }
 
         [HttpGet]
+        [Route("event/edit/{id}")]
         public async Task<IActionResult> Edit(int id)
         {
             var @event = await _eventRepository.GetByIdAsync(id);
@@ -157,6 +166,7 @@ namespace InsaClub.Controllers
         }
 
         [HttpGet]
+        [Route("event/delete/{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             var clubDetails = await _eventRepository.GetByIdAsync(id);

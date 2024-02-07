@@ -17,7 +17,7 @@ namespace InsaClub.Models
         public string? Facebook { get; set; }
         public string? Contact { get; set; }
         public EventCategory EventCategory { get; set; }
-        public string? ClubId { get; set; }
+        public  int? ClubId { get; set; }
         public Club? Club { get; set; }
     }
 }

@@ -62,6 +62,9 @@ namespace InsaClub.Controllers
 
             var clubs = user.Clubs;
 
+            var clubsIn = await _userRepository.GetClubsOfUser(id);
+
+
             var userDetailViewModel = new UserDetailViewModel()
             {
                 Id = user.Id,
@@ -70,8 +73,11 @@ namespace InsaClub.Controllers
                 StudyLevel = user.StudyLevel,
                 Bio = user.Bio,
                 ProfileImageUrl = user.ProfileImageUrl ?? "/img/avatar.jpg",
-                Clubs = clubs
+                Clubs = clubs,
+                ClubsIn = clubsIn,
             };
+
+            // return new JsonResult(userDetailViewModel);
 
 
             return View(userDetailViewModel);

@@ -22,12 +22,12 @@
             <div class="col text-center">
                 <p>Events Categories</p>
                 <div class="mb-3">
-                    <a type="button" class="btn btn-secondary mb-1"
-                       asp-action="Index" asp-route-page="1" asp-route-category="-1">All</a>
+                    <a type="button" class="btn btn-secondary mb-1" asp-action="Index" asp-route-page="1"
+                        asp-route-category="-1">All</a>
                     @foreach (var category in Html.GetEnumSelectList<EventCategory>())
                     {
-                        <a type="button" class="btn btn-secondary mb-1"
-                       asp-action="Index" asp-route-page="1" asp-route-category="@category.Value">@category.Text</a>
+                        <a type="button" class="btn btn-secondary mb-1" asp-action="Index" asp-route-page="1"
+                            asp-route-category="@category.Value">@category.Text</a>
                     }
                 </div>
             </div>
@@ -38,12 +38,12 @@
             <div>
                 @if (isValidPage)
                 {
-                    <a type="button" class="btn btn-sm btn-outline-primary @prevDisabled"
-                   asp-action="Index" asp-route-page="@(Model.Page - 1)" asp-route-category="@Model.Category">
+                    <a type="button" class="btn btn-sm btn-outline-primary @prevDisabled" asp-action="Index"
+                        asp-route-page="@(Model.Page - 1)" asp-route-category="@Model.Category">
                         Prev
                     </a>
-                    <a type="button" class="btn btn-sm btn-outline-primary @nextDisabled"
-                   asp-action="Index" asp-route-page="@(Model.Page + 1)" asp-route-category="@Model.Category">
+                    <a type="button" class="btn btn-sm btn-outline-primary @nextDisabled" asp-action="Index"
+                        asp-route-page="@(Model.Page + 1)" asp-route-category="@Model.Category">
                         Next
                     </a>
                     <span class="text-muted text-small">Results @resultStart - @resultEnd of @Model.TotalEvents</span>
@@ -55,16 +55,16 @@
             {
                 <li class="col-12 col-md-6 col-lg-4">
                     <div class="card">
-                        <a type="button" asp-controller="Event" asp-action="DetailEvent" asp-route-runningEvent="@evt.Title.GenerateSlug()" asp-route-id="@evt.Id">
-                            @if(@evt.Image == null)
+                        <a type="button" asp-controller="Event" asp-action="DetailEvent" asp-route-id="@evt.Id">
+                            @if (@evt.Image == null)
                             {
-                                <img class="card-img-top" src="/img/eventsEvent.png" alt="Card image cap"> 
+                                <img class="card-img-top" src="/img/eventsEvent.png" alt="Card image cap">
                             }
                             else
                             {
-                               <img class="card-img-top" src="@evt.Image" alt="Card image cap"> 
+                                <img class="card-img-top" src="@evt.Image" alt="Card image cap">
                             }
-                            
+
                         </a>
                         <div class="card-body">
                             <h4 class="card-title">@evt.Title</h4>
@@ -76,10 +76,12 @@
                             @if (isAuthenticated && User.IsInRole("admin"))
                             {
                                 <div>
-                                    <a type="button" class="btn btn-sm btn-outline-info" asp-controller="Event" asp-action="Edit" asp-route-id="@evt.Id">
+                                    <a type="button" class="btn btn-sm btn-outline-info" asp-controller="Event"
+                                        asp-action="Edit" asp-route-id="@evt.Id">
                                         Edit
                                     </a>
-                                    <a type="button" class="btn btn-sm btn-outline-danger" asp-controller="Event" asp-action="Delete" asp-route-id="@evt.Id">
+                                    <a type="button" class="btn btn-sm btn-outline-danger" asp-controller="Event"
+                                        asp-action="Delete" asp-route-id="@evt.Id">
                                         Delete
                                     </a>
                                 </div>
@@ -93,12 +95,12 @@
             <div>
                 @if (isValidPage)
                 {
-                    <a type="button" class="btn btn-sm btn-outline-primary @prevDisabled"
-                   asp-action="Index" asp-route-page="@(Model.Page - 1)" asp-route-category="@Model.Category">
+                    <a type="button" class="btn btn-sm btn-outline-primary @prevDisabled" asp-action="Index"
+                        asp-route-page="@(Model.Page - 1)" asp-route-category="@Model.Category">
                         Prev
                     </a>
-                    <a type="button" class="btn btn-sm btn-outline-primary @nextDisabled"
-                   asp-action="Index" asp-route-page="@(Model.Page + 1)" asp-route-category="@Model.Category">
+                    <a type="button" class="btn btn-sm btn-outline-primary @nextDisabled" asp-action="Index"
+                        asp-route-page="@(Model.Page + 1)" asp-route-category="@Model.Category">
                         Next
                     </a>
                     <span class="text-muted text-small">Results @resultStart - @resultEnd of @Model.TotalEvents</span>
@@ -107,4 +109,3 @@
         </div>
     </div>
 </section>
-

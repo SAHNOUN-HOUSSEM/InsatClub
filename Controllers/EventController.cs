@@ -99,13 +99,13 @@ namespace InsaClub.Controllers
             return RedirectToAction("Index");
         }
         [HttpGet]
-        [Route("event/{runningEvent}/{id}")]
-        public async Task<IActionResult> DetailEvent(int id, string runningEvent)
+        [Route("event/{id}")]
+        public async Task<IActionResult> DetailEvent(int id)
         {
             var selectedEvent = await _eventRepository.GetByIdAsync(id);
             if (selectedEvent == null) return NotFound();
             var CurrentUserId = _httpContextAccessor.HttpContext.User.GetUserId();
-            var UserJoinedd =  _eventRepository.GetJoinedUsers(id, CurrentUserId);
+            var UserJoinedd = _eventRepository.GetJoinedUsers(id, CurrentUserId);
             // return Ok(UserJoined);
             var events = new EventDetailsViewModel
             {
@@ -136,7 +136,7 @@ namespace InsaClub.Controllers
             var userId = _httpContextAccessor.HttpContext.User.GetUserId();
             if (@event == null) return View("NotFound");
             if (@event.Club.UserId != userId) return View("Forbidden");
-            
+
             var eventVM = new EditEventViewModel
             {
                 Title = @event.Title,

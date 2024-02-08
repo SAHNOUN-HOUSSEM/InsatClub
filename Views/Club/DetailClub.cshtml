@@ -1,9 +1,17 @@
 ﻿@model Club
+@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+
 @*
 For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
-    ViewData["Title"] = "Club Details";
+  ViewData["Title"] = "Club Details";
+}
+@{
+    bool isMember = ViewBag.isMember;
 }
 <div class="main-container">
   <nav aria-label="breadcrumb" role="navigation" class="bg-primary text-white">
@@ -46,20 +54,13 @@ For more information on enabling MVC for empty projects, visit https://go.micros
           </div>
           <div>
             <div class="btn-group mb-2">
-              <button type="button" class="btn btn-success btn-lg">Join Club</button>
-              <button type="button"
-                class="btn btn-success dropdown-toggle dropdown-toggle-split dropdown-toggle-no-arrow"
-                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="icon-dots-three-horizontal"></i>
-                <span class="sr-only">Toggle Dropdown</span>
-              </button>
-              <div class="dropdown-menu dropdown-menu-right dropdown-menu-sm">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Separated link</a>
-              </div>
+              @if (SignInManager.IsSignedIn(User) &&  !@isMember)
+{
+<form method="post" asp-action="JoinClub" asp-route-id="@Model.Id" enctype="multipart/form-data">
+              <button type="submit" class="btn btn-success btn-lg">Join Club</button>
+</form>
+}
+             
             </div>
           </div>
         </div>

@@ -17,5 +17,6 @@ namespace InsaClub.Models
         public ICollection<Club> Clubs { get; set; }
 
         public string? Bio { get; set; }
+        public ICollection<MemberClub> ClubsIn { get; set; }
     }
 }

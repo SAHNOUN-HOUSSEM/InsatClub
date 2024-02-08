@@ -14,7 +14,7 @@ namespace InsaClub.Controllers
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IClubRepository _clubRepository;
 
-        public EventController(IEventRepository eventRepository, IPhotoService photoService, IHttpContextAccessor httpContextAccessor,IClubRepository clubRepository)
+        public EventController(IEventRepository eventRepository, IPhotoService photoService, IHttpContextAccessor httpContextAccessor, IClubRepository clubRepository)
         {
             _eventRepository = eventRepository;
             _photoService = photoService;
@@ -57,27 +57,27 @@ namespace InsaClub.Controllers
             return View(viewModel);
         }
 
-            
-    
+
+
 
         [HttpGet]
         [Route("event/create")]
         public async Task<IActionResult> Create()
         {
-        //    var currentUser = _httpContextAccessor.HttpContext.User;
+            //    var currentUser = _httpContextAccessor.HttpContext.User;
             // return Ok(currentUser.GetUserId());
-           
-           var Clubs = await _clubRepository.GetAll();
-              var ClubList = Clubs.Select(c => new SelectListItem
-              {
+
+            var Clubs = await _clubRepository.GetAll();
+            var ClubList = Clubs.Select(c => new SelectListItem
+            {
                 Value = c.Id.ToString(),
                 Text = c.Title
-              });
-                var Club = new CreateEventViewModel
-                {
-                    Clubs = ClubList
-                };
-           return View(Club);
+            });
+            var Club = new CreateEventViewModel
+            {
+                Clubs = ClubList
+            };
+            return View(Club);
         }
 
         [HttpPost]
@@ -89,11 +89,11 @@ namespace InsaClub.Controllers
 
             var @event = new Event
             {
-                    Title = eventVM.Title,
-                    Description = eventVM.Description,
-                    Image = result.Url.ToString(),
-                    ClubId = eventVM.ClubId,
-                    EventCategory = eventVM.EventCategory,
+                Title = eventVM.Title,
+                Description = eventVM.Description,
+                Image = result.Url.ToString(),
+                ClubId = eventVM.ClubId,
+                EventCategory = eventVM.EventCategory,
             };
             _eventRepository.Add(@event);
             return RedirectToAction("Index");
@@ -157,7 +157,7 @@ namespace InsaClub.Controllers
                 Title = eventVM.Title,
                 Description = eventVM.Description,
                 Image = photoResult.Url.ToString(),
-          
+
             };
 
             _eventRepository.Update(@event);

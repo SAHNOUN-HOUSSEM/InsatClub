@@ -34,6 +34,14 @@ namespace InsaClub.Repository
             return await _context.Users.Include(u => u.StudyLevel).FirstOrDefaultAsync(u => u.Id == id);
         }
 
+        public async Task<bool> IsMemberOf(string userId, int clubId)
+        {
+            var membership = await _context.MemberClubs.Where(m => m.ClubId == clubId && m.UserId == userId).FirstOrDefaultAsync();
+            return membership != null;
+        }
+
+
+
         public bool Save()
         {
             var saved = _context.SaveChanges();

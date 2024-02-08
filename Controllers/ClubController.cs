@@ -112,7 +112,6 @@ namespace InsaClub.Controllers
             {
                 Title = club.Title,
                 Description = club.Description,
-
                 URL = club.Image,
                 ClubCategory = club.ClubCategory
             };

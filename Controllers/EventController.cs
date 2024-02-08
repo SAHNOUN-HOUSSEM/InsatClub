@@ -142,7 +142,7 @@ namespace InsaClub.Controllers
                 Title = @event.Title,
                 Description = @event.Description,
                 URL = @event.Image,
-                EventCategory = @event.EventCategory
+                EventCategory = @event.EventCategory,
             };
             return View(eventVM);
         }

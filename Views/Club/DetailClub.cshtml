@@ -13,6 +13,7 @@ For more information on enabling MVC for empty projects, visit https://go.micros
 }
 @{
   bool isMember = ViewBag.isMember;
+  bool isOwner = ViewBag.isOwner;
 }
 <div class="main-container">
   <nav aria-label="breadcrumb" role="navigation" class="bg-primary text-white">
@@ -56,7 +57,7 @@ For more information on enabling MVC for empty projects, visit https://go.micros
                       <button type="submit" class="btn btn-success btn-lg">Join Club</button>
                     </form>
                   }
-                  @if (@isMember)
+                  @if (@isMember && !@isOwner)
                   {
                     <form method="post" asp-action="LeaveClub" asp-route-id="@Model.Club.Id">
                       <button type="submit" class="btn btn-danger btn-lg">Leave Club</button>
@@ -97,40 +98,42 @@ For more information on enabling MVC for empty projects, visit https://go.micros
             @Model.Club.Description
           </article>
           <hr>
-          <h5 class="mb-4">Actions</h5>
-          <div class="card">
-            <div class="card-header bg-secondary d-flex justify-content-between">
-              <a class="btn btn-secondary" asp-controller="Club" asp-action="Edit"
-                asp-route-id="@Model.Club.Id">Edit</a>
-              <a class="btn btn-secondary" asp-controller="Club" asp-action="Delete"
-                asp-route-id="@Model.Club.Id">Delete</a>
-            </div>
-            <div class="collapse" id="comment-reply">
-              <form class="card-body">
-                <div class="form-group">
-                  <textarea class="form-control from-control-lg" id="comment-reply-text" name="comment-reply" rows="4"
-                    placeholder="Type your reply here"></textarea>
-                </div>
-                <div class="mb-2">
-                  <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" name="notify-reply" id="check-notify">
-                    <label class="custom-control-label text-small" for="check-notify">Notify me when someone
-                      replies</label>
+          @if (isOwner)
+          {
+            <h5 class="mb-4">Actions</h5>
+            <div class="card">
+              <div class="card-header bg-secondary d-flex justify-content-between">
+                <a class="btn btn-secondary" asp-controller="Club" asp-action="Edit"
+                  asp-route-id="@Model.Club.Id">Edit</a>
+                <a class="btn btn-secondary" asp-controller="Club" asp-action="Delete"
+                  asp-route-id="@Model.Club.Id">Delete</a>
+              </div>
+              <div class="collapse" id="comment-reply">
+                <form class="card-body">
+                  <div class="form-group">
+                    <textarea class="form-control from-control-lg" id="comment-reply-text" name="comment-reply" rows="4"
+                      placeholder="Type your reply here"></textarea>
                   </div>
-                </div>
-                <div class="d-flex align-items-center">
-                  <button type="submit" class="btn btn-success mr-3">Submit reply</button>
-                  <a href="#comment-reply" class="text-small text-muted" data-toggle="collapse" aria-expanded="true"
-                    aria-controls="comment-reply">Cancel</a>
-                </div>
-              </form>
+                  <div class="mb-2">
+                    <div class="custom-control custom-checkbox">
+                      <input type="checkbox" class="custom-control-input" name="notify-reply" id="check-notify">
+                      <label class="custom-control-label text-small" for="check-notify">Notify me when someone
+                        replies</label>
+                    </div>
+                  </div>
+                  <div class="d-flex align-items-center">
+                    <button type="submit" class="btn btn-success mr-3">Submit reply</button>
+                    <a href="#comment-reply" class="text-small text-muted" data-toggle="collapse" aria-expanded="true"
+                      aria-controls="comment-reply">Cancel</a>
+                  </div>
+                </form>
+              </div>
+              <ul class="list-group list-group-flush list-group-comments">
+
+
+              </ul>
             </div>
-            <ul class="list-group list-group-flush list-group-comments">
-
-
-            </ul>
-          </div>
-
+          }
         </div>
         <!--end of col-->
         <div class="col-12 col-md-4">

@@ -3,7 +3,7 @@ using InsaClub.Models;
 
 namespace InsaClub.ViewModels;
 
-public class UserDetailViewModel 
+public class UserDetailViewModel
 {
         public string Id { get; set; }
         public string FirstName { get; set; }
@@ -17,6 +17,7 @@ public class UserDetailViewModel
         public ICollection<Club> Clubs { get; set; }
 
         public string? Bio { get; set; }
-        
- 
+
+
+
 }

@@ -19,7 +19,6 @@ namespace InsaClub.Models
         public User? User { get; set; }
         public DateTime? CreatedAt { get; set; }
 
-        [JsonIgnore]
         public ICollection<MemberClub> Members { get; set; }
 
     }

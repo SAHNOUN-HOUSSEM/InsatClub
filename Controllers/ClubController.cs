@@ -68,12 +68,15 @@ namespace InsaClub.Controllers
                 curUserId = "";
             }
             ViewBag.isMember = false;
+            ViewBag.isOwner = false;
 
             if (curUserId != "")
             {
                 var isMember = await _userRepository.IsMemberOf(curUserId, id);
                 ViewBag.isMember = isMember;
+                ViewBag.isOwner = club.UserId == curUserId;
             }
+
             var members = await _userRepository.GetMembersOfClub(id);
             var detailClubViewModel = new DetailClubViewModel
             {
@@ -112,6 +115,15 @@ namespace InsaClub.Controllers
 
                 };
                 _clubRepository.Add(club);
+                var curUser = await _userRepository.GetUserById(clubVM.UserId);
+                var memberClub = new MemberClub
+                {
+                    ClubId = club.Id,
+                    UserId = clubVM.UserId,
+                    Club = club,
+                    User = curUser
+                };
+                await _clubRepository.AddMemberToClub(club.Id, curUser.Id);
                 return RedirectToAction("Index");
             }
             else

@@ -60,6 +60,8 @@ namespace InsaClub.Controllers
                 return RedirectToAction("Index", "Users");
             }
 
+            var clubs = user.Clubs;
+
             var userDetailViewModel = new UserDetailViewModel()
             {
                 Id = user.Id,
@@ -68,7 +70,10 @@ namespace InsaClub.Controllers
                 StudyLevel = user.StudyLevel,
                 Bio = user.Bio,
                 ProfileImageUrl = user.ProfileImageUrl ?? "/img/avatar.jpg",
+                Clubs = clubs
             };
+
+
             return View(userDetailViewModel);
         }
 
@@ -132,13 +137,13 @@ namespace InsaClub.Controllers
             var userPopulated = await _userRepository.GetUserById(user.Id);
 
             //test if there are errors in the model named "EditProfileViewModel"
-            var cond = ModelState.Keys.FirstOrDefault( k => k.Contains("EditProfileViewModel") && ModelState[k].Errors.Count > 0);
-      
+            var cond = ModelState.Keys.FirstOrDefault(k => k.Contains("EditProfileViewModel") && ModelState[k].Errors.Count > 0);
+
             if (cond != null)
             {
                 ModelState.AddModelError("", "Failed to edit profile");
                 //console all errors
-              
+
                 return View("EditProfile", createProfileViewModel(userPopulated));
             }
 
@@ -167,8 +172,8 @@ namespace InsaClub.Controllers
             }
             var userPopulated = await _userRepository.GetUserById(user.Id);
             var passwordUpdateViewModel = input.PasswordUpdateViewModel;
-            var cond = ModelState.Keys.FirstOrDefault( k => k.Contains("PasswordUpdateViewModel") && ModelState[k].Errors.Count > 0);
-      
+            var cond = ModelState.Keys.FirstOrDefault(k => k.Contains("PasswordUpdateViewModel") && ModelState[k].Errors.Count > 0);
+
             if (cond != null)
             {
                 ModelState.AddModelError("", "Failed to update password");
@@ -181,7 +186,7 @@ namespace InsaClub.Controllers
                         Console.WriteLine(error.ErrorMessage);
                     }
                 }
-                return View("EditProfile",  createProfileViewModel(userPopulated, "security"));
+                return View("EditProfile", createProfileViewModel(userPopulated, "security"));
             }
 
 
@@ -207,20 +212,20 @@ namespace InsaClub.Controllers
             {
                 return View("Error");
             }
-                        var userPopulated = await _userRepository.GetUserById(user.Id);
+            var userPopulated = await _userRepository.GetUserById(user.Id);
 
-            
+
             var updatePhotoUpdateModel = input.UpdatePhotoUpdateModel;
-            var cond = ModelState.Keys.FirstOrDefault( k => k.Contains("UpdatePhotoUpdateModel") && ModelState[k].Errors.Count > 0);
-      
+            var cond = ModelState.Keys.FirstOrDefault(k => k.Contains("UpdatePhotoUpdateModel") && ModelState[k].Errors.Count > 0);
+
             if (cond != null)
             {
-             
+
                 ModelState.AddModelError("", "Failed to update photo");
                 return View("EditProfile", createProfileViewModel(userPopulated, "image"));
             }
-            
-            
+
+
             if (updatePhotoUpdateModel.Image != null) // only update profile image
             {
                 var photoResult = await _photoService.AddPhotoAsync(updatePhotoUpdateModel.Image);
@@ -242,7 +247,7 @@ namespace InsaClub.Controllers
                 await _userManager.UpdateAsync(user);
 
             }
-        return View("EditProfile", createProfileViewModel(userPopulated, "image"));
+            return View("EditProfile", createProfileViewModel(userPopulated, "image"));
 
 
 

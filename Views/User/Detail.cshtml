@@ -11,7 +11,7 @@
                         <li class="breadcrumb-item">
                             <a href="#">Home</a>
                         </li>
-                     
+
 
                         <li class="breadcrumb-item active" aria-current="page">Profile</li>
                     </ol>
@@ -31,29 +31,35 @@
                         <div class="media-body">
                             <div class="mb-3">
                                 <h1 class="h2 mb-2">@Model.FirstName @Model.LastName</h1>
-                                <span class="text-muted text-small"> @Model.StudyLevel.Level @Model.StudyLevel.Speciality</span>
-    
+                                <span class="text-muted text-small"> @Model.StudyLevel.Level
+                                    @Model.StudyLevel.Speciality</span>
+
                             </div>
                             <p>
                                 @Model.Bio
                             </p>
                             @* <div>
-                                <button class="btn btn-outline-primary" data-toggle="button"><i class="icon-add-user"></i> Follow</button>
-                                <button class="btn btn-outline-primary">
-                                    <i class="icon-mail"></i>
-                                </button>
-                                <div class="dropdown d-inline-block">
-                                    <button class="btn btn-outline-primary dropdown-toggle dropdown-toggle-no-arrow" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <i class="icon-dots-three-horizontal"></i>
-                                    </button>
-                                    <div class="dropdown-menu dropdown-menu-sm" aria-labelledby="dropdownMenuButton" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 36px, 0px);">
-                                        <a class="dropdown-item" href="#">Add to group</a>
-                                        <a class="dropdown-item" href="#">Share Profile</a>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="#">Block</a>
-                                        <a class="dropdown-item" href="#">Report</a>
-                                    </div>
-                                </div>
+                            <button class="btn btn-outline-primary" data-toggle="button"><i class="icon-add-user"></i>
+                            Follow</button>
+                            <button class="btn btn-outline-primary">
+                            <i class="icon-mail"></i>
+                            </button>
+                            <div class="dropdown d-inline-block">
+                            <button class="btn btn-outline-primary dropdown-toggle dropdown-toggle-no-arrow"
+                            type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+                            <i class="icon-dots-three-horizontal"></i>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-sm" aria-labelledby="dropdownMenuButton"
+                            x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px;
+                            left: 0px; transform: translate3d(0px, 36px, 0px);">
+                            <a class="dropdown-item" href="#">Add to group</a>
+                            <a class="dropdown-item" href="#">Share Profile</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Block</a>
+                            <a class="dropdown-item" href="#">Report</a>
+                            </div>
+                            </div>
                             </div> *@
                         </div>
                     </div>
@@ -72,13 +78,16 @@
                     <div class="col">
                         <ul class="nav nav-tabs" id="myTab" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link active" id="events-tab" data-toggle="tab" href="#events" role="tab" aria-controls="events" aria-selected="true">Events</a>
+                                <a class="nav-link active" id="events-tab" data-toggle="tab" href="#events" role="tab"
+                                    aria-controls="events" aria-selected="true">Events</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="groups-tab" data-toggle="tab" href="#clubs" role="tab" aria-controls="clubs" aria-selected="false">Clubs</a>
+                                <a class="nav-link" id="groups-tab" data-toggle="tab" href="#clubs" role="tab"
+                                    aria-controls="clubs" aria-selected="false">Clubs created</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="followers-tab" data-toggle="tab" href="#followers" role="tab" aria-controls="followers" aria-selected="false">Followers</a>
+                                <a class="nav-link" id="followers-tab" data-toggle="tab" href="#followers" role="tab"
+                                    aria-controls="followers" aria-selected="false">Clubs joined</a>
                             </li>
                         </ul>
                     </div>
@@ -114,7 +123,10 @@
                                         </ul>
                                     </div>
                                     <div class="dropup">
-                                        <button class="btn btn-sm btn-outline-primary dropdown-toggle dropdown-toggle-no-arrow" type="button" id="BenchButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <button
+                                            class="btn btn-sm btn-outline-primary dropdown-toggle dropdown-toggle-no-arrow"
+                                            type="button" id="BenchButton" data-toggle="dropdown" aria-haspopup="true"
+                                            aria-expanded="false">
                                             <i class="icon-dots-three-horizontal"></i>
                                         </button>
                                         <div class="dropdown-menu dropdown-menu-sm" aria-labelledby="BenchButton">
@@ -149,7 +161,10 @@
                                         </ul>
                                     </div>
                                     <div class="dropup">
-                                        <button class="btn btn-sm btn-outline-primary dropdown-toggle dropdown-toggle-no-arrow" type="button" id="KinButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <button
+                                            class="btn btn-sm btn-outline-primary dropdown-toggle dropdown-toggle-no-arrow"
+                                            type="button" id="KinButton" data-toggle="dropdown" aria-haspopup="true"
+                                            aria-expanded="false">
                                             <i class="icon-dots-three-horizontal"></i>
                                         </button>
                                         <div class="dropdown-menu dropdown-menu-sm" aria-labelledby="KinButton">
@@ -168,7 +183,8 @@
                         <li class="col-12 col-md-6 col-lg-4">
                             <div class="card">
                                 <a href="#">
-                                    <img class="card-img-top" src="/img/graphic-product-paydar.jpg" alt="Card image cap">
+                                    <img class="card-img-top" src="/img/graphic-product-paydar.jpg"
+                                        alt="Card image cap">
                                 </a>
                                 <div class="card-body">
                                     <a href="#">
@@ -184,7 +200,10 @@
                                         </ul>
                                     </div>
                                     <div class="dropup">
-                                        <button class="btn btn-sm btn-outline-primary dropdown-toggle dropdown-toggle-no-arrow" type="button" id="PaydarButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <button
+                                            class="btn btn-sm btn-outline-primary dropdown-toggle dropdown-toggle-no-arrow"
+                                            type="button" id="PaydarButton" data-toggle="dropdown" aria-haspopup="true"
+                                            aria-expanded="false">
                                             <i class="icon-dots-three-horizontal"></i>
                                         </button>
                                         <div class="dropdown-menu dropdown-menu-sm" aria-labelledby="PaydarButton">
@@ -203,12 +222,14 @@
                         <li class="col-12 col-md-6 col-lg-4">
                             <div class="card">
                                 <a href="#">
-                                    <img class="card-img-top" src="/img/graphic-product-pipeline.jpg" alt="Card image cap">
+                                    <img class="card-img-top" src="/img/graphic-product-pipeline.jpg"
+                                        alt="Card image cap">
                                 </a>
                                 <div class="card-body">
                                     <a href="#">
                                         <h4 class="card-title">pipeline.js</h4>
-                                        <p class="card-text text-body">Snappy UI interaction library with flexible API</p>
+                                        <p class="card-text text-body">Snappy UI interaction library with flexible API
+                                        </p>
                                     </a>
                                 </div>
                                 <div class="card-footer card-footer-borderless d-flex justify-content-between">
@@ -219,7 +240,10 @@
                                         </ul>
                                     </div>
                                     <div class="dropup">
-                                        <button class="btn btn-sm btn-outline-primary dropdown-toggle dropdown-toggle-no-arrow" type="button" id="pipeline.jsButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <button
+                                            class="btn btn-sm btn-outline-primary dropdown-toggle dropdown-toggle-no-arrow"
+                                            type="button" id="pipeline.jsButton" data-toggle="dropdown"
+                                            aria-haspopup="true" aria-expanded="false">
                                             <i class="icon-dots-three-horizontal"></i>
                                         </button>
                                         <div class="dropdown-menu dropdown-menu-sm" aria-labelledby="pipeline.jsButton">
@@ -238,7 +262,8 @@
                         <li class="col-12 col-md-6 col-lg-4">
                             <div class="card">
                                 <a href="#">
-                                    <img class="card-img-top" src="/img/graphic-product-pitstop.jpg" alt="Card image cap">
+                                    <img class="card-img-top" src="/img/graphic-product-pitstop.jpg"
+                                        alt="Card image cap">
                                 </a>
                                 <div class="card-body">
                                     <a href="#">
@@ -254,7 +279,10 @@
                                         </ul>
                                     </div>
                                     <div class="dropup">
-                                        <button class="btn btn-sm btn-outline-primary dropdown-toggle dropdown-toggle-no-arrow" type="button" id="PitstopButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <button
+                                            class="btn btn-sm btn-outline-primary dropdown-toggle dropdown-toggle-no-arrow"
+                                            type="button" id="PitstopButton" data-toggle="dropdown" aria-haspopup="true"
+                                            aria-expanded="false">
                                             <i class="icon-dots-three-horizontal"></i>
                                         </button>
                                         <div class="dropdown-menu dropdown-menu-sm" aria-labelledby="PitstopButton">
@@ -273,7 +301,8 @@
                         <li class="col-12 col-md-6 col-lg-4">
                             <div class="card">
                                 <a href="#">
-                                    <img class="card-img-top" src="/img/graphic-product-sidekick.jpg" alt="Card image cap">
+                                    <img class="card-img-top" src="/img/graphic-product-sidekick.jpg"
+                                        alt="Card image cap">
                                 </a>
                                 <div class="card-body">
                                     <a href="#">
@@ -289,7 +318,10 @@
                                         </ul>
                                     </div>
                                     <div class="dropup">
-                                        <button class="btn btn-sm btn-outline-primary dropdown-toggle dropdown-toggle-no-arrow" type="button" id="SidekickButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <button
+                                            class="btn btn-sm btn-outline-primary dropdown-toggle dropdown-toggle-no-arrow"
+                                            type="button" id="SidekickButton" data-toggle="dropdown"
+                                            aria-haspopup="true" aria-expanded="false">
                                             <i class="icon-dots-three-horizontal"></i>
                                         </button>
                                         <div class="dropdown-menu dropdown-menu-sm" aria-labelledby="SidekickButton">
@@ -314,132 +346,62 @@
             <div class="tab-pane fade" id="clubs" role="tabpanel" aria-labelledby="groups-tab">
                 <div class="container">
                     <div class="row">
+                        @if (Model.Clubs != null)
+                        {
+                            foreach (var club in Model.Clubs)
+                            {
 
-                        <div class="col-12 col-md-6 col-lg-4 d-flex">
-                            <div class="card">
-                                <a href="#">
-                                    <img class="card-img-top" src="/img/graphic-group-1.png" alt="Card image cap">
-                                </a>
-                                <div class="card-body">
-                                    <a href="#" class="d-block mb-2">
-                                        <h4>Pitstop</h4>
-                                    </a>
-                                    <span>A lightweight javascript library for scrolling</span>
-                                </div>
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item"><i class="icon-users">&nbsp;</i> 18 members</li>
-                                    <li class="list-group-item"><i class="icon-folder">&nbsp;</i> 12 projects</li>
-                                </ul>
-                                <div class="card-footer d-flex align-items-center">
-                                    <div>
-                                        <ul class="list-inline list-spacing-sm">
-
-                                            <li class="list-inline-item">
-                                                <img alt="Group member" class="avatar avatar-xs" src="/img/avatar.jpg">
-                                            </li>
-
-                                            <li class="list-inline-item">
-                                                <img alt="Group member" class="avatar avatar-xs" src="/img/avatar.jpg">
-                                            </li>
-
-                                            <li class="list-inline-item">
-                                                <img alt="Group member" class="avatar avatar-xs" src="/img/avatar.jpg">
-                                            </li>
-
-                                            <li class="list-inline-item">
-                                                <img alt="Group member" class="avatar avatar-xs" src="/img/avatar.jpg">
-                                            </li>
-
+                                <div class="col-12 col-md-6 col-lg-4 d-flex">
+                                    <div class="card">
+                                        <a type="button" asp-controller="Club" asp-action="DetailClub"
+                                            asp-route-runningClub="@club.Id" asp-route-id="@club.Id">
+                                            <img class="card-img-top" src="@club.Image" alt="Card image cap">
+                                        </a>
+                                        <div class="card-body">
+                                            <a href="#" class="d-block mb-2">
+                                                <h4>@club.Title</h4>
+                                            </a>
+                                            <span>@club.Description</span>
+                                        </div>
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item"><i class="icon-users">&nbsp;</i>
+                                                @club.Members.Count
+                                                members
+                                            <li class="list-group-item"><i class="icon-folder">&nbsp;</i> 12 projects</li>
                                         </ul>
+                                        <div class="card-footer d-flex align-items-center">
+                                            <div>
+                                                <ul class="list-inline list-spacing-sm">
+
+                                                    <li class="list-inline-item">
+                                                        <img alt="Group member" class="avatar avatar-xs" src="/img/avatar.jpg">
+                                                    </li>
+
+                                                    <li class="list-inline-item">
+                                                        <img alt="Group member" class="avatar avatar-xs" src="/img/avatar.jpg">
+                                                    </li>
+
+                                                    <li class="list-inline-item">
+                                                        <img alt="Group member" class="avatar avatar-xs" src="/img/avatar.jpg">
+                                                    </li>
+
+                                                    <li class="list-inline-item">
+                                                        <img alt="Group member" class="avatar avatar-xs" src="/img/avatar.jpg">
+                                                    </li>
+
+                                                </ul>
+                                            </div>
+                                            <span class="text-small ml-2">+ 14 more</span>
+                                        </div>
                                     </div>
-                                    <span class="text-small ml-2">+ 14 more</span>
                                 </div>
-                            </div>
-                        </div>
+                            }
+                        }
+                        else
+                        {
+                            <h1>No clubs</h1>
+                        }
 
-                        <div class="col-12 col-md-6 col-lg-4 d-flex">
-                            <div class="card">
-                                <a href="#">
-                                    <img class="card-img-top" src="/img/graphic-group-2.png" alt="Card image cap">
-                                </a>
-                                <div class="card-body">
-                                    <a href="#" class="d-block mb-2">
-                                        <h4>Bench</h4>
-                                    </a>
-                                    <span>Account management for financial professionals</span>
-                                </div>
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item"><i class="icon-users">&nbsp;</i> 9 members</li>
-                                    <li class="list-group-item"><i class="icon-folder">&nbsp;</i> 6 projects</li>
-                                </ul>
-                                <div class="card-footer d-flex align-items-center">
-                                    <div>
-                                        <ul class="list-inline list-spacing-sm">
-
-                                            <li class="list-inline-item">
-                                                <img alt="Group member" class="avatar avatar-xs" src="/img/avatar.jpg">
-                                            </li>
-
-                                            <li class="list-inline-item">
-                                                <img alt="Group member" class="avatar avatar-xs" src="/img/avatar.jpg">
-                                            </li>
-
-                                            <li class="list-inline-item">
-                                                <img alt="Group member" class="avatar avatar-xs" src="/img/avatar.jpg">
-                                            </li>
-
-                                            <li class="list-inline-item">
-                                                <img alt="Group member" class="avatar avatar-xs" src="/img/avatar.jpg">
-                                            </li>
-
-                                        </ul>
-                                    </div>
-                                    <span class="text-small ml-2">+ 5 more</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-md-6 col-lg-4 d-flex">
-                            <div class="card">
-                                <a href="#">
-                                    <img class="card-img-top" src="/img/photo-group-3.jpg" alt="Card image cap">
-                                </a>
-                                <div class="card-body">
-                                    <a href="#" class="d-block mb-2">
-                                        <h4>Seattle</h4>
-                                    </a>
-                                    <span>Creative folk hailing from The Windy City</span>
-                                </div>
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item"><i class="icon-users">&nbsp;</i> 42 members</li>
-                                    <li class="list-group-item"><i class="icon-folder">&nbsp;</i> 7 projects</li>
-                                </ul>
-                                <div class="card-footer d-flex align-items-center">
-                                    <div>
-                                        <ul class="list-inline list-spacing-sm">
-
-                                            <li class="list-inline-item">
-                                                <img alt="Group member" class="avatar avatar-xs" src="/img/avatar.jpg">
-                                            </li>
-
-                                            <li class="list-inline-item">
-                                                <img alt="Group member" class="avatar avatar-xs" src="/img/avatar.jpg">
-                                            </li>
-
-                                            <li class="list-inline-item">
-                                                <img alt="Group member" class="avatar avatar-xs" src="/img/avatar.jpg">
-                                            </li>
-
-                                            <li class="list-inline-item">
-                                                <img alt="Group member" class="avatar avatar-xs" src="/img/avatar.jpg">
-                                            </li>
-
-                                        </ul>
-                                    </div>
-                                    <span class="text-small ml-2">+ 38 more</span>
-                                </div>
-                            </div>
-                        </div>
 
                     </div>
                     <!--end of row-->
@@ -463,7 +425,8 @@
                                                 <a href="#" class="h5 m-0">
                                                     <h5>Daniel Cameron</h5>
                                                 </a>
-                                                <small class="text-muted"><i class="icon-location"></i> San Francisco, USA</small>
+                                                <small class="text-muted"><i class="icon-location"></i> San Francisco,
+                                                    USA</small>
                                             </div>
                                             <ul class="list-inline">
 
@@ -476,7 +439,8 @@
                                 </div>
                                 <div class="card-footer d-flex justify-content-between align-items-center">
                                     <a class="text-small" href="#">cameronman</a>
-                                    <button class="btn btn-outline-primary" data-toggle="tooltip" data-placement="top" title="" data-original-title="Follow">
+                                    <button class="btn btn-outline-primary" data-toggle="tooltip" data-placement="top"
+                                        title="" data-original-title="Follow">
                                         <i class="icon-add-user"></i>
                                     </button>
                                 </div>
@@ -496,7 +460,8 @@
                                                 <a href="#" class="h5 m-0">
                                                     <h5>Caitlyn Halsy</h5>
                                                 </a>
-                                                <small class="text-muted"><i class="icon-location"></i> Melbourne, AU</small>
+                                                <small class="text-muted"><i class="icon-location"></i> Melbourne,
+                                                    AU</small>
                                             </div>
                                             <ul class="list-inline">
 
@@ -509,7 +474,8 @@
                                 </div>
                                 <div class="card-footer d-flex justify-content-between align-items-center">
                                     <a class="text-small" href="#">chalsy</a>
-                                    <button class="btn btn-outline-primary" data-toggle="tooltip" data-placement="top" title="" data-original-title="Follow">
+                                    <button class="btn btn-outline-primary" data-toggle="tooltip" data-placement="top"
+                                        title="" data-original-title="Follow">
                                         <i class="icon-add-user"></i>
                                     </button>
                                 </div>
@@ -529,7 +495,8 @@
                                                 <a href="#" class="h5 m-0">
                                                     <h5>Toby Marsh</h5>
                                                 </a>
-                                                <small class="text-muted"><i class="icon-location"></i> Denver, USA</small>
+                                                <small class="text-muted"><i class="icon-location"></i> Denver,
+                                                    USA</small>
                                             </div>
                                             <ul class="list-inline">
 
@@ -542,7 +509,8 @@
                                 </div>
                                 <div class="card-footer d-flex justify-content-between align-items-center">
                                     <a class="text-small" href="#">marshisonline</a>
-                                    <button class="btn btn-outline-primary" data-toggle="tooltip" data-placement="top" title="" data-original-title="Follow">
+                                    <button class="btn btn-outline-primary" data-toggle="tooltip" data-placement="top"
+                                        title="" data-original-title="Follow">
                                         <i class="icon-add-user"></i>
                                     </button>
                                 </div>
@@ -562,7 +530,8 @@
                                                 <a href="#" class="h5 m-0">
                                                     <h5>Lucille Freebody</h5>
                                                 </a>
-                                                <small class="text-muted"><i class="icon-location"></i> Bathwick, UK</small>
+                                                <small class="text-muted"><i class="icon-location"></i> Bathwick,
+                                                    UK</small>
                                             </div>
                                             <ul class="list-inline">
 
@@ -575,7 +544,8 @@
                                 </div>
                                 <div class="card-footer d-flex justify-content-between align-items-center">
                                     <a class="text-small" href="#">lfreebody</a>
-                                    <button class="btn btn-outline-primary" data-toggle="tooltip" data-placement="top" title="" data-original-title="Follow">
+                                    <button class="btn btn-outline-primary" data-toggle="tooltip" data-placement="top"
+                                        title="" data-original-title="Follow">
                                         <i class="icon-add-user"></i>
                                     </button>
                                 </div>
@@ -595,7 +565,8 @@
                                                 <a href="#" class="h5 m-0">
                                                     <h5>Brenton Harvey</h5>
                                                 </a>
-                                                <small class="text-muted"><i class="icon-location"></i> Dublin, IR</small>
+                                                <small class="text-muted"><i class="icon-location"></i> Dublin,
+                                                    IR</small>
                                             </div>
                                             <ul class="list-inline">
 
@@ -608,7 +579,8 @@
                                 </div>
                                 <div class="card-footer d-flex justify-content-between align-items-center">
                                     <a class="text-small" href="#">harveytravel</a>
-                                    <button class="btn btn-outline-primary" data-toggle="tooltip" data-placement="top" title="" data-original-title="Follow">
+                                    <button class="btn btn-outline-primary" data-toggle="tooltip" data-placement="top"
+                                        title="" data-original-title="Follow">
                                         <i class="icon-add-user"></i>
                                     </button>
                                 </div>
@@ -628,7 +600,8 @@
                                                 <a href="#" class="h5 m-0">
                                                     <h5>Tabatha Firth</h5>
                                                 </a>
-                                                <small class="text-muted"><i class="icon-location"></i> Sydney, AU</small>
+                                                <small class="text-muted"><i class="icon-location"></i> Sydney,
+                                                    AU</small>
                                             </div>
                                             <ul class="list-inline">
 
@@ -641,7 +614,8 @@
                                 </div>
                                 <div class="card-footer d-flex justify-content-between align-items-center">
                                     <a class="text-small" href="#">onthetab</a>
-                                    <button class="btn btn-outline-primary" data-toggle="tooltip" data-placement="top" title="" data-original-title="Follow">
+                                    <button class="btn btn-outline-primary" data-toggle="tooltip" data-placement="top"
+                                        title="" data-original-title="Follow">
                                         <i class="icon-add-user"></i>
                                     </button>
                                 </div>
@@ -661,7 +635,8 @@
                                                 <a href="#" class="h5 m-0">
                                                     <h5>Ramon Hernandez</h5>
                                                 </a>
-                                                <small class="text-muted"><i class="icon-location"></i> Mexico City, ME</small>
+                                                <small class="text-muted"><i class="icon-location"></i> Mexico City,
+                                                    ME</small>
                                             </div>
                                             <ul class="list-inline">
 
@@ -674,7 +649,8 @@
                                 </div>
                                 <div class="card-footer d-flex justify-content-between align-items-center">
                                     <a class="text-small" href="#">hernandezzz</a>
-                                    <button class="btn btn-outline-primary" data-toggle="tooltip" data-placement="top" title="" data-original-title="Follow">
+                                    <button class="btn btn-outline-primary" data-toggle="tooltip" data-placement="top"
+                                        title="" data-original-title="Follow">
                                         <i class="icon-add-user"></i>
                                     </button>
                                 </div>
@@ -694,7 +670,8 @@
                                                 <a href="#" class="h5 m-0">
                                                     <h5>Roberta Kissinger</h5>
                                                 </a>
-                                                <small class="text-muted"><i class="icon-location"></i> Rotterdam, NL</small>
+                                                <small class="text-muted"><i class="icon-location"></i> Rotterdam,
+                                                    NL</small>
                                             </div>
                                             <ul class="list-inline">
 
@@ -707,7 +684,8 @@
                                 </div>
                                 <div class="card-footer d-flex justify-content-between align-items-center">
                                     <a class="text-small" href="#">bench-roberta</a>
-                                    <button class="btn btn-outline-primary" data-toggle="tooltip" data-placement="top" title="" data-original-title="Follow">
+                                    <button class="btn btn-outline-primary" data-toggle="tooltip" data-placement="top"
+                                        title="" data-original-title="Follow">
                                         <i class="icon-add-user"></i>
                                     </button>
                                 </div>
@@ -727,7 +705,8 @@
                                                 <a href="#" class="h5 m-0">
                                                     <h5>Franc Bijon</h5>
                                                 </a>
-                                                <small class="text-muted"><i class="icon-location"></i> Paris, FR</small>
+                                                <small class="text-muted"><i class="icon-location"></i> Paris,
+                                                    FR</small>
                                             </div>
                                             <ul class="list-inline">
 
@@ -740,7 +719,8 @@
                                 </div>
                                 <div class="card-footer d-flex justify-content-between align-items-center">
                                     <a class="text-small" href="#">bijondesign</a>
-                                    <button class="btn btn-outline-primary" data-toggle="tooltip" data-placement="top" title="" data-original-title="Follow">
+                                    <button class="btn btn-outline-primary" data-toggle="tooltip" data-placement="top"
+                                        title="" data-original-title="Follow">
                                         <i class="icon-add-user"></i>
                                     </button>
                                 </div>
@@ -760,7 +740,8 @@
                                                 <a href="#" class="h5 m-0">
                                                     <h5>Kate Worthington</h5>
                                                 </a>
-                                                <small class="text-muted"><i class="icon-location"></i> Los Angeles, USA</small>
+                                                <small class="text-muted"><i class="icon-location"></i> Los Angeles,
+                                                    USA</small>
                                             </div>
                                             <ul class="list-inline">
 
@@ -773,7 +754,8 @@
                                 </div>
                                 <div class="card-footer d-flex justify-content-between align-items-center">
                                     <a class="text-small" href="#">kwmarketing</a>
-                                    <button class="btn btn-outline-primary" data-toggle="tooltip" data-placement="top" title="" data-original-title="Follow">
+                                    <button class="btn btn-outline-primary" data-toggle="tooltip" data-placement="top"
+                                        title="" data-original-title="Follow">
                                         <i class="icon-add-user"></i>
                                     </button>
                                 </div>
@@ -793,7 +775,8 @@
                                                 <a href="#" class="h5 m-0">
                                                     <h5>Kenny Smith</h5>
                                                 </a>
-                                                <small class="text-muted"><i class="icon-location"></i> Berlin, GER</small>
+                                                <small class="text-muted"><i class="icon-location"></i> Berlin,
+                                                    GER</small>
                                             </div>
                                             <ul class="list-inline">
 
@@ -806,7 +789,8 @@
                                 </div>
                                 <div class="card-footer d-flex justify-content-between align-items-center">
                                     <a class="text-small" href="#">anotherksmith</a>
-                                    <button class="btn btn-outline-primary" data-toggle="tooltip" data-placement="top" title="" data-original-title="Follow">
+                                    <button class="btn btn-outline-primary" data-toggle="tooltip" data-placement="top"
+                                        title="" data-original-title="Follow">
                                         <i class="icon-add-user"></i>
                                     </button>
                                 </div>
@@ -826,7 +810,8 @@
                                                 <a href="#" class="h5 m-0">
                                                     <h5>Christina Hersinger</h5>
                                                 </a>
-                                                <small class="text-muted"><i class="icon-location"></i> Frankfurt, GER</small>
+                                                <small class="text-muted"><i class="icon-location"></i> Frankfurt,
+                                                    GER</small>
                                             </div>
                                             <ul class="list-inline">
 
@@ -839,7 +824,8 @@
                                 </div>
                                 <div class="card-footer d-flex justify-content-between align-items-center">
                                     <a class="text-small" href="#">chersinger</a>
-                                    <button class="btn btn-outline-primary" data-toggle="tooltip" data-placement="top" title="" data-original-title="Follow">
+                                    <button class="btn btn-outline-primary" data-toggle="tooltip" data-placement="top"
+                                        title="" data-original-title="Follow">
                                         <i class="icon-add-user"></i>
                                     </button>
                                 </div>
@@ -857,13 +843,13 @@
     </section>
     <!--end of section-->
     @* <footer class="footer-short">
-        <div class="container">
-            <hr>
-            
-            <!--end of row-->
-            
-            <!--end of row-->
-        </div>
-        <!--end of container-->
+    <div class="container">
+    <hr>
+
+    <!--end of row-->
+
+    <!--end of row-->
+    </div>
+    <!--end of container-->
     </footer> *@
 </div>

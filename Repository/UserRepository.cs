@@ -31,12 +31,13 @@ namespace InsaClub.Repository
 
         public async Task<User> GetUserById(string id)
         {
-            return await _context.Users.Include(u => u.StudyLevel).FirstOrDefaultAsync(u => u.Id == id);
+            return await _context.Users.Include(u => u.StudyLevel).Include(u => u.Clubs).ThenInclude(c => c.Members).FirstOrDefaultAsync(u => u.Id == id);
         }
 
         public async Task<bool> IsMemberOf(string userId, int clubId)
         {
             var membership = await _context.MemberClubs.Where(m => m.ClubId == clubId && m.UserId == userId).FirstOrDefaultAsync();
+
             return membership != null;
         }
 

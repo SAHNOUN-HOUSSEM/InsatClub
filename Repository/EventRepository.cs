@@ -92,6 +92,24 @@ namespace InsaClub.Repository
             return Save();
         }
 
+        public bool LeaveEvent(int eventId, string userId)
+        {
+            var memberEvent = _context.MemberEvents.FirstOrDefault(r => r.EventId == eventId && r.UserId == userId);
+            if (memberEvent == null)
+            {
+                return false;
+            }
+
+            _context.Remove(memberEvent);
+            return Save();
+        }
+
+        public bool GetJoinedUsers(int eventId, string userId)
+        {
+            var m = _context.MemberEvents.Any(r => r.EventId == eventId && r.UserId == userId);
+            return m ? true : false;
+        }
+
         public bool Save()
         {
             var saved = _context.SaveChanges();

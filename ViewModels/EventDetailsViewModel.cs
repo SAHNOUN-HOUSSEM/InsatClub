@@ -22,5 +22,6 @@ namespace InsaClub.ViewModels
         public  int? ClubId { get; set; }
         public Club? Club { get; set; }
         public bool isAdmin { get; set; }
+        public bool UserJoined { get; set; }
     }
 }

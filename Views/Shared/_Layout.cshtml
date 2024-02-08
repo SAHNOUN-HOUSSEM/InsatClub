@@ -40,8 +40,8 @@
                             @if (SignInManager.IsSignedIn(User))
                             {
                                 <li class="nav-item">
-                                    <a class="nav-link" asp-controller="user" asp-action="Index">Find
-                                        Runners</a>
+                                    <a class="nav-link" asp-controller="user" asp-action="Index">Find Users
+                                    </a>
                                 </li>
                             }
                             <li class="nav-item">
@@ -151,7 +151,28 @@
                             <ul class="list-unstyled">
 
                                 <li>
-                                    <a asp-area="" asp-controller="Club" asp-action="index">Find Clubs</a>
+                                    <a asp-area="" asp-controller="Club" asp-action="index">Find all clubs</a>
+                                </li>
+                                <li>
+                                    <a asp-route-page="1" asp-route-category="0" asp-controller="Club"
+                                        asp-action="index">Find all cultural clubs
+                                    </a>
+                                </li>
+                                <li>
+                                    <a asp-route-page="1" asp-route-category="1" asp-controller="Club"
+                                        asp-action="index">Find all sports clubs
+                                    </a>
+                                </li>
+                                <li>
+                                    <a asp-route-page="1" asp-route-category="2" asp-controller="Club"
+                                        asp-action="index">Find all software-engeenering clubs
+
+                                    </a>
+                                </li>
+                                <li>
+                                    <a asp-route-page="1" asp-route-category="3" asp-controller="Club"
+                                        asp-action="index">Find all robotics clubs
+                                    </a>
                                 </li>
                             </ul>
                         </div>

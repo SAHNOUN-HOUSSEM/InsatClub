@@ -1,6 +1,7 @@
 ﻿using InsaClub.Data.Enum;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace InsaClub.Models
 {
@@ -18,6 +19,7 @@ namespace InsaClub.Models
         public User? User { get; set; }
         public DateTime? CreatedAt { get; set; }
 
+        [JsonIgnore]
         public ICollection<MemberClub> Members { get; set; }
 
     }

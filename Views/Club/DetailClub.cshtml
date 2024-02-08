@@ -1,4 +1,5 @@
-﻿@model Club
+﻿@using InsaClub.ViewModels
+@model DetailClubViewModel
 @using Microsoft.AspNetCore.Identity
 
 @inject SignInManager<User> SignInManager
@@ -11,7 +12,7 @@ For more information on enabling MVC for empty projects, visit https://go.micros
   ViewData["Title"] = "Club Details";
 }
 @{
-    bool isMember = ViewBag.isMember;
+  bool isMember = ViewBag.isMember;
 }
 <div class="main-container">
   <nav aria-label="breadcrumb" role="navigation" class="bg-primary text-white">
@@ -36,39 +37,55 @@ For more information on enabling MVC for empty projects, visit https://go.micros
     <div class="container">
       <div class="row">
         <div class="col-lg-7 mb-4 mb-sm-0">
-          <img alt="Image" src="@Model.Image" class="rounded img-fluid" />
+          <img alt="Image" src="@Model.Club.Image" class="rounded img-fluid" />
         </div>
         <!--end of col-->
         <div class="col-lg-4 d-flex flex-column justify-content-between mr-auto ml-auto">
           <div>
-            <h1 class="mb-2">@Model.Title</h1>
+            <h1 class="mb-2">@Model.Club.Title</h1>
             <div>
-              <span class="badge badge-secondary mr-3">@Model.ClubCategory</span>
+              <span class="badge badge-secondary mr-3">@Model.Club.ClubCategory</span>
+            </div>
+            <div class="my-4">
+              <div class="btn-group mb-2">
+                @if (SignInManager.IsSignedIn(User))
+                {
+                  @if (!@isMember)
+                  {
+                    <form method="post" asp-action="JoinClub" asp-route-id="@Model.Club.Id">
+                      <button type="submit" class="btn btn-success btn-lg">Join Club</button>
+                    </form>
+                  }
+                  @if (@isMember)
+                  {
+                    <form method="post" asp-action="LeaveClub" asp-route-id="@Model.Club.Id">
+                      <button type="submit" class="btn btn-danger btn-lg">Leave Club</button>
+                    </form>
+                  }
+                }
+              </div>
             </div>
             <div>
-              <ul class="list-inline text-small d-inline-block mb-3">
-                <li class="list-inline-item"><i class="icon-thumbs-up"></i> 214</li>
-                <li class="list-inline-item"><i class="icon-message"></i> 6</li>
-              </ul>
+              <h1 class="mb-2">Members</h1>
+              @if (Model.Members != null && Model.Members.Count == 0)
+              {
+                <p class="text-small text-muted mr-2">No members yet</p>
+              }
+              else if (Model.Members != null && Model.Members.Count > 0)
+              {
+                @foreach (var member in Model.Members)
+                {
+                  <p class="text-small text-muted mr-2">@member.FirstName @member.LastName</p>
+                }
+              }
             </div>
+
           </div>
-          <div>
-            <div class="btn-group mb-2">
-              @if (SignInManager.IsSignedIn(User) &&  !@isMember)
-{
-<form method="post" asp-action="JoinClub" asp-route-id="@Model.Id" enctype="multipart/form-data">
-              <button type="submit" class="btn btn-success btn-lg">Join Club</button>
-</form>
-}
-             
-            </div>
-          </div>
+          <!--end of col-->
         </div>
-        <!--end of col-->
+        <!--end of row-->
       </div>
-      <!--end of row-->
-    </div>
-    <!--end of container-->
+      <!--end of container-->
   </section>
   <!--end of section-->
   <section class="space-sm">
@@ -77,14 +94,16 @@ For more information on enabling MVC for empty projects, visit https://go.micros
         <div class="col-12 col-md-8 col-lg-7">
           <h5 class="mb-4">Overview</h5>
           <article>
-            @Model.Description
+            @Model.Club.Description
           </article>
           <hr>
           <h5 class="mb-4">Actions</h5>
           <div class="card">
             <div class="card-header bg-secondary d-flex justify-content-between">
-              <a class="btn btn-secondary" asp-controller="Club" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
-              <a class="btn btn-secondary" asp-controller="Club" asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
+              <a class="btn btn-secondary" asp-controller="Club" asp-action="Edit"
+                asp-route-id="@Model.Club.Id">Edit</a>
+              <a class="btn btn-secondary" asp-controller="Club" asp-action="Delete"
+                asp-route-id="@Model.Club.Id">Delete</a>
             </div>
             <div class="collapse" id="comment-reply">
               <form class="card-body">
@@ -122,7 +141,7 @@ For more information on enabling MVC for empty projects, visit https://go.micros
               <li class="list-group-item">
                 <div class="d-flex justify-content-between">
                   <div><i class="icon-text-document mr-1"></i> Created</div>
-                  <span>@Model.CreatedAt</span>
+                  <span>@Model.Club.CreatedAt</span>
                 </div>
               </li>
               <li class="list-group-item">
@@ -134,7 +153,7 @@ For more information on enabling MVC for empty projects, visit https://go.micros
               <li class="list-group-item">
                 <div class="d-flex justify-content-between">
                   <div><i class="icon-thumbs-up mr-1"></i> Owner</div>
-                  <span>@Model.User.FirstName @Model.User.LastName</span>
+                  <span>@Model.Club.User.FirstName @Model.Club.User.LastName</span>
                 </div>
               </li>
 

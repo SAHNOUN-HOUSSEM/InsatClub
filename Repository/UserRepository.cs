@@ -40,7 +40,27 @@ namespace InsaClub.Repository
             return membership != null;
         }
 
+        public async Task<User> RemoveMemberFromClub(int clubId, string userId)
+        {
+            var membership = await _context.MemberClubs.Where(m => m.ClubId == clubId && m.UserId == userId).FirstOrDefaultAsync();
+            if (membership != null)
+            {
+                _context.MemberClubs.Remove(membership);
+                Save();
+            }
+            return await GetUserById(userId);
+        }
 
+        public async Task<ICollection<User>> GetMembersOfClub(int clubId)
+        {
+            var members
+                = await _context.MemberClubs
+                    .Where(m => m.ClubId == clubId)
+                    .Include(m => m.User)
+                    .Select(m => m.User)
+                    .ToListAsync();
+            return members;
+        }
 
         public bool Save()
         {

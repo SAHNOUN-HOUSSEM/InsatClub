@@ -7,7 +7,8 @@ namespace InsaClub.Interfaces
         Task<IEnumerable<User>> GetAllUsers();
         Task<User> GetUserById(string id);
         Task<bool> IsMemberOf(string userId, int clubId);
-
+        Task<User> RemoveMemberFromClub(int clubId, string userId);
+        Task<ICollection<User>> GetMembersOfClub(int clubId);
         bool Add(User user);
         bool Update(User user);
         bool Delete(User user);

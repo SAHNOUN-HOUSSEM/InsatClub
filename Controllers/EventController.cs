@@ -98,54 +98,7 @@ namespace InsaClub.Controllers
             _eventRepository.Add(@event);
             return RedirectToAction("Index");
         }
-        [HttpGet]
-        [Route("event/{id}")]
-        public async Task<IActionResult> DetailEvent(int id)
-        {
-            var selectedEvent = await _eventRepository.GetByIdAsync(id);
-            if (selectedEvent == null) return NotFound();
-            var CurrentUserId = _httpContextAccessor.HttpContext.User.GetUserId();
-            var UserJoinedd = _eventRepository.GetJoinedUsers(id, CurrentUserId);
-            // return Ok(UserJoined);
-            var events = new EventDetailsViewModel
-            {
-                Id = selectedEvent.Id,
-                Title = selectedEvent.Title,
-                Description = selectedEvent.Description,
-                Image = selectedEvent.Image,
-                StartTime = selectedEvent.StartTime,
-                EntryFee = selectedEvent.EntryFee,
-                Website = selectedEvent.Website,
-                Facebook = selectedEvent.Facebook,
-                Contact = selectedEvent.Contact,
-                EventCategory = selectedEvent.EventCategory,
-                ClubId = selectedEvent.ClubId,
-                Club = selectedEvent.Club,
-                isAdmin = selectedEvent.Club.UserId == _httpContextAccessor.HttpContext.User.GetUserId(),
-                UserJoined = UserJoinedd
-            };
-            return View(events);
-            // return selectedEvent == null ? NotFound() : View(events);
-        }
 
-        [HttpGet]
-        [Route("event/edit/{id}")]
-        public async Task<IActionResult> Edit(int id)
-        {
-            var @event = await _eventRepository.GetByIdAsync(id);
-            var userId = _httpContextAccessor.HttpContext.User.GetUserId();
-            if (@event == null) return View("NotFound");
-            if (@event.Club.UserId != userId) return View("Forbidden");
-
-            var eventVM = new EditEventViewModel
-            {
-                Title = @event.Title,
-                Description = @event.Description,
-                URL = @event.Image,
-                EventCategory = @event.EventCategory,
-            };
-            return View(eventVM);
-        }
 
         [HttpPost]
         public async Task<IActionResult> Edit(int id, EditEventViewModel eventVM)

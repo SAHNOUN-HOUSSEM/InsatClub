@@ -21,6 +21,8 @@ namespace InsaClub.Interfaces
 
         Task<IEnumerable<Event>> GetEventsByCategoryAndSliceAsync(EventCategory category, int offset, int size);
 
+        bool JoinEvent(int eventId, string userId);
+
         bool Add(Event @event);
 
         bool Update(Event @event);

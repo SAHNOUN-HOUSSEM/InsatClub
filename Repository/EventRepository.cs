@@ -71,6 +71,27 @@ namespace InsaClub.Repository
                 .ToListAsync();
         }
 
+        public bool JoinEvent(int eventId, string userId)
+        {
+            var @event = _context.Events.Find(eventId);
+            var user = _context.Users.Find(userId);
+            if (@event == null || user == null)
+            {
+                return false;
+            }
+
+            var memberEvent = new MemberEvent
+            {
+                EventId = eventId,
+                Event = @event,
+                UserId = userId,
+                User = user
+            };
+
+            _context.Add(memberEvent);
+            return Save();
+        }
+
         public bool Save()
         {
             var saved = _context.SaveChanges();

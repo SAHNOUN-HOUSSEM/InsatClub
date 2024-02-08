@@ -19,5 +19,6 @@ namespace InsaClub.Models
         public EventCategory EventCategory { get; set; }
         public  int? ClubId { get; set; }
         public Club? Club { get; set; }
+        public ICollection<MemberEvent> Members { get; set; }
     }
 }

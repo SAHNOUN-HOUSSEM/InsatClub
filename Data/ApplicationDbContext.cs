@@ -21,7 +21,20 @@ namespace InsaClub.Data
                 .HasOne(mc => mc.User)
                 .WithMany(u => u.ClubsIn)
                 .HasForeignKey(mc => mc.UserId);
+
+            builder.Entity<MemberEvent>()
+                .HasKey(me => new { me.EventId, me.UserId });
+            builder.Entity<MemberEvent>()
+                .HasOne(me => me.Event)
+                .WithMany(e => e.Members)
+                .HasForeignKey(me => me.EventId);
+            builder.Entity<MemberEvent>()
+                .HasOne(me => me.User)
+                .WithMany(u => u.EventsIn)
+                .HasForeignKey(me => me.UserId);
             base.OnModelCreating(builder);
+
+
 
 
         }
@@ -29,5 +42,6 @@ namespace InsaClub.Data
         public DbSet<Event> Events { get; set; }
         public DbSet<Club> Clubs { get; set; }
         public DbSet<MemberClub> MemberClubs { get; set; }
+        public DbSet<MemberEvent> MemberEvents { get; set; }
     }
 }

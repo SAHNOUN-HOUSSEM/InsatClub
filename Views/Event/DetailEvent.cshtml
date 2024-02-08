@@ -50,7 +50,10 @@
                  
                 
                 <div class="btn-group mb-3">
-                  <button type="button" class="btn btn-success btn-lg">Join Club</button>
+                  @* <button type="button" class="btn btn-success btn-lg">Join Event</button> *@
+                  <a type="button" class="btn btn-success btn-lg" asp-controller="Event" asp-action="JoinEvent" asp-route-id="@Model.Id">
+                    Join Event
+                  </a>
                   <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split dropdown-toggle-no-arrow" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="icon-dots-three-horizontal"></i>
                     <span class="sr-only">Toggle Dropdown</span>

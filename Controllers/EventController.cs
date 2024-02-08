@@ -213,5 +213,23 @@ namespace InsaClub.Controllers
             _eventRepository.Delete(eventDetails);
             return RedirectToAction("Index");
         }
+
+        [HttpGet]
+        [Route("event/join/{id}")]
+        public async Task<IActionResult> JoinEvent(int id)
+        {
+            // return Ok("mrgl");
+            var userId = _httpContextAccessor.HttpContext.User.GetUserId();
+            var @event = await _eventRepository.GetByIdAsync(id);
+            if (@event == null) return NotFound();
+            // return Ok(@event);
+            // var memberEvent = new MemberEvent
+            // {
+            //     EventId = @event.Id,
+            //     UserId = userId
+            // };
+            _eventRepository.JoinEvent(id, userId);
+            return RedirectToAction("Index");
+        }
     }
 }

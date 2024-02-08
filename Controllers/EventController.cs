@@ -103,7 +103,25 @@ namespace InsaClub.Controllers
         public async Task<IActionResult> DetailEvent(int id, string runningEvent)
         {
             var selectedEvent = await _eventRepository.GetByIdAsync(id);
-            return selectedEvent == null ? NotFound() : View(selectedEvent);
+            if (selectedEvent == null) return NotFound();
+            var events = new EventDetailsViewModel
+            {
+                Id = selectedEvent.Id,
+                Title = selectedEvent.Title,
+                Description = selectedEvent.Description,
+                Image = selectedEvent.Image,
+                StartTime = selectedEvent.StartTime,
+                EntryFee = selectedEvent.EntryFee,
+                Website = selectedEvent.Website,
+                Facebook = selectedEvent.Facebook,
+                Contact = selectedEvent.Contact,
+                EventCategory = selectedEvent.EventCategory,
+                ClubId = selectedEvent.ClubId,
+                Club = selectedEvent.Club,
+                isAdmin = selectedEvent.Club.UserId == _httpContextAccessor.HttpContext.User.GetUserId()
+            };
+            return View(events);
+            // return selectedEvent == null ? NotFound() : View(events);
         }
 
         [HttpGet]
@@ -111,7 +129,10 @@ namespace InsaClub.Controllers
         public async Task<IActionResult> Edit(int id)
         {
             var @event = await _eventRepository.GetByIdAsync(id);
-            if (@event == null) return View("Error");
+            var userId = _httpContextAccessor.HttpContext.User.GetUserId();
+            if (@event == null) return View("NotFound");
+            if (@event.Club.UserId != userId) return View("Forbidden");
+            
             var eventVM = new EditEventViewModel
             {
                 Title = @event.Title,
@@ -190,6 +211,24 @@ namespace InsaClub.Controllers
             }
 
             _eventRepository.Delete(eventDetails);
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        [Route("event/join/{id}")]
+        public async Task<IActionResult> JoinEvent(int id)
+        {
+            // return Ok("mrgl");
+            var userId = _httpContextAccessor.HttpContext.User.GetUserId();
+            var @event = await _eventRepository.GetByIdAsync(id);
+            if (@event == null) return NotFound();
+            // return Ok(@event);
+            // var memberEvent = new MemberEvent
+            // {
+            //     EventId = @event.Id,
+            //     UserId = userId
+            // };
+            _eventRepository.JoinEvent(id, userId);
             return RedirectToAction("Index");
         }
     }

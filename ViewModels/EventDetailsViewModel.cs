@@ -1,12 +1,14 @@
-﻿using InsaClub.Data.Enum;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using InsaClub.Data.Enum;
+using InsaClub.Models;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Rendering;
+// using System.ComponentModel.DataAnnotations;
+// using System.ComponentModel.DataAnnotations.Schema;
 
-namespace InsaClub.Models
+namespace InsaClub.ViewModels
 {
-    public class Event
+    public class EventDetailsViewModel
     {
-        [Key]
         public int Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
@@ -19,6 +21,6 @@ namespace InsaClub.Models
         public EventCategory EventCategory { get; set; }
         public  int? ClubId { get; set; }
         public Club? Club { get; set; }
-        public ICollection<MemberEvent> Members { get; set; }
+        public bool isAdmin { get; set; }
     }
 }

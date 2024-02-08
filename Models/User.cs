@@ -18,5 +18,6 @@ namespace InsaClub.Models
 
         public string? Bio { get; set; }
         public ICollection<MemberClub> ClubsIn { get; set; }
+        public ICollection<MemberEvent> EventsIn { get; set; }
     }
 }

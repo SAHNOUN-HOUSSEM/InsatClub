@@ -23,6 +23,8 @@ namespace InsaClub.Interfaces
 
         Task<int> GetCountByCategoryAsync(ClubCategory category);
 
+        Task<User> AddMemberToClub(int clubId, string userId);
+
         Task<IEnumerable<Club>> GetClubsByUserIdAsync(string userId);
 
         bool Add(Club club);

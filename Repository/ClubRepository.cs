@@ -63,6 +63,21 @@ namespace InsaClub.Repository
             return await _context.Clubs.AsNoTracking().FirstOrDefaultAsync(i => i.Id == id);
         }
 
+        public async Task<User> AddMemberToClub(int clubId, string userId)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == userId);
+            var club = await _context.Clubs.Include(c => c.Members).FirstOrDefaultAsync(c => c.Id == clubId);
+            if (club == null || user == null)
+            {
+                return null;
+            }
+            var membership = new MemberClub { ClubId = clubId, UserId = userId };
+            club.Members.Add(membership);
+            var saved = _context.SaveChanges();
+            return user;
+        }
+
+
         public async Task<IEnumerable<Club>> GetClubsByUserIdAsync(string userId)
         {
             return await _context.Clubs.Where(c => c.UserId == userId).ToListAsync();

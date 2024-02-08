@@ -1,4 +1,10 @@
 ﻿@using InsaClub.ViewModels
+@using Microsoft.AspNetCore.Identity
+
+
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+
 @model HomeViewModel
 @{
   ViewData["Title"] = "Home Page";
@@ -9,9 +15,10 @@
   <div class="container">
     <div class="row align-items-center justify-content-between">
       <div class="col-12 col-md-6 col-lg-5 section-intro">
-        <h1 class="display-3">Find a running group</h1>
+        <h1 class="display-3">In this land we dream</h1>
         <span class="lead">
-          A community of devoted runners, passionate about running and life. Ready to find your accountability partner?
+          We are a community of students who are passionate about technology and innovation.
+
         </span>
       </div>
       <!--end of col-->
@@ -26,10 +33,21 @@
   <div class="container">
     @if (Model.Clubs == null)
     {
-      <h1 class="fw-light">
-        There are no running clubs in your area! <a asp-area="" asp-controller="Account" asp-action="Login">Login</a> and
-        create one!
-      </h1>
+      @if (SignInManager.IsSignedIn(User))
+      {
+        <h1 class="fw-light">
+          Start your journey at INSAT by joining a <a asp-area="" asp-controller="club" asp-action="index">club</a>.
+        </h1>
+      }
+      else
+      {
+
+        <h1 class="fw-light">
+          There are plenty of clubs to join,
+          <a asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+          and be a member of them.
+        </h1>
+      }
     }
     else
     {

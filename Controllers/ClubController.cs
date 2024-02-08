@@ -58,10 +58,9 @@ namespace InsaClub.Controllers
         public async Task<IActionResult> DetailClub(int id, string runningClub)
         {
             var club = await _clubRepository.GetByIdAsync(id);
-
-
-            // return new JsonResult(new { club });
-
+            var curUserId = HttpContext.User.GetUserId();
+            var isMember = await _userRepository.IsMemberOf(curUserId, id);
+            ViewBag.isMember = isMember;
             return club == null ? NotFound() : View(club);
         }
 
@@ -190,5 +189,50 @@ namespace InsaClub.Controllers
             _clubRepository.Delete(clubDetails);
             return RedirectToAction("Index");
         }
+
+        [HttpPost]
+        public async Task<IActionResult> JoinClub(int id)
+        {
+            var curUserId = HttpContext.User.GetUserId();
+            var user = await _userRepository.GetUserById(curUserId);
+            var club = await _clubRepository.GetByIdAsync(id);
+            if (club == null || user == null)
+            {
+                return View("Error");
+            }
+            var memberClub = new MemberClub
+            {
+                ClubId = id,
+                UserId = curUserId,
+                Club = club,
+                User = user
+            };
+            await _clubRepository.AddMemberToClub(id, curUserId);
+            return RedirectToAction("Index");
+        }
+
+        // [HttpPost]
+        // public async Task<IActionResult> LeaveClub(int id)
+        // {
+        //     var curUserId = HttpContext.User.GetUserId();
+        //     var user = await _userRepository.GetUserById(curUserId);
+        //     var club = await _clubRepository.GetByIdAsync(id);
+        //     if (club == null || user == null)
+        //     {
+        //         return View("Error");
+        //     }
+        //     var memberClub = new MemberClub
+        //     {
+        //         ClubId = id,
+        //         UserId = curUserId,
+        //         Club = club,
+        //         User = user
+        //     };
+        //     await _userRepository.RemoveMemberFromClub(id, curUserId);
+        //     return RedirectToAction("Index");
+        // }
+
+
+
     }
 }

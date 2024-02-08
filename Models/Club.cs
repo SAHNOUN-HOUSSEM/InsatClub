@@ -17,5 +17,8 @@ namespace InsaClub.Models
         public string? UserId { get; set; }
         public User? User { get; set; }
         public DateTime? CreatedAt { get; set; }
+
+        public ICollection<MemberClub> Members { get; set; }
+
     }
 }

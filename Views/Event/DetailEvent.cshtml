@@ -1,4 +1,6 @@
-﻿@model Event
+﻿@using InsaClub.Data.Enum
+@using InsaClub.ViewModels
+@model EventDetailsViewModel
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
@@ -54,13 +56,20 @@
                     <span class="sr-only">Toggle Dropdown</span>
                   </button>
                   &#160;
+                  @if(@Model.isAdmin)
+                  {
+                  
                    <a type="button" class="btn btn-primary btn-lg" asp-controller="Event" asp-action="Edit" asp-route-id="@Model.Id">
                     Edit
                   </a>
+                  }
                   &#160;
+                  @if(@Model.isAdmin)
+                  {
                   <a type="button" class="btn btn-danger btn-lg" asp-controller="Event" asp-action="Delete" asp-route-id="@Model.Id">
                     Delete
                   </a>
+                  }
 
                   
                 </div>

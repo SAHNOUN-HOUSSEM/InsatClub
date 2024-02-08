@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.002.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InsatClubs", "InsatClubs.csproj", "{4E7D5DF5-C870-45F4-AB0B-1D13611BC158}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4E7D5DF5-C870-45F4-AB0B-1D13611BC158}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E7D5DF5-C870-45F4-AB0B-1D13611BC158}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E7D5DF5-C870-45F4-AB0B-1D13611BC158}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E7D5DF5-C870-45F4-AB0B-1D13611BC158}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7008ACF2-70E7-45D8-BFB8-7A6BD3A2CCFD}
+	EndGlobalSection
+EndGlobal

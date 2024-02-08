@@ -64,10 +64,10 @@ namespace InsaClub.Controllers
         [Route("event/create")]
         public async Task<IActionResult> Create()
         {
-        //    var currentUser = _httpContextAccessor.HttpContext.User;
+           var currentUser = _httpContextAccessor.HttpContext.User;
             // return Ok(currentUser.GetUserId());
            
-           var Clubs = await _clubRepository.GetAll();
+           var Clubs = await _clubRepository.GetClubsByUserIdAsync(currentUser.GetUserId());
               var ClubList = Clubs.Select(c => new SelectListItem
               {
                 Value = c.Id.ToString(),

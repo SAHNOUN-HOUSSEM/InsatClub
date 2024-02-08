@@ -210,74 +210,7 @@ namespace InsaClub.Controllers
 
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Delete(int id)
-        {
-            var clubDetails = await _clubRepository.GetByIdAsync(id);
-            if (clubDetails == null) return View("Error");
-            return View(clubDetails);
-        }
 
-        [HttpPost, ActionName("Delete")]
-        public async Task<IActionResult> DeleteClub(int id)
-        {
-            var clubDetails = await _clubRepository.GetByIdAsync(id);
-
-            if (clubDetails == null)
-            {
-                return View("Error");
-            }
-
-            if (!string.IsNullOrEmpty(clubDetails.Image))
-            {
-                _ = _photoService.DeletePhotoAsync(clubDetails.Image);
-            }
-
-            _clubRepository.Delete(clubDetails);
-            return RedirectToAction("Index");
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> JoinClub(int id)
-        {
-            var curUserId = HttpContext.User.GetUserId();
-            var user = await _userRepository.GetUserById(curUserId);
-            var club = await _clubRepository.GetByIdAsync(id);
-            if (club == null || user == null)
-            {
-                return View("Error");
-            }
-            var memberClub = new MemberClub
-            {
-                ClubId = id,
-                UserId = curUserId,
-                Club = club,
-                User = user
-            };
-            await _clubRepository.AddMemberToClub(id, curUserId);
-            return RedirectToAction("Index");
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> LeaveClub(int id)
-        {
-            var curUserId = HttpContext.User.GetUserId();
-            var user = await _userRepository.GetUserById(curUserId);
-            var club = await _clubRepository.GetByIdAsync(id);
-            if (club == null || user == null)
-            {
-                return View("Error");
-            }
-            var memberClub = new MemberClub
-            {
-                ClubId = id,
-                UserId = curUserId,
-                Club = club,
-                User = user
-            };
-            await _userRepository.RemoveMemberFromClub(id, curUserId);
-            return RedirectToAction("Index");
-        }
 
 
 

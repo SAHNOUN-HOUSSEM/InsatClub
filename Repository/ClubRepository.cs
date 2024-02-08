@@ -78,6 +78,11 @@ namespace InsaClub.Repository
         }
 
 
+        public async Task<IEnumerable<Club>> GetClubsByUserIdAsync(string userId)
+        {
+            return await _context.Clubs.Where(c => c.UserId == userId).ToListAsync();
+        }
+
         public bool Save()
         {
             var saved = _context.SaveChanges();

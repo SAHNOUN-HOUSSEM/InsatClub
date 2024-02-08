@@ -25,6 +25,8 @@ namespace InsaClub.Interfaces
 
         Task<User> AddMemberToClub(int clubId, string userId);
 
+        Task<IEnumerable<Club>> GetClubsByUserIdAsync(string userId);
+
         bool Add(Club club);
 
         bool Update(Club club);

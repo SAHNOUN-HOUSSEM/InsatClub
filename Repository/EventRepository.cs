@@ -44,7 +44,7 @@ namespace InsaClub.Repository
 
         public async Task<Event?> GetByIdAsyncNoTracking(int id)
         {
-            return await _context.Events.AsNoTracking().FirstOrDefaultAsync();
+            return await _context.Events.AsNoTracking().Include(r => r.Club).FirstOrDefaultAsync(r => r.Id == id);
         }
 
         public async Task<int> GetCountAsync()

@@ -67,7 +67,7 @@ namespace InsaClub.Controllers
             //    var currentUser = _httpContextAccessor.HttpContext.User;
             // return Ok(currentUser.GetUserId());
 
-            var Clubs = await _clubRepository.GetAll();
+            var Clubs = await _clubRepository.GetClubsByUserIdAsync(_httpContextAccessor.HttpContext.User.GetUserId());
             var ClubList = Clubs.Select(c => new SelectListItem
             {
                 Value = c.Id.ToString(),
@@ -157,7 +157,7 @@ namespace InsaClub.Controllers
             }
 
             var userEvent = await _eventRepository.GetByIdAsyncNoTracking(id);
-
+            // return Ok(userEvent);
             if (userEvent == null)
             {
                 return View("Error");
@@ -182,8 +182,11 @@ namespace InsaClub.Controllers
                 Title = eventVM.Title,
                 Description = eventVM.Description,
                 Image = photoResult.Url.ToString(),
+                EventCategory = eventVM.EventCategory,
+                ClubId = userEvent.ClubId
 
             };
+            // return Ok(@event);
 
             _eventRepository.Update(@event);
 

@@ -15,13 +15,14 @@ namespace InsaClub.Interfaces
 
         Task<IEnumerable<Event>> GetAll();
 
-        // Task<IEnumerable<Event>> GetAllEventsByCity(string city);
+        bool GetJoinedUsers(int eventId, string userId);
 
         Task<IEnumerable<Event>> GetSliceAsync(int offset, int size);
 
         Task<IEnumerable<Event>> GetEventsByCategoryAndSliceAsync(EventCategory category, int offset, int size);
 
         bool JoinEvent(int eventId, string userId);
+        bool LeaveEvent(int eventId, string userId);
 
         bool Add(Event @event);
 

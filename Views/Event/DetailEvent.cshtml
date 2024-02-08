@@ -51,13 +51,25 @@
                 
                 <div class="btn-group mb-3">
                   @* <button type="button" class="btn btn-success btn-lg">Join Event</button> *@
+                  @if(@Model.UserJoined == false)
+                  {
                   <a type="button" class="btn btn-success btn-lg" asp-controller="Event" asp-action="JoinEvent" asp-route-id="@Model.Id">
-                    Join Event
+                    Join The Event
                   </a>
                   <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split dropdown-toggle-no-arrow" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="icon-dots-three-horizontal"></i>
                     <span class="sr-only">Toggle Dropdown</span>
                   </button>
+                  }else {
+                  <a type="button" class="btn btn-danger btn-lg" asp-controller="Event" asp-action="LeaveEvent" asp-route-id="@Model.Id">
+                    Leave The Event
+                  </a>
+                  <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split dropdown-toggle-no-arrow" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="icon-dots-three-horizontal"></i>
+                    <span class="sr-only">Toggle Dropdown</span>
+                  </button>
+                  }
+                  
                   &#160;
                   @if(@Model.isAdmin)
                   {

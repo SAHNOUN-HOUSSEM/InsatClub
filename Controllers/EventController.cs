@@ -104,6 +104,9 @@ namespace InsaClub.Controllers
         {
             var selectedEvent = await _eventRepository.GetByIdAsync(id);
             if (selectedEvent == null) return NotFound();
+            var CurrentUserId = _httpContextAccessor.HttpContext.User.GetUserId();
+            var UserJoinedd =  _eventRepository.GetJoinedUsers(id, CurrentUserId);
+            // return Ok(UserJoined);
             var events = new EventDetailsViewModel
             {
                 Id = selectedEvent.Id,
@@ -118,7 +121,8 @@ namespace InsaClub.Controllers
                 EventCategory = selectedEvent.EventCategory,
                 ClubId = selectedEvent.ClubId,
                 Club = selectedEvent.Club,
-                isAdmin = selectedEvent.Club.UserId == _httpContextAccessor.HttpContext.User.GetUserId()
+                isAdmin = selectedEvent.Club.UserId == _httpContextAccessor.HttpContext.User.GetUserId(),
+                UserJoined = UserJoinedd
             };
             return View(events);
             // return selectedEvent == null ? NotFound() : View(events);
@@ -191,7 +195,10 @@ namespace InsaClub.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             var clubDetails = await _eventRepository.GetByIdAsync(id);
-            if (clubDetails == null) return View("Error");
+            var userId = _httpContextAccessor.HttpContext.User.GetUserId();
+
+            if (clubDetails == null) return View("NotFound");
+            if (clubDetails.Club.UserId != userId) return View("Forbidden");
             return View(clubDetails);
         }
 
@@ -222,13 +229,17 @@ namespace InsaClub.Controllers
             var userId = _httpContextAccessor.HttpContext.User.GetUserId();
             var @event = await _eventRepository.GetByIdAsync(id);
             if (@event == null) return NotFound();
-            // return Ok(@event);
-            // var memberEvent = new MemberEvent
-            // {
-            //     EventId = @event.Id,
-            //     UserId = userId
-            // };
             _eventRepository.JoinEvent(id, userId);
+            return RedirectToAction("Index");
+        }
+        [HttpGet]
+        [Route("event/leave/{id}")]
+        public async Task<IActionResult> LeaveEvent(int id)
+        {
+            var userId = _httpContextAccessor.HttpContext.User.GetUserId();
+            var @event = await _eventRepository.GetByIdAsync(id);
+            if (@event == null) return NotFound();
+            _eventRepository.LeaveEvent(id, userId);
             return RedirectToAction("Index");
         }
     }

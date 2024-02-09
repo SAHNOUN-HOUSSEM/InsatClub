@@ -84,9 +84,7 @@
                                         <a class="dropdown-item" asp-area="" asp-controller="Event" asp-action="Create">
                                             <span class="h6 mb-0">Create Event</span>
                                         </a>
-                                        <a class="dropdown-item" asp-area="" asp-controller="Dashboard" asp-action="Index">
-                                            <span class="h6 mb-0">Dashboard</span>
-                                        </a>
+
                                         <a class="dropdown-item" asp-area="" asp-controller="Account" asp-action="Logout">
                                             <span su class="h6 mb-0">Logout</span>
                                         </a>
@@ -182,7 +180,28 @@
                             <ul class="list-unstyled">
 
                                 <li>
-                                    <a asp-area="" asp-controller="event" asp-action="index">Find Events</a>
+                                    <a asp-controller="event" asp-action="index" asp-route-category="-1"
+                                        asp-route-page="1">Find all events</a>
+                                </li>
+                                <li>
+                                    <a asp-route-category="0" asp-route-page="1" asp-controller="event"
+                                        asp-action="index">Find competition Events</a>
+                                </li>
+                                <li>
+                                    <a asp-route-category="1" asp-route-page="1" asp-controller="event"
+                                        asp-action="index">Find workshop Events</a>
+                                </li>
+                                <li>
+                                    <a asp-route-category="2" asp-route-page="1" asp-controller="event"
+                                        asp-action="index">Find conference Events</a>
+                                </li>
+                                <li>
+                                    <a asp-route-category="3" asp-route-page="1" asp-controller="event"
+                                        asp-action="index">Find seminar Events</a>
+                                </li>
+                                <li>
+                                    <a asp-route-category="4" asp-route-page="1" asp-controller="event"
+                                        asp-action="index">Find hackathon Events</a>
                                 </li>
                             </ul>
                         </div>

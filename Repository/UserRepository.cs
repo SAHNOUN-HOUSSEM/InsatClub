@@ -34,6 +34,17 @@ namespace InsaClub.Repository
             return await _context.Users.Include(u => u.StudyLevel).Include(u => u.Clubs).ThenInclude(c => c.Members).Include(u => u.ClubsIn).Include(u => u.EventsIn).FirstOrDefaultAsync(u => u.Id == id);
         }
 
+        public async Task<ICollection<Club>> GetClubsOfUser(string userId)
+        {
+            var clubs = await _context.MemberClubs
+                .Where(m => m.UserId == userId)
+                .Include(m => m.Club)
+                .ThenInclude(c => c.Members)
+                .Select(m => m.Club)
+                .ToListAsync();
+            return clubs;
+        }
+
         public async Task<bool> IsMemberOf(string userId, int clubId)
         {
             var membership = await _context.MemberClubs.Where(m => m.ClubId == clubId && m.UserId == userId).FirstOrDefaultAsync();

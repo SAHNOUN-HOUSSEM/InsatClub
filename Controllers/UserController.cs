@@ -65,6 +65,7 @@ namespace InsaClub.Controllers
             }
             // return Ok(user);
             var clubs = user.Clubs;
+            var clubsIn = await _userRepository.GetClubsOfUser(user.Id);
             var eventsIds = user.EventsIn;
             var events = new List<Event>();
             foreach(var eventIn in eventsIds)
@@ -81,8 +82,10 @@ namespace InsaClub.Controllers
                 Bio = user.Bio,
                 ProfileImageUrl = user.ProfileImageUrl ?? "/img/avatar.jpg",
                 Clubs = clubs,
-                Events = events
+                Events = events,
+                ClubsIn = clubsIn,
             };
+
 
             return View(userDetailViewModel);
         }

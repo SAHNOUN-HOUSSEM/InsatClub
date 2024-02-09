@@ -1,6 +1,7 @@
 ﻿using InsaClub.Data.Enum;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace InsaClub.Models
 {
@@ -19,6 +20,8 @@ namespace InsaClub.Models
         public EventCategory EventCategory { get; set; }
         public  int? ClubId { get; set; }
         public Club? Club { get; set; }
+
+        [JsonIgnore]
         public ICollection<MemberEvent> Members { get; set; }
     }
 }

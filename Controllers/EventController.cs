@@ -136,6 +136,7 @@ namespace InsaClub.Controllers
             var userId = _httpContextAccessor.HttpContext.User.GetUserId();
             if (@event == null) return View("NotFound");
             if (@event.Club.UserId != userId) return View("Forbidden");
+            // var image = await _photoService.GetPhotoAsync(@event.Image);
             
             var eventVM = new EditEventViewModel
             {
@@ -143,6 +144,7 @@ namespace InsaClub.Controllers
                 Description = @event.Description,
                 URL = @event.Image,
                 EventCategory = @event.EventCategory,
+                // Image = @event.Url.ToString()
             };
             return View(eventVM);
         }

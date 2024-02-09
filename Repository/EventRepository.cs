@@ -41,6 +41,10 @@ namespace InsaClub.Repository
         {
             return await _context.Events.Include(r => r.Club).FirstOrDefaultAsync(r => r.Id == id);
         }
+        public async Task<Event?> GetEventById(int id)
+        {
+            return await _context.Events.FirstOrDefaultAsync(r => r.Id == id);
+        }
 
         public async Task<Event?> GetByIdAsyncNoTracking(int id)
         {

@@ -16,6 +16,7 @@ namespace InsaClub.Interfaces
         Task<IEnumerable<Event>> GetAll();
 
         bool GetJoinedUsers(int eventId, string userId);
+        Task<Event?> GetEventById(int id);
 
         Task<IEnumerable<Event>> GetSliceAsync(int offset, int size);
 

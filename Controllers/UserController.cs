@@ -5,6 +5,8 @@ using InsaClub.ViewModels;
 using InsaClub.Interfaces;
 using InsaClub.Models;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace InsaClub.Controllers
 {
@@ -23,14 +25,16 @@ namespace InsaClub.Controllers
     public class UserController : Controller
     {
         private readonly IUserRepository _userRepository;
+        private readonly IEventRepository _eventRepository;
         private readonly UserManager<User> _userManager;
         private readonly IPhotoService _photoService;
 
-        public UserController(IUserRepository userRepository, UserManager<User> userManager, IPhotoService photoService)
+        public UserController(IUserRepository userRepository, UserManager<User> userManager, IPhotoService photoService, IEventRepository eventRepository)
         {
             _userRepository = userRepository;
             _userManager = userManager;
             _photoService = photoService;
+            _eventRepository = eventRepository;
         }
 
         [HttpGet("users")]
@@ -59,9 +63,15 @@ namespace InsaClub.Controllers
             {
                 return RedirectToAction("Index", "Users");
             }
-
+            // return Ok(user);
             var clubs = user.Clubs;
-
+            var eventsIds = user.EventsIn;
+            var events = new List<Event>();
+            foreach(var eventIn in eventsIds)
+            {
+                var evt = await _eventRepository.GetEventById(eventIn.EventId);
+                events.Add(evt);
+            }
             var userDetailViewModel = new UserDetailViewModel()
             {
                 Id = user.Id,
@@ -70,9 +80,9 @@ namespace InsaClub.Controllers
                 StudyLevel = user.StudyLevel,
                 Bio = user.Bio,
                 ProfileImageUrl = user.ProfileImageUrl ?? "/img/avatar.jpg",
-                Clubs = clubs
+                Clubs = clubs,
+                Events = events
             };
-
 
             return View(userDetailViewModel);
         }

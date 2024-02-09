@@ -10,7 +10,7 @@ namespace InsaClub.Models
 
         public string LastName { get; set; }
 
-        public Guid StudyLevelId { get; set; }
+        public int StudyLevelId { get; set; }
         public StudyLevel StudyLevel { get; set; }
         public string? ProfileImageUrl { get; set; }
         [JsonIgnore]

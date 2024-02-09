@@ -41,6 +41,7 @@ namespace InsaClub.Data
 
         public DbSet<Event> Events { get; set; }
         public DbSet<Club> Clubs { get; set; }
+        public DbSet<StudyLevel> StudyLevels { get; set; }
         public DbSet<MemberClub> MemberClubs { get; set; }
         public DbSet<MemberEvent> MemberEvents { get; set; }
     }

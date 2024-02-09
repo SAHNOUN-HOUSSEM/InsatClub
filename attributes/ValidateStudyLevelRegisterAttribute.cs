@@ -19,7 +19,6 @@ public
             
             if (registerViewModel.StudyLevel == null)
             {
-                Console.WriteLine("StudyLevel is required.");
                 return new ValidationResult("StudyLevel is required.");
             }
 

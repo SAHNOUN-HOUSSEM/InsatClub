@@ -281,10 +281,7 @@
             <div class="tab-pane @(Model.ActiveTab == "security" ? "active" : "")" id="security" role="tabpanel">
                 <div class="container">
                     <form asp-action="UpdatePassword" method="post" class="row">
-                        @{
-                            Console.WriteLine("*****OldPAssword******");
-                            Console.WriteLine(Model.PasswordUpdateViewModel.OldPassword);
-                        }
+                       
                         <div class="col-12">
                             <div class="form-group">
                                 <label asp-for="PasswordUpdateViewModel.OldPassword" class="control-label"></label>

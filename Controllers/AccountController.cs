@@ -80,7 +80,6 @@ namespace InsaClub.Controllers
                 TempData["Error"] = "This email address is already in use";
                 return View(registerViewModel);
             }
-            Console.WriteLine("registerViewModel.StudyLevel.Level" + registerViewModel.StudyLevel.Level);
             var newUser = new User()
             {
 

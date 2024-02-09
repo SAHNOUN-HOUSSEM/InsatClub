@@ -103,6 +103,7 @@ namespace InsaClub.Data
                         Description = "INSAT football club is a club for football lovers. We organize football matches and tournaments.",
                         ClubCategory = ClubCategory.SPORT,
                         User = user,
+                        CreatedAt = new DateTime(2021, 12, 1),
                     };
                     INSATFootbal.Members = new List<MemberClub>()
                     {
@@ -519,7 +520,6 @@ namespace InsaClub.Data
                     string adminUserEmail = "admin@gmail.com";
 
                     var adminUser = await userManager.FindByEmailAsync(adminUserEmail);
-                    Console.WriteLine("*******************Users and roles have been seeded successfully.*************");
                     if (adminUser == null)
                     {
 
@@ -538,9 +538,7 @@ namespace InsaClub.Data
                             Bio = "I am the admin of this website. I am responsible for managing the website and the users."
 
                         };
-                        Console.WriteLine($"*********************Creating user: {newAdminUser.UserName}****************************");
                         await userManager.CreateAsync(newAdminUser, "Admin2$*");
-                        Console.WriteLine($"Created user: {newAdminUser.UserName} ({newAdminUser.Id})");
 
                         await userManager.AddToRoleAsync(newAdminUser, UserRoles.Admin);
                     }
@@ -565,9 +563,7 @@ namespace InsaClub.Data
                             Bio = "I am a user of this website. I am responsible for managing the website and the users."
 
                         };
-                        Console.WriteLine($"*********************Creating user: {newUser.UserName}****************************");
                         await userManager.CreateAsync(newUser, "User2$");
-                        Console.WriteLine($"Created user: {newUser.UserName} ({newUser.Id})");
                         await userManager.AddToRoleAsync(newUser, UserRoles.User);
                     }
 

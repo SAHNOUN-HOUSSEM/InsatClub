@@ -66,7 +66,7 @@ namespace InsaClub.Controllers
         {
             //    var currentUser = _httpContextAccessor.HttpContext.User;
             // return Ok(currentUser.GetUserId());
-
+          
             var Clubs = await _clubRepository.GetClubsByUserIdAsync(_httpContextAccessor.HttpContext.User.GetUserId());
             var ClubList = Clubs.Select(c => new SelectListItem
             {
@@ -85,6 +85,12 @@ namespace InsaClub.Controllers
         {
             // return Ok(eventVM);
             // return Ok(ModelState.IsValid);
+
+            if (!ModelState.IsValid)
+            {
+                ModelState.AddModelError("", "Failed to create event");
+                return View(eventVM);
+            }
             var result = await _photoService.AddPhotoAsync(eventVM.Image);
 
             var @event = new Event

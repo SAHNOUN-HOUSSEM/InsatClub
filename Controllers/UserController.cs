@@ -177,7 +177,6 @@ namespace InsaClub.Controllers
         [Authorize]
         public async Task<IActionResult> UpdatePassword(PasswordUpdateVM input)
         {
-            Console.WriteLine("***************UpdatePassword******************");
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
@@ -191,14 +190,7 @@ namespace InsaClub.Controllers
             {
                 ModelState.AddModelError("", "Failed to update password");
                 //log all errors
-                foreach (var key in ModelState.Keys)
-                {
-                    Console.WriteLine(key);
-                    foreach (var error in ModelState[key].Errors)
-                    {
-                        Console.WriteLine(error.ErrorMessage);
-                    }
-                }
+                
                 return View("EditProfile", createProfileViewModel(userPopulated, "security"));
             }
 
@@ -219,7 +211,6 @@ namespace InsaClub.Controllers
         [Authorize]
         public async Task<IActionResult> UpdatePhoto(UpdatePhotoUpdateVM input)
         {
-            Console.WriteLine("***************UpdatePhoto******************");
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {

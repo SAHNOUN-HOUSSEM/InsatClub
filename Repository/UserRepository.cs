@@ -31,16 +31,48 @@ namespace InsaClub.Repository
 
         public async Task<User> GetUserById(string id)
         {
-            return await _context.Users.Include(u => u.StudyLevel).FirstOrDefaultAsync(u => u.Id == id);
+            return await _context.Users.Include(u => u.StudyLevel).Include(u => u.Clubs).ThenInclude(c => c.Members).FirstOrDefaultAsync(u => u.Id == id);
+        }
+
+        public async Task<ICollection<Club>> GetClubsOfUser(string userId)
+        {
+            var clubs = await _context.MemberClubs
+                .Where(m => m.UserId == userId)
+                .Include(m => m.Club)
+                .ThenInclude(c => c.Members)
+                .Select(m => m.Club)
+                .ToListAsync();
+            return clubs;
         }
 
         public async Task<bool> IsMemberOf(string userId, int clubId)
         {
             var membership = await _context.MemberClubs.Where(m => m.ClubId == clubId && m.UserId == userId).FirstOrDefaultAsync();
+
             return membership != null;
         }
 
+        public async Task<User> RemoveMemberFromClub(int clubId, string userId)
+        {
+            var membership = await _context.MemberClubs.Where(m => m.ClubId == clubId && m.UserId == userId).FirstOrDefaultAsync();
+            if (membership != null)
+            {
+                _context.MemberClubs.Remove(membership);
+                Save();
+            }
+            return await GetUserById(userId);
+        }
 
+        public async Task<ICollection<User>> GetMembersOfClub(int clubId)
+        {
+            var members
+                = await _context.MemberClubs
+                    .Where(m => m.ClubId == clubId)
+                    .Include(m => m.User)
+                    .Select(m => m.User)
+                    .ToListAsync();
+            return members;
+        }
 
         public bool Save()
         {

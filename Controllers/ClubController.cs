@@ -58,10 +58,32 @@ namespace InsaClub.Controllers
         public async Task<IActionResult> DetailClub(int id, string runningClub)
         {
             var club = await _clubRepository.GetByIdAsync(id);
-            var curUserId = HttpContext.User.GetUserId();
-            var isMember = await _userRepository.IsMemberOf(curUserId, id);
-            ViewBag.isMember = isMember;
-            return club == null ? NotFound() : View(club);
+            string curUserId;
+            try
+            {
+                curUserId = HttpContext.User.GetUserId();
+            }
+            catch (Exception)
+            {
+                curUserId = "";
+            }
+            ViewBag.isMember = false;
+            ViewBag.isOwner = false;
+
+            if (curUserId != "")
+            {
+                var isMember = await _userRepository.IsMemberOf(curUserId, id);
+                ViewBag.isMember = isMember;
+                ViewBag.isOwner = club.UserId == curUserId;
+            }
+
+            var members = await _userRepository.GetMembersOfClub(id);
+            var detailClubViewModel = new DetailClubViewModel
+            {
+                Club = club,
+                Members = members,
+            };
+            return club == null ? NotFound() : View(detailClubViewModel);
         }
 
 
@@ -93,6 +115,15 @@ namespace InsaClub.Controllers
 
                 };
                 _clubRepository.Add(club);
+                var curUser = await _userRepository.GetUserById(clubVM.UserId);
+                var memberClub = new MemberClub
+                {
+                    ClubId = club.Id,
+                    UserId = clubVM.UserId,
+                    Club = club,
+                    User = curUser
+                };
+                await _clubRepository.AddMemberToClub(club.Id, curUser.Id);
                 return RedirectToAction("Index");
             }
             else
@@ -112,7 +143,6 @@ namespace InsaClub.Controllers
             {
                 Title = club.Title,
                 Description = club.Description,
-
                 URL = club.Image,
                 ClubCategory = club.ClubCategory
             };
@@ -135,32 +165,49 @@ namespace InsaClub.Controllers
                 return View("Error");
             }
 
-            var photoResult = await _photoService.AddPhotoAsync(clubVM.Image);
-
-            if (photoResult.Error != null)
+            if (clubVM.Image != null)
             {
-                ModelState.AddModelError("Image", "Photo upload failed");
-                return View(clubVM);
+                var photoResult = await _photoService.AddPhotoAsync(clubVM.Image);
+
+                if (photoResult.Error != null)
+                {
+                    ModelState.AddModelError("Image", "Photo upload failed");
+                    return View(clubVM);
+                }
+
+                if (!string.IsNullOrEmpty(userClub.Image))
+                {
+                    _ = _photoService.DeletePhotoAsync(userClub.Image);
+                }
+
+                var club = new Club
+                {
+                    Id = id,
+                    Title = clubVM.Title,
+                    Description = clubVM.Description,
+                    Image = photoResult.Url.ToString(),
+                    UserId = userClub.UserId,
+                };
+                _clubRepository.Update(club);
+                return RedirectToAction("Index");
+
             }
-
-            if (!string.IsNullOrEmpty(userClub.Image))
+            else
             {
-                _ = _photoService.DeletePhotoAsync(userClub.Image);
+                var club = new Club
+                {
+                    Id = id,
+                    Title = clubVM.Title,
+                    Description = clubVM.Description,
+                    Image = userClub.Image,
+                    UserId = userClub.UserId,
+                };
+                _clubRepository.Update(club);
+                return RedirectToAction("Index");
             }
-
-
-            var club = new Club
-            {
-                Id = id,
-                Title = clubVM.Title,
-                Description = clubVM.Description,
-                Image = photoResult.Url.ToString(),
-                UserId = userClub.UserId,
-            };
-
-            _clubRepository.Update(club);
-
             return RedirectToAction("Index");
+
+
         }
 
         [HttpGet]
@@ -211,26 +258,26 @@ namespace InsaClub.Controllers
             return RedirectToAction("Index");
         }
 
-        // [HttpPost]
-        // public async Task<IActionResult> LeaveClub(int id)
-        // {
-        //     var curUserId = HttpContext.User.GetUserId();
-        //     var user = await _userRepository.GetUserById(curUserId);
-        //     var club = await _clubRepository.GetByIdAsync(id);
-        //     if (club == null || user == null)
-        //     {
-        //         return View("Error");
-        //     }
-        //     var memberClub = new MemberClub
-        //     {
-        //         ClubId = id,
-        //         UserId = curUserId,
-        //         Club = club,
-        //         User = user
-        //     };
-        //     await _userRepository.RemoveMemberFromClub(id, curUserId);
-        //     return RedirectToAction("Index");
-        // }
+        [HttpPost]
+        public async Task<IActionResult> LeaveClub(int id)
+        {
+            var curUserId = HttpContext.User.GetUserId();
+            var user = await _userRepository.GetUserById(curUserId);
+            var club = await _clubRepository.GetByIdAsync(id);
+            if (club == null || user == null)
+            {
+                return View("Error");
+            }
+            var memberClub = new MemberClub
+            {
+                ClubId = id,
+                UserId = curUserId,
+                Club = club,
+                User = user
+            };
+            await _userRepository.RemoveMemberFromClub(id, curUserId);
+            return RedirectToAction("Index");
+        }
 
 
 

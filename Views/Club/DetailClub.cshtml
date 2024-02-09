@@ -14,6 +14,9 @@ For more information on enabling MVC for empty projects, visit https://go.micros
 @{
   bool isMember = ViewBag.isMember;
   bool isOwner = ViewBag.isOwner;
+  @* string formattedDate = Model.Club.CreatedAt.ToString("dd/MM/yyyy"); *@
+  @* Console.WriteLine("formattedDate: " + Model.Clsccub.CreatedAt); *@
+
 }
 <div class="main-container">
 
@@ -127,7 +130,7 @@ For more information on enabling MVC for empty projects, visit https://go.micros
               <li class="list-group-item">
                 <div class="d-flex justify-content-between">
                   <div><i class="icon-text-document mr-1"></i> Created</div>
-                  <span>@Model.Club.CreatedAt</span>
+                  <span>@formattedDate</span>
                 </div>
               </li>
             

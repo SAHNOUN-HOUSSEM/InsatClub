@@ -77,6 +77,7 @@ namespace InsaClub.Controllers
                 ViewBag.isOwner = club.UserId == curUserId;
             }
 
+
             var members = await _userRepository.GetMembersOfClub(id);
             var detailClubViewModel = new DetailClubViewModel
             {

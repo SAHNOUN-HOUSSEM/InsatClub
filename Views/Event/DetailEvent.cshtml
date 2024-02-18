@@ -5,6 +5,7 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
+  bool isLogged = ViewBag.isLogged;
 }
 
  <div class="main-container">
@@ -51,7 +52,7 @@
                 
                 <div class="btn-group mb-3">
                   @* <button type="button" class="btn btn-success btn-lg">Join Event</button> *@
-                  @if(@Model.UserJoined == false)
+                  @if(@Model.UserJoined == false && @isLogged  )
                   {
                   <a type="button" class="btn btn-success btn-lg" asp-controller="Event" asp-action="JoinEvent" asp-route-id="@Model.Id">
                     Join The Event

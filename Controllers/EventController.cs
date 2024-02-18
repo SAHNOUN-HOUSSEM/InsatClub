@@ -66,7 +66,7 @@ namespace InsaClub.Controllers
         {
             //    var currentUser = _httpContextAccessor.HttpContext.User;
             // return Ok(currentUser.GetUserId());
-          
+
             var Clubs = await _clubRepository.GetClubsByUserIdAsync(_httpContextAccessor.HttpContext.User.GetUserId());
             var ClubList = Clubs.Select(c => new SelectListItem
             {
@@ -110,9 +110,19 @@ namespace InsaClub.Controllers
         {
             var selectedEvent = await _eventRepository.GetByIdAsync(id);
             if (selectedEvent == null) return NotFound();
-            var CurrentUserId = _httpContextAccessor.HttpContext.User.GetUserId();
-            var UserJoinedd = _eventRepository.GetJoinedUsers(id, CurrentUserId);
-            // return Ok(UserJoined);
+            string CurrentUserId;
+            string curUserId = "";
+            bool UserJoinedd = false;
+            try
+            {
+                CurrentUserId = HttpContext.User.GetUserId();
+                UserJoinedd = _eventRepository.GetJoinedUsers(id, CurrentUserId);
+            }
+            catch (Exception)
+            {
+                CurrentUserId = "";
+            }
+            ViewBag.isLogged = CurrentUserId != "";
             var events = new EventDetailsViewModel
             {
                 Id = selectedEvent.Id,
@@ -127,7 +137,7 @@ namespace InsaClub.Controllers
                 EventCategory = selectedEvent.EventCategory,
                 ClubId = selectedEvent.ClubId,
                 Club = selectedEvent.Club,
-                isAdmin = selectedEvent.Club.UserId == _httpContextAccessor.HttpContext.User.GetUserId(),
+                isAdmin = selectedEvent.Club.UserId == CurrentUserId,
                 UserJoined = UserJoinedd
             };
             return View(events);
